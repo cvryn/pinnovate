@@ -76,6 +76,13 @@ def seed_pins():
         image_url="image_url",
     )
 
+    rose = Pin(
+        user_id=2,
+        title="Spring Time",
+        description="The flowers are blooming! :3",
+        image_url="image_url",
+    )
+
     db.session.add_all([demo_pin])
 
     # cats, boxes
@@ -83,6 +90,10 @@ def seed_pins():
 
     # foods and snacks
     db.session.add_all([ramen1, ramen2, ramen3, ramen4])
+
+    # flowers
+    db.session.add_all([rose])
+
 
     db.session.commit()
 
