@@ -6,7 +6,7 @@ from sqlalchemy.sql import text
 def seed_users():
     demo = User(
         username="Demo",
-        email="demo@aa.io",
+        email="demo@pinno.io",
         first_name="Demo",
         last_name="User",
         bio="Just a demo user demoing.",
@@ -15,7 +15,7 @@ def seed_users():
     )
     feijai = User(
         username="Feijai",
-        email="feijai@aa.io",
+        email="feijai@pinno.io",
         first_name="Fei",
         last_name="Jai",
         bio="Just a kitty in a kitty world :3",
@@ -24,7 +24,7 @@ def seed_users():
     )
     snowie = User(
         username="Snowie",
-        email="snowie@aa.io",
+        email="snowie@pinno.io",
         first_name="Snowie",
         last_name="Menace",
         bio="They call me Lil Menace,'cause I'm a lil menace >:3",
@@ -34,7 +34,7 @@ def seed_users():
 
     nightmare = User(
         username="Nightmare",
-        email="nightmare@aa.io",
+        email="nightmare@pinno.io",
         first_name="Nightmare",
         last_name="Bear",
         bio="I like gardens.",
@@ -44,7 +44,7 @@ def seed_users():
 
     bear = User(
         username="Bear",
-        email="bear@aa.io",
+        email="bear@pinno.io",
         first_name="Bear",
         last_name="Bear",
         bio="Climbing is my passion",
@@ -54,7 +54,7 @@ def seed_users():
 
     mama = User(
         username="Mama",
-        email="mama@aa.io",
+        email="mama@pinno.io",
         first_name="Mama",
         last_name="Cat",
         bio="Single mother of 3, spending my retirement looking for DIYs to decorate the house",
@@ -67,6 +67,8 @@ def seed_users():
             demo, feijai, snowie, nightmare, bear, mama
         ]
     )
+
+    db.session.commit()
 
 
 # Uses a raw SQL query to TRUNCATE or DELETE the users table. SQLAlchemy doesn't
