@@ -44,6 +44,9 @@ def seed_comments():
     # foods and snacks
     db.session.add_all([])
 
+    db.session.commit()
+
+
 
 
 

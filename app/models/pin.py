@@ -16,7 +16,7 @@ class Pin(db.Model):
         db.Integer, db.ForeignKey(add_prefix_for_prod("users.id")), nullable=False
     )
     title = db.Column(db.String(50), nullable=False)
-    description = db.Column(db.String(2555), nullable=True)
+    description = db.Column(db.String(255), nullable=True)
     image_url = db.Column(db.String(2550), nullable=False)
 
     # many-to-many relationship
