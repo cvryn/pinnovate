@@ -5,16 +5,68 @@ from sqlalchemy.sql import text
 # Adds a demo user, you can add other users here if you want
 def seed_users():
     demo = User(
-        username='Demo', email='demo@aa.io', password='password')
-    marnie = User(
-        username='marnie', email='marnie@aa.io', password='password')
-    bobbie = User(
-        username='bobbie', email='bobbie@aa.io', password='password')
+        username="Demo",
+        email="demo@aa.io",
+        first_name="Demo",
+        last_name="User",
+        bio="Just a demo user demoing.",
+        profile_image_url="https://pinnovate-files.s3.amazonaws.com/demo/demo-user-profile-pic.jpg",
+        password="password",
+    )
+    feijai = User(
+        username="Feijai",
+        email="feijai@aa.io",
+        first_name="Fei",
+        last_name="Jai",
+        bio="Just a kitty in a kitty world :3",
+        profile_image_url="profile_pic_url",
+        password="password",
+    )
+    snowie = User(
+        username="Snowie",
+        email="snowie@aa.io",
+        first_name="Snowie",
+        last_name="Menace",
+        bio="They call me Lil Menace,'cause I'm a lil menace >:3",
+        profile_image_url="profile_pic_url",
+        password="password",
+    )
 
-    db.session.add(demo)
-    db.session.add(marnie)
-    db.session.add(bobbie)
-    db.session.commit()
+    nightmare = User(
+        username="Nightmare",
+        email="nightmare@aa.io",
+        first_name="Nightmare",
+        last_name="Bear",
+        bio="I like gardens.",
+        profile_image_url="profile_pic_url",
+        password="password",
+    )
+
+    bear = User(
+        username="Bear",
+        email="bear@aa.io",
+        first_name="Bear",
+        last_name="Bear",
+        bio="Climbing is my passion",
+        profile_image_url="profile_pic_url",
+        password="password",
+    )
+
+    mama = User(
+        username="Mama",
+        email="mama@aa.io",
+        first_name="Mama",
+        last_name="Cat",
+        bio="Single mother of 3, spending my retirement looking for DIYs to decorate the house",
+        profile_image_url="profile_pic_url",
+        password="password",
+    )
+
+    db.session.add_all(
+        [
+            demo, feijai, snowie, nightmare, bear, mama
+        ]
+    )
 
 
 # Uses a raw SQL query to TRUNCATE or DELETE the users table. SQLAlchemy doesn't
@@ -28,5 +80,5 @@ def undo_users():
         db.session.execute(f"TRUNCATE table {SCHEMA}.users RESTART IDENTITY CASCADE;")
     else:
         db.session.execute(text("DELETE FROM users"))
-        
+
     db.session.commit()

@@ -1,5 +1,7 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
 
+from .boardpin import board_pin
+
 
 
 class Board(db.Model):
@@ -19,12 +21,11 @@ class Board(db.Model):
 
     # one-to-many relationship
     user = db.relationship("User", back_populates="boards")
-    pin = db.relationship("Pin", back_populates="board")
 
     # many-to-many relationships
     pins = db.relationship(
         "Pin",
-        secondary="board_pins",
+        secondary=board_pin,
         back_populates="boards"
     )
 

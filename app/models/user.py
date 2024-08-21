@@ -5,6 +5,7 @@ from flask_login import UserMixin
 from .like import like
 
 
+
 class User(db.Model, UserMixin):
     __tablename__ = 'users'
 
@@ -17,8 +18,17 @@ class User(db.Model, UserMixin):
     first_name = db.Column(db.String(50), nullable=False)
     last_name = db.Column(db.String(50), nullable=False)
     bio = db.Column(db.String(50), nullable=True)
-    profile_image = db.Column(db.String(255), nullable=True)
+    profile_image_url = db.Column(db.String(255), nullable=True)
     hashed_password = db.Column(db.String(255), nullable=False)
+
+
+    # one-to-many relationship
+    boards = db.relationship("Board", back_populates="user")
+    comments = db.relationship("Comment", back_populates="user")
+    pins = db.relationship("Pin", back_populates='user')
+
+    # many-to-many relationship
+    liked_pins = db.relationship("Pin", secondary=like, back_populates="liked_by_users")
 
     @property
     def password(self):
@@ -32,17 +42,6 @@ class User(db.Model, UserMixin):
         return check_password_hash(self.password, password)
 
 
-    # one-to-many relationship
-    boards = db.relationship("Board", back_populates="user")
-    comments = db.relationship("Comment", back_populates="user")
-    pins = db.relationship("Pin", back_populates='user')
-
-    # many-to-many relationship
-    liked_pins = db.relationship("Pin", secondary=like, back_populates="liked_by_users")
-
-
-
-
 
 
     def to_dict(self):
@@ -53,5 +52,5 @@ class User(db.Model, UserMixin):
             "first_name": self.first_name,
             "last_name": self.last_name,
             "bio": self.bio,
-            "profile_image": self.profile_image,
+            "profile_image_url": self.profile_image_url,
         }
