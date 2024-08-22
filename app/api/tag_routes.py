@@ -55,7 +55,7 @@ def create_new_tag():
 
     return {"errors": form.errors}, 400
 
-# POST add tags to pins
+# POST add tags to pins that belong to currently logged in user
 @tag_routes.route('/pin/<int:pin_id>/tag/<int:tag_id>', methods=['POST'])
 def add_tag_to_pin(pin_id, tag_id):
     if not current_user.is_authenticated:
@@ -68,6 +68,9 @@ def add_tag_to_pin(pin_id, tag_id):
     tag = Tag.query.get(tag_id)
     if not tag:
         return {"error": "Tag not found"}, 404
+
+    if pin.user_id != current_user.id:
+        return {"error": "Unauthorized to modify this pin"}, 403
 
     # Check if the tag is already associated with the pin
     if tag in pin.tags:
@@ -131,6 +134,10 @@ def delete_tag_from_pin(pin_id, tag_id):
     tag = Tag.query.get(tag_id)
     if not tag:
         return {"error": "Tag not found"}, 404
+
+    if pin.user_id != current_user.id:
+        return {"error": "Unauthorized to remove tags from this pin."}, 403
+
 
     if tag not in pin.tags:
         return {"error": "Tag not associated with this pin"}, 400
