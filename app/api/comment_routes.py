@@ -12,7 +12,7 @@ def all_comments():
     return [comment.to_dict() for comment in comments], 200
 
 # GET comments by Pin Id
-@comment_routes.route("pin/<int:pin_id>", methods=["GET"])
+@comment_routes.route("/pin/<int:pin_id>", methods=["GET"])
 def comments_by_pin_id(pin_id):
     comments = Comment.query.filter_by(pin_id=pin_id).all()
 
@@ -33,7 +33,7 @@ def comments_by_comment_id(comment_id):
     return comment.to_dict(), 200
 
 # POST new comment
-@comment_routes.route("pin/<int:pin_id>", methods=["POST"])
+@comment_routes.route("/pin/<int:pin_id>", methods=["POST"])
 def new_comment(pin_id):
 
     # Only logged in users can leave comments

@@ -4,64 +4,69 @@ from sqlalchemy.sql import text
 
 # Adds a demo user, you can add other users here if you want
 def seed_tags():
-    cats = Tag(
-        name='cats',
-        description='adorable little creatures!'
-    )
+    # Default Tags
+    cats = Tag(name="cats", description="adorable little creatures!", default=True)
 
-    kitties = Tag(
-        name='kitties',
-        description='cute and playful little kittens!'
-    )
+    dogs = Tag(name="dogs", description="everyons's best friend!", default=True)
+
     food = Tag(
-        name='food',
-        description='delicious and diverse culinary delights!'
+        name="food",
+        description="delicious and diverse culinary delights!",
+        default=True,
     )
-
-
     boba = Tag(
-        name='boba',
-        description='tasty bubble tea with chewy tapioca pearls!'
+        name="boba",
+        description="tasty bubble tea with chewy tapioca pearls!",
+        default=True,
     )
-
     coffee = Tag(
-        name='coffee',
-        description='rich and aromatic brews to start your day!'
+        name="coffee",
+        description="rich and aromatic brews to start your day!",
+        default=True,
     )
-
     plants = Tag(
-        name='plants',
-        description='green and thriving vegetation for every space!'
+        name="plants",
+        description="green and thriving vegetation for every space!",
+        default=True,
     )
 
     flowers = Tag(
-        name='flowers',
-        description='beautiful and colorful blooms to brighten any day!'
-    )
-
-    outdoors = Tag(
-        name='outdoors',
-        description='explore the great outdoors and nature!'
+        name="flowers",
+        description="beautiful and colorful blooms to brighten any day!",
+        default=True,
     )
 
     nature = Tag(
-        name='nature',
-        description='the natural world and its stunning landscapes!'
-    )
-
-    box = Tag(
-        name='box',
-        description='so versatile'
+        name="nature",
+        description="the natural world and its stunning landscapes!",
+        default=True,
     )
 
 
+    # User Created Tags
+    kitties = Tag(
+        name="kitties",
+        description="cute and playful little kittens!",
+        default=False,
+        user_id=6,
+    )
 
+    outdoors = Tag(
+        name="outdoors",
+        description="explore the great outdoors and nature!",
+        default=False,
+        user_id=4,
+    )
 
-    db.session.add_all([cats, kitties, food, boba, coffee, plants, flowers, outdoors, nature, box])
+    box = Tag(name="box", description="so versatile", default=False, user_id=3)
+
+    # Defaults
+    db.session.add_all([cats, dogs, food, boba, coffee, plants, flowers, nature])
+
+    # User Created
+    db.session.add_all([kitties, outdoors, box])
 
     db.session.commit()
-
-
 
 
 def undo_tags():
