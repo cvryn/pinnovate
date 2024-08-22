@@ -53,4 +53,14 @@ class User(db.Model, UserMixin):
             "last_name": self.last_name,
             "bio": self.bio,
             "profile_image_url": self.profile_image_url,
+            'pin_in_board': (
+                [pin.to_dict() for board in self.boards for pin in board.pins]
+                if self.boards
+                else None
+            ),
+            'liked_pins': (
+            [pin.to_dict() for pin in self.liked_pins]
+            if self.liked_pins
+            else None
+        )
         }

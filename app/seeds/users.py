@@ -6,7 +6,7 @@ from sqlalchemy.sql import text
 def seed_users():
     demo = User(
         username="Demo",
-        email="demo@pinno.io",
+        email="demo@pinn.io",
         first_name="Demo",
         last_name="User",
         bio="Just a demo user demoing.",
@@ -15,7 +15,7 @@ def seed_users():
     )
     feijai = User(
         username="Feijai",
-        email="feijai@pinno.io",
+        email="feijai@pinn.io",
         first_name="Fei",
         last_name="Jai",
         bio="Just a kitty in a kitty world :3",
@@ -24,7 +24,7 @@ def seed_users():
     )
     snowie = User(
         username="Snowie",
-        email="snowie@pinno.io",
+        email="snowie@pinn.io",
         first_name="Snowie",
         last_name="Menace",
         bio="They call me Lil Menace,'cause I'm a lil menace >:3",
@@ -34,7 +34,7 @@ def seed_users():
 
     nightmare = User(
         username="Nightmare",
-        email="nightmare@pinno.io",
+        email="nightmare@pinn.io",
         first_name="Nightmare",
         last_name="Bear",
         bio="I like gardens.",
@@ -44,7 +44,7 @@ def seed_users():
 
     bear = User(
         username="Bear",
-        email="bear@pinno.io",
+        email="bear@pinn.io",
         first_name="Bear",
         last_name="Bear",
         bio="Climbing is my passion",
@@ -54,7 +54,7 @@ def seed_users():
 
     mama = User(
         username="Mama",
-        email="mama@pinno.io",
+        email="mama@pinn.io",
         first_name="Mama",
         last_name="Cat",
         bio="Single mother of 3, spending my retirement looking for DIYs to decorate the house",
