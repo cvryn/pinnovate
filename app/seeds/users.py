@@ -19,7 +19,7 @@ def seed_users():
         first_name="Fei",
         last_name="Jai",
         bio="Just a kitty in a kitty world :3",
-        profile_image_url="profile_pic_url",
+        profile_image_url="https://pinnovate-files.s3.amazonaws.com/profile+pics/fjfj.jpg",
         password="password",
     )
     snowie = User(
@@ -28,7 +28,7 @@ def seed_users():
         first_name="Snowie",
         last_name="Menace",
         bio="They call me Lil Menace,'cause I'm a lil menace >:3",
-        profile_image_url="profile_pic_url",
+        profile_image_url="https://pinnovate-files.s3.amazonaws.com/profile+pics/snowiesnowie.JPG",
         password="password",
     )
 
@@ -38,7 +38,7 @@ def seed_users():
         first_name="Nightmare",
         last_name="Bear",
         bio="I like gardens.",
-        profile_image_url="profile_pic_url",
+        profile_image_url="https://pinnovate-files.s3.amazonaws.com/profile+pics/nightmarenightmare.jpg",
         password="password",
     )
 
@@ -48,7 +48,7 @@ def seed_users():
         first_name="Bear",
         last_name="Bear",
         bio="Climbing is my passion",
-        profile_image_url="profile_pic_url",
+        profile_image_url="https://pinnovate-files.s3.amazonaws.com/profile+pics/bearbear.jpg",
         password="password",
     )
 
@@ -58,7 +58,7 @@ def seed_users():
         first_name="Mama",
         last_name="Cat",
         bio="Single mother of 3, spending my retirement looking for DIYs to decorate the house",
-        profile_image_url="profile_pic_url",
+        profile_image_url="https://pinnovate-files.s3.amazonaws.com/profile+pics/mamamama.jpg",
         password="password",
     )
 

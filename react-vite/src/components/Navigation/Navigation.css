@@ -11,12 +11,19 @@
 }
 
 
-#navigation-main-container{
-  /* border: 2px solid red; */
+#navigation-main-container {
+  position: fixed; 
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  background-color: white;
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 20px;
+  padding: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 #nav-left-container {

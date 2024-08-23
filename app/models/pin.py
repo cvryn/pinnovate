@@ -1,4 +1,5 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
+from datetime import datetime, timezone
 
 from .pintag import pin_tag
 from .like import like
@@ -18,6 +19,12 @@ class Pin(db.Model):
     title = db.Column(db.String(50), nullable=False)
     description = db.Column(db.String(255), nullable=True)
     image_url = db.Column(db.String(2550), nullable=False)
+    created_at = db.Column(db.DateTime, default=lambda: datetime.now(tz=timezone.utc))
+    updated_at = db.Column(
+        db.DateTime,
+        default=lambda: datetime.now(tz=timezone.utc),
+        onupdate=lambda: datetime.now(tz=timezone.utc),
+    )
 
     # many-to-many relationship
     tags = db.relationship("Tag", secondary=pin_tag, back_populates="pins")
@@ -42,4 +49,6 @@ class Pin(db.Model):
             "title": self.title,
             "description": self.description,
             "image_url": self.image_url,
+            "created_at": self.created_at,
+            "updated_at": self.updated_at
         }
