@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, EmailField
-from wtforms.validators import DataRequired, Email, ValidationError, Length, URL
+from wtforms.validators import DataRequired, Email, ValidationError, Length, URL, Optional
 from app.models import User
 
 
@@ -26,7 +26,7 @@ class SignUpForm(FlaskForm):
         )
     email = EmailField(
             "email",
-            validators=[DataRequired(message="Please enter your email address."), Email(), user_exists, Length(min=5, max=50, message="Length must be between 5 and 50.")],
+            validators=[DataRequired(message="Please enter your email address."), Email(), user_exists, Length(min=5, max=50, message=" Length must be between 5 and 50.")],
         )
     first_name = StringField(
             "first name", validators=[DataRequired(message="First name is required."), Length(min=2, max=50, message="First name must be between 2 and 50 characters long.")]
@@ -34,6 +34,6 @@ class SignUpForm(FlaskForm):
     last_name = StringField(
             "last name", validators=[DataRequired(message="Last name is required."), Length(min=1, max=50,message="Last name must be between 1 and 50 characters long." )]
         )
-    bio = StringField('bio', validators=[Length(min=1, max=255,message="Bio must be between 1 and 255 characters long.")])
-    profile_image = StringField("profile image", validators=[URL(message='Must be a valid URL')])
+    bio = StringField('bio', validators=[Length(max=255,message="Bio must be between 1 and 255 characters long.")])
+    profile_image_url = StringField("profile image", validators=[Optional(), URL(message='Must be a valid URL')])
     password = StringField("password", validators=[DataRequired(message="Please enter a password."),Length(min=4, max=50, message="Password must be between 4 and 50 characters long.") ])
