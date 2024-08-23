@@ -1,0 +1,30 @@
+#search-main-container{
+    /* border: 2px solid red; */
+    display: flex;
+    align-items: center;
+    width: 100%;
+    max-width: 100%;
+
+
+}
+
+#search-bar {
+    display: flex;
+    align-items: center;
+    border: none;
+    background-color: rgb(241, 241, 241);
+    flex: 1;
+    border-radius: 25px;
+    padding: 8px;
+}
+
+#search-bar input {
+    background-color: transparent;
+    border: none;
+    flex: 1;
+    padding: 8px;
+}
+
+#search-bar svg {
+    cursor: pointer;
+  }

@@ -5,16 +5,19 @@ import { thunkLogout } from "../../redux/session";
 import OpenModalMenuItem from "./OpenModalMenuItem";
 import LoginFormModal from "../LoginFormModal";
 import SignupFormModal from "../SignupFormModal";
+import './ProfileButton.css';
 
 function ProfileButton() {
   const dispatch = useDispatch();
   const [showMenu, setShowMenu] = useState(false);
+  const [isActive, setIsActive] = useState(false);
   const user = useSelector((store) => store.session.user);
   const ulRef = useRef();
 
   const toggleMenu = (e) => {
-    e.stopPropagation(); // Keep from bubbling up to document and triggering closeMenu
+    e.stopPropagation();
     setShowMenu(!showMenu);
+    setIsActive(!isActive);
   };
 
   useEffect(() => {
@@ -23,6 +26,7 @@ function ProfileButton() {
     const closeMenu = (e) => {
       if (ulRef.current && !ulRef.current.contains(e.target)) {
         setShowMenu(false);
+        setIsActive(false);
       }
     };
 
@@ -31,7 +35,10 @@ function ProfileButton() {
     return () => document.removeEventListener("click", closeMenu);
   }, [showMenu]);
 
-  const closeMenu = () => setShowMenu(false);
+  const closeMenu = () => {
+    setShowMenu(false);
+    setIsActive(false);
+  };
 
   const logout = (e) => {
     e.preventDefault();
@@ -41,7 +48,11 @@ function ProfileButton() {
 
   return (
     <>
-      <button onClick={toggleMenu}>
+      <button
+        id='profile-button'
+        onClick={toggleMenu}
+        className={isActive ? "button-active" : "button-normal"}
+      >
         <FaUserCircle />
       </button>
       {showMenu && (
