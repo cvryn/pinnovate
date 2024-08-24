@@ -1,5 +1,4 @@
-import PinItems from '../Pins/PinItems'
-
+import PinItemsHomePage from '../Pins/PinItemsHomePage'
 import './HomePage.css'
 
 function HomePage() {
@@ -7,9 +6,9 @@ function HomePage() {
     return(
 
         <>
-        <h1>ʕ*•ﻌ•ʔฅ </h1>
+        {/* <h1>ʕ*•ﻌ•ʔฅ </h1> */}
         <div id='homepage-main container'>
-            <PinItems />
+            <PinItemsHomePage />
 
         </div>
         </>
@@ -17,4 +16,4 @@ function HomePage() {
 }
 
 
-export default HomePage
+export default HomePage;

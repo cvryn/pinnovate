@@ -1,0 +1,24 @@
+#pin-items-container-hp {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 16px;
+}
+
+.pin-item-hp {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+}
+
+.pin-item-hp img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.pin-item-content-hp {
+    padding: 8px;
+    text-align: center;
+}

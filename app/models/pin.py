@@ -50,5 +50,8 @@ class Pin(db.Model):
             "description": self.description,
             "image_url": self.image_url,
             "created_at": self.created_at,
-            "updated_at": self.updated_at
+            "updated_at": self.updated_at,
+            "user_username": self.user.username if self.user else None,
+            "user_first_name": self.user.first_name if self.user else None,
+            "user_profile_image_url": self.user.profile_image_url if self.user else None,
         }

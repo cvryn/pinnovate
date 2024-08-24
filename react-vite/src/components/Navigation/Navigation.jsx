@@ -4,6 +4,7 @@ import pinnovatelogo from '../../../public/pinnovate-logo.png'
 import ProfileButton from "./ProfileButton";
 import SearchBar from "./SearchBar";
 import NavigationLoggedOut from "./NavigationLoggedOut";
+
 import "./Navigation.css";
 
 
@@ -28,7 +29,8 @@ function Navigation() {
         </div>
 
         <div id="nav-right-container">
-          <div id='nav-explore-create-button'>Create
+          <div id='nav-explore-create-button'>
+            <NavLink to='/pins/new'>Create</NavLink>
             </div>
           <ProfileButton />
         </div>

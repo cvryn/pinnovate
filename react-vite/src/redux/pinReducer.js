@@ -68,10 +68,12 @@ export const createPin = (pin) => async (dispatch) => {
             body: JSON.stringify(pin),
         });
         if (!response.ok) throw new Error('Failed to create pin');
-        const data = await response.json();
-        dispatch(addPin(data));
+        const new_pin = await response.json();
+        dispatch(addPin(new_pin));
+        return new_pin;
     } catch (error) {
         console.error(error);
+        throw error;
     }
 };
 

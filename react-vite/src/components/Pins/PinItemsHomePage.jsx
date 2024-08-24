@@ -1,8 +1,8 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { fetchPins } from '../../redux/pinReducer';
-import './PinItems.css';
-import { Link, NavLink } from "react-router-dom";
+import './PinItemsHomePage.css';
+import { Link } from "react-router-dom";
 
 function shuffleArray(array) {
   let currentIndex = array.length, randomIndex;
@@ -19,7 +19,7 @@ function shuffleArray(array) {
   return array;
 }
 
-function PinItems({ pins }) {
+function PinItemsHomePage({ pins }) {
   const dispatch = useDispatch();
   const allPins = useSelector((state) => state.pin.allPins);
   const [shuffledPins, setShuffledPins] = useState([]);
@@ -35,12 +35,12 @@ function PinItems({ pins }) {
   }, [allPins]);
 
   return (
-    <div id="pin-items-container">
+    <div id="pin-items-container-hp">
       {shuffledPins.length > 0 ? (
         shuffledPins.map(pin => (
-          <Link Link key={pin.id} to={`/pins/${pin.id}`} className="pin-item">
+          <Link Link key={pin.id} to={`/pins/${pin.id}`} className="pin-item-hp">
             <img src={pin.image_url} alt={pin.title} />
-            <div className="pin-item-content">
+            <div className="pin-item-content-hp">
 
             </div>
           </Link>
@@ -53,4 +53,4 @@ function PinItems({ pins }) {
   );
 }
 
-export default PinItems;
+export default PinItemsHomePage;

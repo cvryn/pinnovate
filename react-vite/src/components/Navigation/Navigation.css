@@ -1,3 +1,7 @@
+body {
+  padding-top: 60px;
+}
+
 .profile-dropdown {
   position: absolute;
 }
@@ -12,7 +16,8 @@
 
 
 #navigation-main-container {
-  position: fixed; 
+  height: 60px;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
