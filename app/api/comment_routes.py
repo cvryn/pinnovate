@@ -1,4 +1,4 @@
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, request
 from flask_login import current_user
 from app.models import db, Pin, Comment, Tag, Board, like, pin_tag
 from app.forms import PinForm, TagForm, BoardForm, CommentForm
@@ -78,8 +78,6 @@ def edit_comment(comment_id):
     if not current_user.is_authenticated:
         return {"error": "User not authenticated"}, 401
 
-    comment = Comment.query.get(comment_id)
-
     if comment is None:
         return {"error": "Comment not found"}, 404
 
@@ -111,4 +109,4 @@ def delete_comment(comment_id):
     db.session.delete(comment)
     db.session.commit()
 
-    return {"message": "Comment successfully delete."}, 200
+    return {"message": "Comment successfully deleted."}, 200

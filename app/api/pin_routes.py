@@ -17,7 +17,6 @@ def pins():
 @pin_routes.route("/<int:pin_id>", methods=["GET"])
 def pin_by_id(pin_id):
     pin = Pin.query.get(pin_id)
-    print("pin", pin)
 
     if not pin:
         return {"error": "Pin not found"}, 404

@@ -1,0 +1,23 @@
+.leave-comment-button-pin-details {
+    background-color: rgb(108, 135, 243);
+    border: none;
+    color: white;
+    border-radius: 5px;
+    padding: 0 20px;
+}
+
+.leave-comment-button-pin-details:hover {
+    background-color: rgb(86, 119, 252);
+}
+
+.leave-comment-submit-button {
+    background-color: rgb(108, 135, 243);
+    border: none;
+    color: white;
+    border-radius: 5px;
+    padding: 0 20px;
+}
+
+.leave-comment-submit-button:hover {
+    background-color: rgb(86, 119, 252);
+}

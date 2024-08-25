@@ -1,20 +1,14 @@
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useState } from "react";
-
-import { IoMdArrowBack } from "react-icons/io";
-import { IoMdHeartEmpty } from "react-icons/io";
-import { IoMdHeart } from "react-icons/io";
-
+import { useEffect } from "react";
+import { IoMdArrowBack, IoMdHeartEmpty } from "react-icons/io";
 import PinItems from "./PinItems";
-
+import Comment from "../Comment/Comment";
 import { fetchPins } from "../../redux/pinReducer";
 import { useParams } from "react-router-dom";
 import "./PinDetails.css";
 
 function PinDetails() {
   const { pinId } = useParams();
-  // console.log(pinId)
-
   const dispatch = useDispatch();
 
   // Get all the pins
@@ -24,7 +18,6 @@ function PinDetails() {
 
   const pin = useSelector((state) => state.pin.allPins[pinId]);
   console.log("all pins", pin);
-
 
   return (
     <>
@@ -41,14 +34,14 @@ function PinDetails() {
               className="pin-details-image-display"
               src={pin.image_url}
               alt="pin image"
-            ></img>
+            />
           </div>
           <div id="main-right-container">
             <section id="top-section-likes-pin-container">
               <div id="left-section-likes-pin">
                 <button>
-                <IoMdHeartEmpty />
-                {/* <IoMdHeart /> */}
+                  <IoMdHeartEmpty />
+                  {/* <IoMdHeart /> */}
                 </button>
               </div>
               <div id="right-section-likes-pin">
@@ -73,10 +66,10 @@ function PinDetails() {
             </section>
             <section id="left-section-comments-container">
               <div id="show-comments">
-              ʕ*•ﻌ•ʔฅ
+                <Comment pinId={pinId} />
               </div>
               <div id="add-comment">
-              ʕ*•ﻌ•ʔฅ
+                ʕ*•ﻌ•ʔฅ
               </div>
             </section>
           </div>
