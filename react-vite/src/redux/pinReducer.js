@@ -110,31 +110,43 @@ export const removePin = (pinId) => async (dispatch) => {
 
 
 // Reducer
-const initialState = {};
+const initialState = {
+    allPins: {},
+    singlePin: null,
+};
+
 
 const pinReducer = (state = initialState, action) => {
     switch (action.type) {
         case LOAD_PINS:
             return {
                 ...state,
-                allPins: action.pins,
+                allPins: action.pins.reduce((acc, pin) => {
+                    acc[pin.id] = pin;
+                    return acc;
+                }, {}),
             };
         case ADD_PIN:
             return {
                 ...state,
-                allPins: [...(state.allPins || []), action.pin],
+                allPins: {
+                    ...state.allPins,
+                    [action.pin.id]: action.pin,
+                },
             };
         case UPDATE_PIN:
             return {
                 ...state,
-                allPins: (state.allPins || []).map((pin) =>
-                    pin.id === action.pin.id ? action.pin : pin
-                ),
+                allPins: {
+                    ...state.allPins,
+                    [action.pin.id]: action.pin,
+                },
             };
         case DELETE_PIN:
+            const { [action.pinId]: deletedPin, ...remainingPins } = state.allPins;
             return {
                 ...state,
-                allPins: (state.allPins || []).filter((pin) => pin.id !== action.pinId),
+                allPins: remainingPins,
             };
         case LOAD_PIN:
             return {

@@ -1,23 +1,43 @@
-.leave-comment-button-pin-details {
+.comment-form-container {
+    margin-top: 20px;
+  }
+
+  .comment-form {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .textarea-container {
+    display: flex;
+    align-items: center;
+    position: relative;
+  }
+
+  .comment-textarea {
+    width: 100%;
+    resize: none;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 50px;
+    box-sizing: border-box;
+  }
+
+  .leave-comment-submit-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-65%);
+    padding: 10px;
     background-color: rgb(108, 135, 243);
     border: none;
     color: white;
-    border-radius: 5px;
-    padding: 0 20px;
-}
+    border-radius: 100px;
+    cursor: pointer;
+  }
 
-.leave-comment-button-pin-details:hover {
+  .leave-comment-submit-button:hover {
     background-color: rgb(86, 119, 252);
-}
-
-.leave-comment-submit-button {
-    background-color: rgb(108, 135, 243);
-    border: none;
-    color: white;
-    border-radius: 5px;
-    padding: 0 20px;
-}
-
-.leave-comment-submit-button:hover {
-    background-color: rgb(86, 119, 252);
-}
+  }

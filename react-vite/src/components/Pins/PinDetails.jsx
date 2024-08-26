@@ -1,38 +1,41 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { IoMdArrowBack, IoMdHeartEmpty } from "react-icons/io";
-import PinItems from "./PinItems";
-import Comment from "../Comment/Comment";
 import { fetchPins } from "../../redux/pinReducer";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import "./PinDetails.css";
+import Comment from "../Comment/Comment";
 
 function PinDetails() {
   const { pinId } = useParams();
   const dispatch = useDispatch();
 
-  // Get all the pins
   useEffect(() => {
-    dispatch(fetchPins());
-  }, [dispatch]);
+    dispatch(fetchPins(pinId));
+  }, [dispatch, pinId]);
 
-  const pin = useSelector((state) => state.pin.allPins[pinId]);
-  console.log("all pins", pin);
+  const pin = useSelector((state) => state.pin.allPins[pinId]) || {};
+  const currentUser = useSelector((state) => state.session.user)
+  console.log('CURRRRRRRR', currentUser)
+
+  console.log("THIS PIN", pin);
 
   return (
     <>
-      <h1>ʕ*•ﻌ•ʔฅ</h1>
+      {/* <h1>ʕ*•ﻌ•ʔฅ</h1> */}
       <div id="pin-details-main-container">
         <section id="left-section-container-pin-details">
-          <div>
-            <IoMdArrowBack />
-          </div>
+          <Link to="/">
+            <div>
+              <IoMdArrowBack style={{height: "30px", width: '30px'}}/>
+            </div>
+          </Link>
         </section>
         <section id="middle-main-content-section">
           <div id="main-left-container">
             <img
               className="pin-details-image-display"
-              src={pin.image_url}
+              src={pin?.image_url}
               alt="pin image"
             />
           </div>
@@ -41,35 +44,34 @@ function PinDetails() {
               <div id="left-section-likes-pin">
                 <button>
                   <IoMdHeartEmpty />
-                  {/* <IoMdHeart /> */}
                 </button>
               </div>
               <div id="right-section-likes-pin">
                 <button>Save or Pin Button</button>
               </div>
             </section>
-            <section id='left-section-middle-pin-creator-follow'>
-                <div id='pin-creator-details'>
-                {pin.user_username}
+            <section id="title-description-pin-details-container">
+              <div id="pin-title-description-container">
+                <div>
+                  <h1 style={{fontSize: '30px'}}>{pin?.title}</h1>
                 </div>
-                {/* <div id='pin-creator-follow-button'>
-                ʕ*•ﻌ•ʔฅ Follow Button
-                </div> */}
-            </section>
-            <section id="left-section-more-like-this">
-              <div id="more-like-this-by-tags">
-              More like this
+                <div>
+                  <div>{pin.description}</div>
+                </div>
               </div>
-              <div id="more-like-this-by-tags-pins">
-              {/* <PinItems /> */}
+            </section>
+            <section id="left-section-middle-pin-creator-follow">
+              <div id="pin-creator-details">
+                <img src={pin?.user_profile_image_url} alt='pin creator profile pic' className='pin-creator-profile-pic'></img>
+                <h2 className='pin-creator-username' style={{fontWeight: 'bold'}}>
+                {pin?.user_username}
+
+                </h2>
               </div>
             </section>
             <section id="left-section-comments-container">
               <div id="show-comments">
-                <Comment pinId={pinId} />
-              </div>
-              <div id="add-comment">
-                ʕ*•ﻌ•ʔฅ
+                {pin && <Comment pinId={pinId} pin={pin} currentUser={currentUser} />}
               </div>
             </section>
           </div>

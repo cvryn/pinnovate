@@ -24,8 +24,7 @@ export const commentLoader = async (method, endpoint, data = null) => {
 }
 
 export const getComments = () => commentLoader('GET', '/api/comments/all');
-export const getCommentsByPinId = (pinId) =>
-    commentLoader('GET', `/api/comments/pin/${pinId}`);
+export const getCommentsByPinId = (pinId) => commentLoader('GET', `/api/comments/pin/${pinId}`);
 
 export const createComments = (pinId, data) => commentLoader('POST', `/api/comments/pin/${pinId}`, data);
 

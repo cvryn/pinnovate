@@ -21,4 +21,11 @@
 #modal-content {
   position: absolute;
   background-color:white;
+  border-radius: 20px;
+}
+
+.modal-buttons {
+  /* border: 2px solid red; */
+  display: flex;
+  gap: 20px;
 }
