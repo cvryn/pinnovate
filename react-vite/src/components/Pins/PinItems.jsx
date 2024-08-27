@@ -1,26 +1,76 @@
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
-import { fetchPins } from '../../redux/pinReducer';
-import './PinItems.css';
 import { Link } from "react-router-dom";
+import { useModal } from "../../context/Modal";
+import EditPinModal from "./EditPinModal";
+import DeletePinModal from "./DeletePinModal";
+import "./PinItems.css";
 
-function PinItems() {
-  const dispatch = useDispatch();
-  const allPins = useSelector((state) => state.pin.allPins);
+function PinItems({ pins, onDelete, onEdit }) {
+  const { setModalContent, closeModal } = useModal();
 
-  useEffect(() => {
-    dispatch(fetchPins());
-  }, [dispatch]);
+  console.log('!!!!!!!!!//', pins[0].tags[0].name);
+
+  const handleEditClick = (pin) => {
+    setModalContent(
+      <EditPinModal
+        pin={pin}
+        onEditComplete={(updatedPin) => {
+          onEdit(updatedPin);
+          closeModal();
+        }}
+        onClose={closeModal}
+      />
+    );
+  };
+
+  const handleDeleteClick = (pinId) => {
+    setModalContent(
+      <DeletePinModal
+        onDelete={async () => {
+          try {
+            await onDelete(pinId);
+            closeModal();
+          } catch (error) {
+            console.error("Failed to delete pin:", error);
+          }
+        }}
+      />
+    );
+  };
 
   return (
     <div id="pin-items-container">
-      {allPins && allPins.length > 0 ? (
-        allPins.map(pin => (
-          <Link key={pin.id} to={`/pins/${pin.id}`} className="pin-item">
-            <img src={pin.image_url} alt={pin.title} />
+      {pins && pins.length > 0 ? (
+        pins.map((pin) => (
+          <div key={pin.id} className="pin-item">
+            <Link to={`/pins/${pin.id}`}>
+              <img src={pin.image_url} alt={pin.title} />
+            </Link>
             <div className="pin-item-content">
+              <h3>{pin.title}</h3>
+              <p>{pin.description || "No description available"}</p>
+              <p>
+                {pin.tags && pin.tags.length > 0
+                  ? pin.tags.map(tag => `#${tag.name}`).join(", ")
+                  : "No tags"}
+              </p>
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleEditClick(pin);
+                }}
+              >
+                Edit
+              </button>
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleDeleteClick(pin.id);
+                }}
+              >
+                Delete
+              </button>
             </div>
-          </Link>
+          </div>
         ))
       ) : (
         <p>No pins available.</p>

@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import pinnovatelogo from '../../../public/pinnovate-logo.png'
 import ProfileButton from "./ProfileButton";
@@ -16,9 +16,9 @@ function Navigation() {
      {currentUser &&
       <nav id="navigation-main-container">
         <div id="nav-left-container">
-          <NavLink to="/" id='logo-homepage-container'>
+          <Link to="/" id='logo-homepage-container'>
           <img src={pinnovatelogo} alt='website logo' style={{height: '30px'}} />innovate
-          </NavLink>
+          </Link>
           <div id='nav-explore-create-button'>Explore
           </div>
 
@@ -30,7 +30,7 @@ function Navigation() {
 
         <div id="nav-right-container">
           <div id='nav-explore-create-button'>
-            <NavLink to='/pins/new'>Create</NavLink>
+            <Link to='/pins/new'>Create</Link>
             </div>
           <ProfileButton />
         </div>

@@ -1,10 +1,14 @@
 import { createBrowserRouter } from 'react-router-dom';
-import LoginFormPage from '../components/LoginFormPage';
-import SignupFormPage from '../components/SignupFormPage';
+// import LoginFormPage from '../components/LoginFormPage';
+// import SignupFormPage from '../components/SignupFormPage';
 import HomePage from '../components/HomePage/HomePage';
 import Layout from './Layout';
 import PinDetails from '../components/Pins/PinDetails';
-import CreatePin from '../components/Pins/CreatePin';
+// import CreatePin from '../components/Pins/CreatePin';
+import ManagePins from '../components/Pins/ManagePins';
+import PinForm from '../components/Pins/PinForm';
+import { pinLoader } from './pin';
+
 
 export const router = createBrowserRouter([
   {
@@ -18,9 +22,18 @@ export const router = createBrowserRouter([
         path: '/pins/:pinId',
         element: <PinDetails />
       },
+      // {
+      //   path: '/pins/new',
+      //   element: <CreatePin />
+      // },
       {
         path: '/pins/new',
-        element: <CreatePin />
+        element: <PinForm />,
+        action: pinLoader
+      },
+      {
+        path: '/user/pins',
+        element: <ManagePins />
       },
       // {
       //   path: "login",

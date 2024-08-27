@@ -1,10 +1,9 @@
-from .db import db, environment, SCHEMA, add_prefix_for_prod
 from datetime import datetime, timezone
-
+from .db import db, environment, SCHEMA, add_prefix_for_prod
 from .pintag import pin_tag
 from .like import like
 from .board import board_pin
-
+from datetime import datetime, timezone
 
 class Pin(db.Model):
     __tablename__ = "pins"
@@ -26,7 +25,7 @@ class Pin(db.Model):
         onupdate=lambda: datetime.now(tz=timezone.utc),
     )
 
-    # many-to-many relationship
+    # Many-to-Many Relationships
     tags = db.relationship("Tag", secondary=pin_tag, back_populates="pins")
     liked_by_users = db.relationship(
         "User", secondary=like, back_populates="liked_pins"
@@ -34,11 +33,8 @@ class Pin(db.Model):
     boards = db.relationship(
         "Board", secondary=board_pin, back_populates="pins"
     )
-    liked_by_users = db.relationship(
-        "User", secondary=like, back_populates="liked_pins"
-    )
 
-    # one-to-many relationship
+    # One-to-Many Relationships
     comments = db.relationship("Comment", back_populates="pin")
     user = db.relationship("User", back_populates="pins")
 
@@ -54,4 +50,6 @@ class Pin(db.Model):
             "user_username": self.user.username if self.user else None,
             "user_first_name": self.user.first_name if self.user else None,
             "user_profile_image_url": self.user.profile_image_url if self.user else None,
+            "tags": [tag.to_dict() for tag in self.tags] if self.tags else [],
+            "comments": [comment.to_dict() for comment in self.comments] if self.comments else []
         }

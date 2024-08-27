@@ -25,13 +25,16 @@ def pin_by_id(pin_id):
 
 
 # POST Create new Pin with current user
-@pin_routes.route("/", methods=["POST"])
+@pin_routes.route("/new", methods=["POST"])
 def create_pin():
     form = PinForm()
     form["csrf_token"].data = request.cookies["csrf_token"]
 
     if not current_user.is_authenticated:
         return {"error": "User not authenticated"}, 401
+
+    tags = Tag.query.all()
+    form.tags.choices = [(tag.id, tag.name) for tag in tags]
 
     if form.validate_on_submit():
         new_pin = Pin(
@@ -41,7 +44,6 @@ def create_pin():
             image_url=form.image_url.data,
         )
 
-        # Add tags to the pin
         tag_ids = form.tags.data
         tags = Tag.query.filter(Tag.id.in_(tag_ids)).all()
         new_pin.tags.extend(tags)
@@ -56,32 +58,35 @@ def create_pin():
 # PUT Edit Pin by Id belonging to current user
 @pin_routes.route("/<int:pin_id>", methods=["PUT"])
 def edit_pin(pin_id):
-
     pin = Pin.query.get(pin_id)
 
-    form = PinForm()
-    form["csrf_token"].data = request.cookies["csrf_token"]
+    if not pin:
+        return {"error": "Pin not found"}, 404
 
     if not current_user.is_authenticated:
         return {"error": "User not authenticated"}, 401
 
-    if pin is None:
-        return {"error": "Pin not found"}, 404
+    form = PinForm()
+    form["csrf_token"].data = request.cookies["csrf_token"]
 
-    if pin.user_id != current_user.id:
-        return {"error": "Forbidden, cannot edit this Pin"}, 403
+    tags = Tag.query.all()
+    form.tags.choices = [(tag.id, tag.name) for tag in tags]
 
-    data = request.json
     if form.validate_on_submit():
-        pin.title = data.get("title", pin.title)
-        pin.description = data.get("description", pin.description)
-        pin.image_url = data.get("image_url", pin.image_url)
+        pin.title = form.title.data
+        pin.description = form.description.data
+        pin.image_url = form.image_url.data
+
+        if form.tags.data:
+            tag_ids = list(map(int, form.tags.data))
+            pin.tags = Tag.query.filter(Tag.id.in_(tag_ids)).all()
+        else:
+            pin.tags = []
 
         db.session.commit()
         return pin.to_dict(), 200
 
     return {"errors": form.errors}, 400
-
 
 # Delete Pin by Id belonging to current user
 @pin_routes.route("/<int:pin_id>", methods=["DELETE"])

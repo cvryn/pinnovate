@@ -1,9 +1,7 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
-
 from .like import like
-
 
 class User(db.Model, UserMixin):
     __tablename__ = "users"
@@ -20,16 +18,22 @@ class User(db.Model, UserMixin):
     profile_image_url = db.Column(db.String(255), nullable=True)
     hashed_password = db.Column(db.String(255), nullable=False)
 
-    # one-to-many relationship
+    # One-to-Many Relationships
     boards = db.relationship("Board", back_populates="user")
     comments = db.relationship("Comment", back_populates="user")
     pins = db.relationship("Pin", back_populates="user")
 
-    # many-to-many relationship
-    liked_pins = db.relationship("Pin", secondary=like, back_populates="liked_by_users")
+    # Many-to-Many Relationships
+    liked_pins = db.relationship(
+        "Pin",
+        secondary=like,
+        back_populates="liked_by_users"
+    )
 
     created_tags = db.relationship(
-        "Tag", back_populates="user", foreign_keys="Tag.user_id"
+        "Tag",
+        back_populates="user",
+        foreign_keys="Tag.user_id"
     )
 
     @property
@@ -54,15 +58,12 @@ class User(db.Model, UserMixin):
             "profile_image_url": self.profile_image_url,
             "pin_in_board": (
                 [pin.to_dict() for board in self.boards for pin in board.pins]
-                if self.boards
-                else None
+                if self.boards else []
             ),
             "liked_pins": (
-                [pin.to_dict() for pin in self.liked_pins] if self.liked_pins else None
+                [pin.to_dict() for pin in self.liked_pins] if self.liked_pins else []
             ),
             "created_tags": (
-                [tag.to_dict() for tag in self.created_tags]
-                if self.created_tags
-                else None
+                [tag.to_dict() for tag in self.created_tags] if self.created_tags else []
             ),
         }

@@ -31,24 +31,21 @@ def get_tag_by_pin_id(pin_id):
 # POST create new Tag
 @tag_routes.route('/new', methods=["POST"])
 def create_new_tag():
-
     form = TagForm()
-
     form["csrf_token"].data = request.cookies["csrf_token"]
+
     if not current_user.is_authenticated:
         return {"error": "User not authenticated"}, 401
 
     if form.validate_on_submit():
-
-        existing_tag = Tag.query.filter_by(name=form.data['name']). first()
+        existing_tag = Tag.query.filter_by(name=form.data['name']).first()
         if existing_tag:
             return {"error": "Tag with this name already exists"}, 400
 
         new_tag = Tag(
-            name = form.data['name'],
-            description = form.data['description']
+            name=form.data['name'],
+            description=form.data['description']
         )
-
         db.session.add(new_tag)
         db.session.commit()
         return new_tag.to_dict(), 201
@@ -123,7 +120,6 @@ def edit_tag(tag_id):
 # DELETE remove tag from pins
 @tag_routes.route('/pin/<int:pin_id>/tag/<int:tag_id>', methods=['DELETE'])
 def delete_tag_from_pin(pin_id, tag_id):
-
     if not current_user.is_authenticated:
         return {"error": "User not authenticated"}, 401
 
@@ -136,8 +132,7 @@ def delete_tag_from_pin(pin_id, tag_id):
         return {"error": "Tag not found"}, 404
 
     if pin.user_id != current_user.id:
-        return {"error": "Unauthorized to remove tags from this pin."}, 403
-
+        return {"error": "Unauthorized to remove tags from this pin"}, 403
 
     if tag not in pin.tags:
         return {"error": "Tag not associated with this pin"}, 400
@@ -146,6 +141,7 @@ def delete_tag_from_pin(pin_id, tag_id):
     db.session.commit()
 
     return {"message": "Tag removed from pin successfully"}, 200
+
 
 # DELETE tags that belongs (was created by) to currently logged in user
 @tag_routes.route('/<int:tag_id>', methods=['DELETE'])

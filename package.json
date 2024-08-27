@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "react-select": "^5.8.0",
     "sqlite3": "^5.1.7"
   }
 }

@@ -7,10 +7,12 @@ import {
 import thunk from "redux-thunk";
 import sessionReducer from "./session";
 import pinReducer from "./pinReducer";
+import tagReducer from "./tagReducer";
 
 const rootReducer = combineReducers({
   session: sessionReducer,
   pin: pinReducer,
+  tag: tagReducer,
 });
 
 let enhancer;

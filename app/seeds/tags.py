@@ -2,12 +2,11 @@ from app.models import db, environment, SCHEMA, Tag
 from sqlalchemy.sql import text
 
 
-# Adds a demo user, you can add other users here if you want
 def seed_tags():
     # Default Tags
     cats = Tag(name="cats", description="adorable little creatures!", default=True)
 
-    dogs = Tag(name="dogs", description="everyons's best friend!", default=True)
+    dogs = Tag(name="dogs", description="everyone's best friend!", default=True)
 
     food = Tag(
         name="food",

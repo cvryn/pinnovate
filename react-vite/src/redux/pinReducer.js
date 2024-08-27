@@ -60,22 +60,30 @@ export const fetchPin = (pinId) => async (dispatch) => {
 // POST create new pin
 export const createPin = (pin) => async (dispatch) => {
     try {
-        const response = await fetch('/api/pins/', {
+        const response = await fetch('/api/pins/new', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(pin),
         });
-        if (!response.ok) throw new Error('Failed to create pin');
-        const new_pin = await response.json();
-        dispatch(addPin(new_pin));
-        return new_pin;
+
+        const responseBody = await response.json();
+
+        if (!response.ok) {
+            console.error("Error response:", response.status, responseBody);
+            throw new Error(responseBody.error || 'Failed to create pin');
+        }
+
+        dispatch(addPin(responseBody));
+        return responseBody;
     } catch (error) {
-        console.error(error);
+        console.error('Create Pin Error:', error);
         throw error;
     }
 };
+
+
 
 // PUT edit existing pin
 export const editPin = (pinId, pin) => async (dispatch) => {
@@ -142,12 +150,13 @@ const pinReducer = (state = initialState, action) => {
                     [action.pin.id]: action.pin,
                 },
             };
-        case DELETE_PIN:
-            const { [action.pinId]: deletedPin, ...remainingPins } = state.allPins;
+        case DELETE_PIN: {
+            const { [action.pinId]: _, ...remainingPins } = state.allPins;
             return {
                 ...state,
                 allPins: remainingPins,
             };
+        }
         case LOAD_PIN:
             return {
                 ...state,
