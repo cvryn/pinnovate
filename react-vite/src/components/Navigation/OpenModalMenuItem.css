@@ -1,0 +1,14 @@
+.login-signup-buttons {
+  /* border: 2px solid red; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 35px;
+  width: 70px;
+  border-radius: 20px;
+  transition: background-color 0.3s ease;
+}
+.login-signup-buttons:hover {
+  background-color: #f0f0f0;
+  color: black;
+}

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { updatePin } from "../../router/pin";
 import './EditPinModal.css'
 

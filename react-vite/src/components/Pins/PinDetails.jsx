@@ -42,12 +42,14 @@ function PinDetails() {
           <div id="main-right-container">
             <section id="top-section-likes-pin-container">
               <div id="left-section-likes-pin">
-                <button>
+                {/* <button>
                   <IoMdHeartEmpty />
-                </button>
+                </button> */}
+                Like
               </div>
               <div id="right-section-likes-pin">
-                <button>Save or Pin Button</button>
+                {/* <button>Save or Pin Button</button> */}
+                <div>Save Pin</div>
               </div>
             </section>
             <section id="title-description-pin-details-container">

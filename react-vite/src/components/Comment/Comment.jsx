@@ -5,7 +5,6 @@ import DeleteCommentModal from "./DeleteCommentModal";
 import EditCommentModal from "./EditCommentModal";
 import { deleteComment, getComments } from "../../router/comment";
 
-
 import "./Comment.css";
 
 function Comment({ pinId, pin, currentUser }) {
@@ -32,7 +31,7 @@ function Comment({ pinId, pin, currentUser }) {
 
   // Edit comment
   const handleEditClick = (comment) => {
-    console.log('Edit button clicked', comment);
+    console.log("Edit button clicked", comment);
     setModalContent(
       <EditCommentModal
         comment={comment}
@@ -95,7 +94,7 @@ function Comment({ pinId, pin, currentUser }) {
 
   return (
     <>
-      <h1>Leave a comment!</h1>
+      <h1>Comments</h1>
       <div id="comments-main-container">
         <div id="comments-shown-here">
           {filteredComments.map((comment) => (
@@ -130,11 +129,15 @@ function Comment({ pinId, pin, currentUser }) {
         </div>
       </div>
       <div id="post-comment-here">
-        <CommentForm
-          pinId={pinId}
-          onCommentSubmitted={handleCommentSubmitted}
-          canLeaveComment={true}
-        />
+        {currentUser ? (
+          <CommentForm
+            pinId={pinId}
+            onCommentSubmitted={handleCommentSubmitted}
+            canLeaveComment={true}
+          />
+        ) : (
+          <p>You must be logged in to leave a comment.</p>
+        )}
       </div>
     </>
   );

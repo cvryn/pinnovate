@@ -2,13 +2,12 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import PinItems from "./PinItems";
 import { fetchPins, deletePin, updatePin } from "../../router/pin";
-import { useModal } from "../../context/Modal";
 import { useSelector } from "react-redux";
 import "./PinItems.css";
+import './ManagePins.css'
 
 const ManagePins = () => {
   const navigate = useNavigate();
-  const { setModalContent } = useModal();
   const [pins, setPins] = useState([]);
 
   const currentUser = useSelector((state) => state.session.user);

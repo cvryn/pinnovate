@@ -19,8 +19,10 @@ function Navigation() {
           <Link to="/" id='logo-homepage-container'>
           <img src={pinnovatelogo} alt='website logo' style={{height: '30px'}} />innovate
           </Link>
-          <div id='nav-explore-create-button'>Explore
-          </div>
+          {/* <div id='nav-explore-create-button'>Explore
+          </div> */}
+          <Link to='/' id='nav-home-create-button'>Home
+          </Link>
 
         </div>
         <div id="nav-middle-container">

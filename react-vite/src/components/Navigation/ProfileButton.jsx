@@ -12,6 +12,7 @@ function ProfileButton() {
   const [showMenu, setShowMenu] = useState(false);
   const [isActive, setIsActive] = useState(false);
   const user = useSelector((store) => store.session.user);
+  console.log('the user', user)
   const ulRef = useRef();
 
   const toggleMenu = (e) => {
@@ -53,7 +54,16 @@ function ProfileButton() {
         onClick={toggleMenu}
         className={isActive ? "button-active" : "button-normal"}
       >
-        <FaUserCircle />
+        {user && user.profile_image_url ? (
+          <img
+            src={user.profile_image_url}
+            alt={`${user.username}'s profile`}
+            className="profile-image"
+            style={{width: '30px', height: '30px', borderRadius: '50%'}}
+          />
+        ) : (
+          <FaUserCircle  />
+        )}
       </button>
       {showMenu && (
         <ul className={"profile-dropdown"} ref={ulRef}>
