@@ -1,0 +1,24 @@
+#edit-pin-modal-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 20px;
+    box-shadow: 0 0 10px rgb(150, 150, 150);
+    padding: 20px;
+}
+
+.remove-image-btn-edit {
+    position: absolute;
+    top: 160px;
+    right: 40px;
+    background: red;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

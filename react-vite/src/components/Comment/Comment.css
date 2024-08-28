@@ -31,7 +31,16 @@
 
 
 .date-edit-and-delete-comment-buttons {
+    /* border: 2px solid red; */
     display: flex;
     flex-direction: row;
+    align-items: center;
     gap: 20px;
+}
+
+.date-edit-and-delete-comment-buttons button {
+    border: none;
+    background-color: transparent;
+    color: rgb(85, 85, 224)
+
 }

@@ -27,6 +27,6 @@ export const fetchPins = () => pinLoader('GET', '/api/pins');
 export const fetchPinById = (id) => pinLoader('GET', `/api/pins/${id}`);
 
 export const createPin = (data) => pinLoader('POST', '/api/pins/new', data);
-export const updatePin = (id, data) => pinLoader('PUT', `/api/pins/${id}`, data);
+export const updatePin = (id, data) => pinLoader('PUT', `/api/pins/${id}/edit`, data);
 
 export const deletePin = (id) => pinLoader('DELETE', `/api/pins/${id}`);

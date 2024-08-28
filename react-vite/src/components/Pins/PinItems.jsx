@@ -2,12 +2,12 @@ import { Link } from "react-router-dom";
 import { useModal } from "../../context/Modal";
 import EditPinModal from "./EditPinModal";
 import DeletePinModal from "./DeletePinModal";
+import EditTagModal from "../Tags/EditTagModal";
+
 import "./PinItems.css";
 
 function PinItems({ pins, onDelete, onEdit }) {
   const { setModalContent, closeModal } = useModal();
-
-  console.log('!!!!!!!!!//', pins[0].tags[0].name);
 
   const handleEditClick = (pin) => {
     setModalContent(
@@ -31,6 +31,22 @@ function PinItems({ pins, onDelete, onEdit }) {
             closeModal();
           } catch (error) {
             console.error("Failed to delete pin:", error);
+          }
+        }}
+      />
+    );
+  };
+
+  const handleEditTagsClick = (pin) => {
+    setModalContent(
+      <EditTagModal
+        pin={pin}
+        onTagUpdate={async (pinId, updatedTags) => {
+          try {
+            await onEdit({ ...pin, tags: updatedTags });
+            closeModal();
+          } catch (error) {
+            console.error("Failed to update tags:", error);
           }
         }}
       />
@@ -68,6 +84,14 @@ function PinItems({ pins, onDelete, onEdit }) {
                 }}
               >
                 Delete
+              </button>
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleEditTagsClick(pin);
+                }}
+              >
+                Edit Tags
               </button>
             </div>
           </div>

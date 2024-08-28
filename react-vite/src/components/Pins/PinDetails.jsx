@@ -57,7 +57,8 @@ function PinDetails() {
                 </div>
                 <div>
                   <div>{pin.description}</div>
-                  <div>{pin.tags.map(tag => `#${tag.name}`).join(", ")}</div>
+                  <br />
+                  <div>{pin?.tags?.map(tag => `#${tag.name}`).join(", ")}</div>
                 </div>
               </div>
             </section>

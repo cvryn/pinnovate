@@ -56,7 +56,7 @@ def create_pin():
 
 
 # PUT Edit Pin by Id belonging to current user
-@pin_routes.route("/<int:pin_id>", methods=["PUT"])
+@pin_routes.route("/<int:pin_id>/edit", methods=["PUT"])
 def edit_pin(pin_id):
     pin = Pin.query.get(pin_id)
 
@@ -78,7 +78,7 @@ def edit_pin(pin_id):
         pin.image_url = form.image_url.data
 
         if form.tags.data:
-            tag_ids = list(map(int, form.tags.data))
+            tag_ids = [int(tag_id) for tag_id in form.tags.data if tag_id]
             pin.tags = Tag.query.filter(Tag.id.in_(tag_ids)).all()
         else:
             pin.tags = []
@@ -87,6 +87,7 @@ def edit_pin(pin_id):
         return pin.to_dict(), 200
 
     return {"errors": form.errors}, 400
+
 
 # Delete Pin by Id belonging to current user
 @pin_routes.route("/<int:pin_id>", methods=["DELETE"])

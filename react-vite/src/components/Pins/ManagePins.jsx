@@ -1,59 +1,54 @@
 import { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import PinItems from "./PinItems";
-import { removePin, fetchPins } from '../../redux/pinReducer';
-import { fetchTags } from "../../redux/tagReducer";
-import EditPinModal from "./EditPinModal";
+import { fetchPins, deletePin, updatePin } from "../../router/pin";
 import { useModal } from "../../context/Modal";
-
-// import "./ManagePins.css";
+import { useSelector } from "react-redux";
 import "./PinItems.css";
 
 const ManagePins = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   const { setModalContent } = useModal();
+  const [pins, setPins] = useState([]);
 
   const currentUser = useSelector((state) => state.session.user);
-  const pinsObject = useSelector((state) => state.pin.allPins);
-  const pins = Object.values(pinsObject);
-
-  const tagsObject = useSelector((state) => state.tag.allTags);
-  const tags = Object.values(tagsObject);
-
-  const currentUserId = currentUser?.id;
-
-  const userPins = pins.filter((pin) => pin.user_id === currentUserId);
 
   useEffect(() => {
     if (!currentUser) {
       navigate("/");
-    } else {
-      dispatch(fetchPins());
-      dispatch(fetchTags());
+      return;
     }
-  }, [currentUser, navigate, dispatch]);
+
+    const loadPins = async () => {
+      try {
+        const fetchedPins = await fetchPins();
+        setPins(fetchedPins.filter(pin => pin.user_id === currentUser.id));
+      } catch (error) {
+        console.error("Failed to load pins:", error);
+      }
+    };
+
+    loadPins();
+  }, [currentUser, navigate]);
 
   const handleDeletePin = async (pinId) => {
     try {
-      await dispatch(removePin(pinId));
-      dispatch(fetchPins());
+      await deletePin(pinId);
+      setPins(prevPins => prevPins.filter(pin => pin.id !== pinId));
     } catch (error) {
       console.error("Failed to delete pin:", error);
     }
   };
 
-  const handleEditPin = (pin) => {
-    setModalContent(
-      <EditPinModal
-        pin={pin}
-        onEditComplete={(updatedPin) => {
-          dispatch(fetchPins());
-        }}
-        onClose={() => setModalContent(null)}
-      />
-    );
+  const handleEditPin = async (updatedPin) => {
+    try {
+      await updatePin(updatedPin.id, updatedPin);
+      setPins(prevPins =>
+        prevPins.map(pin => (pin.id === updatedPin.id ? updatedPin : pin))
+      );
+    } catch (error) {
+      console.error("Failed to edit pin:", error);
+    }
   };
 
   return (
@@ -62,10 +57,9 @@ const ManagePins = () => {
       <h1 style={{ padding: "10px" }}>Manage My Pins</h1>
       <br />
       <div id="pin-container-collection">
-        {userPins.length > 0 ? (
+        {pins.length > 0 ? (
           <PinItems
-            pins={userPins}
-            tags={tags}
+            pins={pins}
             onDelete={handleDeletePin}
             onEdit={handleEditPin}
           />

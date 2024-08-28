@@ -10,7 +10,7 @@ function DeletePinModal({ pinId, onDelete }) {
   };
 
   return (
-    <div id="container-delete-pin-modal">
+    <div id="delete-pin-modal-container">
       <h1>Confirm Pin Deletion</h1>
       <p>Are you sure you want to delete this pin?</p>
       <div className="modal-buttons">
