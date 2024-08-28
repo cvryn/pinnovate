@@ -18,7 +18,7 @@
 
   .error-container p {
     margin: 0;
-    line-height: 10px;
+    line-height: 0px;
   }
 
 #login-form {
