@@ -31,7 +31,6 @@ function Comment({ pinId, pin, currentUser }) {
 
   // Edit comment
   const handleEditClick = (comment) => {
-    console.log("Edit button clicked", comment);
     setModalContent(
       <EditCommentModal
         comment={comment}
@@ -69,7 +68,7 @@ function Comment({ pinId, pin, currentUser }) {
     (comment) => comment.pin_id === pin.id
   );
 
-  console.log("comments????", filteredComments);
+  // console.log("comments????", filteredComments);
 
   function timeAgo(dateString) {
     const postDate = new Date(dateString);

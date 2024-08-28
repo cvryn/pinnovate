@@ -16,9 +16,9 @@ function PinDetails() {
 
   const pin = useSelector((state) => state.pin.allPins[pinId]) || {};
   const currentUser = useSelector((state) => state.session.user)
-  console.log('CURRRRRRRR', currentUser)
+  // console.log('CURRRRRRRR', currentUser)
 
-  console.log("THIS PIN", pin);
+  // console.log("THIS PIN", pin);
 
   return (
     <>

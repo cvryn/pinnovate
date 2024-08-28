@@ -9,7 +9,7 @@ function PinItemsHomePage() {
   const [loading, setLoading] = useState(true);
 
   const allPins = useSelector((state) => state.pin.allPins);
-  console.log('allll', allPins)
+  // console.log('allll', allPins)
 
   useEffect(() => {
     dispatch(fetchPins());
