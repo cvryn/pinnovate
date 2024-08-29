@@ -59,7 +59,7 @@ def create_pin():
 @pin_routes.route("/<int:pin_id>/edit", methods=["PUT"])
 def edit_pin(pin_id):
     pin = Pin.query.get(pin_id)
-
+ 
     if not pin:
         return {"error": "Pin not found"}, 404
 

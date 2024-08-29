@@ -1,15 +1,12 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SelectMultipleField
+from wtforms import StringField, SelectMultipleField, FileField
 from wtforms.validators import DataRequired, Length, URL, Optional
+from flask_wtf.file import FileField, FileAllowed, FileRequired
+from app.api.aws_helpers import ALLOWED_EXTENSIONS
 
 class PinForm(FlaskForm):
-    image_url = StringField(
-        'Pin Image',
-        validators=[
-            DataRequired(message="Image URL is required"),
-            URL(message="Must be a valid URL")
-        ]
-    )
+    image_url = FileField(
+        "Image File", validators=[FileRequired(), FileAllowed(list(ALLOWED_EXTENSIONS))])
     title = StringField(
         'Title',
         validators=[
