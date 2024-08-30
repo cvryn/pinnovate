@@ -9,7 +9,6 @@ from app.api.aws_helpers import (
     remove_file_from_s3,
 )
 
-
 auth_routes = Blueprint("auth", __name__)
 
 
@@ -55,38 +54,41 @@ def sign_up():
     form = SignUpForm()
     form["csrf_token"].data = request.cookies["csrf_token"]
 
-    if form.validate_on_submit():
+    # Validate form
+    if not form.validate_on_submit():
+        print("Form validation errors:", form.errors)
+        return {"errors": form.errors}, 401
 
-        image_file = form.profile_image_url.data
+    # Handle profile image upload
+    profile_image_file = request.files.get('profile_image_url')
+    profile_image_url = "https://pinnovate-files.s3.amazonaws.com/demo/demo-user-profile-pic.jpg"
 
-        if image_file:
-            image_file.filename = get_unique_filename(image_file.filename)
-            upload_result = upload_file_to_s3(image_file, acl="public-read")
+    if profile_image_file:
+        profile_image_file.filename = get_unique_filename(profile_image_file.filename)
+        upload_result = upload_file_to_s3(profile_image_file, acl="public-read")
 
-            if "url" not in upload_result:
-                return {"errors": upload_result["errors"]}, 400
-
+        if "url" in upload_result:
             profile_image_url = upload_result["url"]
         else:
+            print("Upload errors:", upload_result["errors"])
+            return {"errors": upload_result["errors"]}, 400
 
-            profile_image_url = "https://pinnovate-files.s3.amazonaws.com/demo/demo-user-profile-pic.jpg"
+    # Create new user
+    user = User(
+        email=form.data["email"],
+        username=form.data["username"],
+        first_name=form.data["first_name"],
+        last_name=form.data["last_name"],
+        bio=form.data["bio"],
+        profile_image_url=profile_image_url,
+        password=form.data["password"],
+    )
 
-        user = User(
-            email=form.data["email"],
-            username=form.data["username"],
-            first_name=form.data["first_name"],
-            last_name=form.data["last_name"],
-            bio=form.data["bio"],
-            profile_image_url=profile_image_url,
-            password=form.data["password"],
-        )
+    db.session.add(user)
+    db.session.commit()
+    login_user(user)
 
-        db.session.add(user)
-        db.session.commit()
-        login_user(user)
-        return user.to_dict(), 201
-
-    return {"errors": form.errors}, 400
+    return user.to_dict()
 
 
 @auth_routes.route("/unauthorized")

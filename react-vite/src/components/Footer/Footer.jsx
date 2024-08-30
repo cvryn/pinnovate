@@ -18,7 +18,7 @@ function Footer() {
           </div>
           <div id="contact-links">
             <Link to="https://github.com/cvryn">github</Link>
-            <Link to="https://github.com/cvryn">LinkedIn</Link>
+            <Link to="https://www.linkedin.com/in/caryn-w-280b6729b/">LinkedIn</Link>
           </div>
         </div>
       </footer>

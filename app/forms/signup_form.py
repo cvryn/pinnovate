@@ -38,5 +38,5 @@ class SignUpForm(FlaskForm):
         )
     bio = StringField('bio', validators=[Length(max=255,message="Bio must be between 1 and 255 characters long.")])
     profile_image_url = FileField(
-        "Profile Image", validators=[FileRequired(), FileAllowed(list(ALLOWED_EXTENSIONS))])
+        "Profile Image", validators=[Optional(), FileAllowed(list(ALLOWED_EXTENSIONS))])
     password = StringField("password", validators=[DataRequired(message="Please enter a password."),Length(min=4, max=50, message="Password must be between 4 and 50 characters long.") ])

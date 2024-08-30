@@ -36,8 +36,8 @@
     transition: border-color 0.3s ease;
     position: relative;
     max-height: 1000px;
-    width: 250px;
-    height: 250px;
+    width: 300px;
+    height: 300px;
   }
 
   #image-url-container-edit:hover {
@@ -59,6 +59,20 @@
     width: 100%;
     height: 100%;
     cursor: pointer;
+  }
+
+  .filename-edit {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #555;
+    word-wrap: break-word;
+    text-align: center;
+    max-width: 200px;
+  }
+
+  #creating-pin-description textarea{
+    /* border: 2px solid red; */
+    padding: 10px;
   }
 
   .error-container-edit-pin {

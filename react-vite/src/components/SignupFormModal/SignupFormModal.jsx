@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { thunkSignup } from "../../redux/session";
@@ -10,39 +10,156 @@ function SignupFormModal() {
   const [username, setUsername] = useState("");
   const [first_name, setFirstName] = useState("");
   const [last_name, setLastName] = useState("");
-  const [profile_image_url, setProfileImageUrl] = useState("");
+  const [profileImage, setProfileImage] = useState(null);
   const [bio, setBio] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState({});
+  const [isSubmitted, setIsSubmitted] = useState(false);
   const { closeModal } = useModal();
+
+  // Function to validate form inputs
+  const validate = async () => {
+    const newErrors = {};
+
+    // Basic validations
+    if (isSubmitted) {
+      if (!email) newErrors.email = "Email is required";
+      else if (!/\S+@\S+\.\S+/.test(email))
+        newErrors.email = "Invalid email address";
+
+      if (!username || username.length <= 1)
+        newErrors.username =
+          "Username is required and must be between 2 and 50 characters long";
+      else if (username.length < 2 || username.length > 50)
+        newErrors.username =
+          "Username must be between 2 and 50 characters long";
+
+      if (!first_name) newErrors.first_name = "First Name is required";
+      else if (first_name.length < 2 || first_name.length > 50)
+        newErrors.first_name =
+          "First Name must be between 2 and 50 characters long";
+
+      if (!last_name) newErrors.last_name = "Last Name is required";
+      else if (last_name.length < 1 || last_name.length > 50)
+        newErrors.last_name =
+          "Last Name must be between 1 and 50 characters long";
+
+      if (password.length < 3 || password.length > 50)
+        newErrors.password = "Password must be at least 4 characters long";
+      if (password !== confirmPassword)
+        newErrors.confirmPassword =
+          "Confirm Password field must be the same as the Password field";
+
+      // Handle file validation
+      if (
+        profileImage &&
+        !["image/png", "image/jpeg"].includes(profileImage.type)
+      ) {
+        newErrors.profileImage = "Profile image must be a PNG or JPEG file";
+      }
+
+      // Check for unique email and username
+      // if (Object.keys(newErrors).length === 0) {
+      //   const response = await fetch("/api/check-unique", {
+      //     method: "POST",
+      //     headers: {
+      //       "Content-Type": "application/json",
+      //     },
+      //     body: JSON.stringify({ email, username }),
+      //   });
+      //   const data = await response.json();
+
+      //   if (data.email) newErrors.email = data.email;
+      //   if (data.username) newErrors.username = data.username;
+      // }
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsSubmitted(true); // Set the flag to true when form is submitted
 
+    // Validate before submitting
+    if (!(await validate())) return;
+
+    // Create FormData to handle file uploads
+    const formData = new FormData();
+    formData.append("email", email);
+    formData.append("username", username);
+    formData.append("first_name", first_name);
+    formData.append("last_name", last_name);
+    formData.append("bio", bio);
+    formData.append("profile_image_url", profileImage); // Add the file here
+    formData.append("password", password);
+
+    try {
+      // Dispatch the signup thunk
+      const response = await dispatch(thunkSignup(formData));
+
+      if (response && response.errors) {
+        // Set errors returned from the server
+        setErrors(response.errors);
+      } else {
+        // Clear the form and close the modal if no errors
+        setEmail("");
+        setUsername("");
+        setFirstName("");
+        setLastName("");
+        setProfileImage(null);
+        setBio("");
+        setPassword("");
+        setConfirmPassword("");
+        setErrors({});
+        closeModal();
+      }
+    } catch (error) {
+
+      console.error("Signup failed:", error);
+      setErrors({ server: "An unexpected error occurred. Please try again." });
+    }
+  };
+
+  // Validate when form has been submitted
+  useEffect(() => {
+    if (isSubmitted) {
+      validate();
+    }
+  }, [
+    email,
+    username,
+    first_name,
+    last_name,
+    password,
+    confirmPassword,
+    profileImage,
+    bio,
+    isSubmitted,
+  ]);
+
+  useEffect(() => {
     if (password !== confirmPassword) {
-      return setErrors({
+      setErrors((prevErrors) => ({
+        ...prevErrors,
         confirmPassword:
           "Confirm Password field must be the same as the Password field",
+      }));
+    } else {
+      setErrors((prevErrors) => {
+        const { confirmPassword, ...rest } = prevErrors;
+        return rest;
       });
     }
+  }, [password, confirmPassword]);
 
-    const serverResponse = await dispatch(
-      thunkSignup({
-        email,
-        username,
-        first_name,
-        last_name,
-        bio,
-        profile_image_url,
-        password,
-      })
-    );
-
-    if (serverResponse) {
-      setErrors(serverResponse);
-    } else {
-      closeModal();
+  // Validate on each input change after form has been submitted
+  const handleChange = (setter, value) => {
+    setter(value);
+    if (isSubmitted) {
+      validate();
     }
   };
 
@@ -57,7 +174,7 @@ function SignupFormModal() {
               <input
                 type="text"
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={(e) => handleChange(setEmail, e.target.value)}
                 placeholder=" "
                 required
               />
@@ -71,7 +188,7 @@ function SignupFormModal() {
               <input
                 type="text"
                 value={username}
-                onChange={(e) => setUsername(e.target.value)}
+                onChange={(e) => handleChange(setUsername, e.target.value)}
                 placeholder=" "
                 required
               />
@@ -85,21 +202,21 @@ function SignupFormModal() {
               <input
                 type="text"
                 value={first_name}
-                onChange={(e) => setFirstName(e.target.value)}
+                onChange={(e) => handleChange(setFirstName, e.target.value)}
                 placeholder=" "
                 required
               />
               <span>First Name</span>
             </label>
             <div className="error-container">
-              {errors.first_name&& <p>{errors.first_name}</p>}
+              {errors.first_name && <p>{errors.first_name}</p>}
             </div>
 
             <label>
               <input
                 type="text"
                 value={last_name}
-                onChange={(e) => setLastName(e.target.value)}
+                onChange={(e) => handleChange(setLastName, e.target.value)}
                 placeholder=" "
                 required
               />
@@ -113,7 +230,7 @@ function SignupFormModal() {
               <input
                 type="text"
                 value={bio}
-                onChange={(e) => setBio(e.target.value)}
+                onChange={(e) => handleChange(setBio, e.target.value)}
                 placeholder=" "
               />
               <span>Bio (optional)</span>
@@ -122,24 +239,53 @@ function SignupFormModal() {
               {errors.bio && <p>{errors.bio}</p>}
             </div>
 
-            <label>
-              <input
-                type="text"
-                value={profile_image_url}
-                onChange={(e) => setProfileImageUrl(e.target.value)}
-                placeholder=" "
-              />
-              <span>Profile Picture (optional)</span>
-            </label>
-            <div className="error-container">
-              {errors.profile_image_url && <p>{errors.profile_image_url}</p>}
+            <div className="profile-image-wrapper">
+              <div id="profile-image-container">
+                <label htmlFor="profile_image_url" className="upload-label">
+                  {profileImage ? (
+                    <div style={{ position: "relative", textAlign: "center" }}>
+                      <img
+                        src={URL.createObjectURL(profileImage)}
+                        alt="Image Preview"
+                      />
+                    </div>
+                  ) : (
+                    <div>
+                      <p>Click To Upload a Profile Picture</p>
+                    </div>
+                  )}
+                  <input
+                    type="file"
+                    id="profile_image_url"
+                    onChange={(e) => setProfileImage(e.target.files[0])}
+                    style={{ display: "none" }}
+                  />
+                  <span style={{fontSize: '13px'}}>Profile Picture (optional)</span>
+                </label>
+                <div className="error-container-signup">
+                  {errors.profileImage && <p>{errors.profileImage}</p>}
+                </div>
+              </div>
+
+              {profileImage && (
+                <div className="remove-image-container-pfp">
+                  <p className="image-url">{profileImage.name}</p>
+                  <button
+                    type="button"
+                    onClick={() => setProfileImage(null)}
+                    className="remove-image-btn-pfp"
+                  >
+                    remove image
+                  </button>
+                </div>
+              )}
             </div>
 
             <label>
               <input
                 type="password"
                 value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={(e) => handleChange(setPassword, e.target.value)}
                 placeholder=" "
                 required
               />
@@ -153,7 +299,9 @@ function SignupFormModal() {
               <input
                 type="password"
                 value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
+                onChange={(e) =>
+                  handleChange(setConfirmPassword, e.target.value)
+                }
                 placeholder=" "
                 required
               />
@@ -163,7 +311,9 @@ function SignupFormModal() {
               {errors.confirmPassword && <p>{errors.confirmPassword}</p>}
             </div>
 
-            <button type="submit">Sign Up</button>
+            <button type="submit" id="submit-signup-form">
+              Sign Up
+            </button>
           </form>
         </div>
       </div>

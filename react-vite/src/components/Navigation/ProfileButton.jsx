@@ -1,13 +1,12 @@
 import { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { FaUserCircle } from 'react-icons/fa';
+import { FaUserCircle } from "react-icons/fa";
 import { thunkLogout } from "../../redux/session";
 import { Link, useNavigate } from "react-router-dom";
 import OpenModalMenuItem from "./OpenModalMenuItem";
 import LoginFormModal from "../LoginFormModal";
 import SignupFormModal from "../SignupFormModal";
-import './ProfileButton.css';
-
+import "./ProfileButton.css";
 
 function ProfileButton() {
   const dispatch = useDispatch();
@@ -16,7 +15,7 @@ function ProfileButton() {
   const user = useSelector((store) => store.session.user);
   // console.log('the user', user)
   const ulRef = useRef();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const toggleMenu = (e) => {
     e.stopPropagation();
@@ -47,14 +46,14 @@ function ProfileButton() {
   const logout = (e) => {
     e.preventDefault();
     dispatch(thunkLogout());
-    navigate('/')
+    navigate("/");
     closeMenu();
   };
 
   return (
     <>
       <button
-        id='profile-button'
+        id="profile-button"
         onClick={toggleMenu}
         className={isActive ? "button-active" : "button-normal"}
       >
@@ -63,20 +62,24 @@ function ProfileButton() {
             src={user.profile_image_url}
             alt={`${user.username}'s profile`}
             className="profile-image"
-            style={{width: '30px', height: '30px', borderRadius: '50%'}}
+            style={{ width: "30px", height: "30px", borderRadius: "50%" }}
           />
         ) : (
-          <FaUserCircle  />
+          <FaUserCircle />
         )}
       </button>
       {showMenu && (
         <ul className={"profile-dropdown"} ref={ulRef}>
           {user ? (
             <>
-              <li>{user.username}</li>
+              <li>Hello, {user.username}</li>
               <li>{user.email}</li>
-              <Link to='/user/pins'>Manage Pins</Link>
+              <li><hr /></li>
+              <Link to="/user/pins" style={{ textAlign: "center" }}>
+                Manage Pins
+              </Link>
               <li>
+              <li><hr /></li>
                 <button onClick={logout}>Log Out</button>
               </li>
             </>
