@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchTags } from "../../redux/tagReducer";
-import './TagSelector.css'
+import './TagSelector.css';
 
 const TagSelector = ({ selectedTags, setSelectedTags, isFormDisabled }) => {
   const dispatch = useDispatch();
@@ -26,11 +26,13 @@ const TagSelector = ({ selectedTags, setSelectedTags, isFormDisabled }) => {
 
   return (
     <div id="creating-pin-tags">
-      <label htmlFor="tags">Tags (optional):</label>
+      <label htmlFor="tags">Tag (optional):</label>
       <select
         id="tags"
         onChange={handleTagSelection}
+        multiple
         disabled={isFormDisabled}
+        value={selectedTags} 
       >
         <option value="">Select a tag</option>
         {tagList.map((tag) => (

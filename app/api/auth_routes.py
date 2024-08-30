@@ -3,6 +3,12 @@ from app.models import User, db
 from app.forms import LoginForm
 from app.forms import SignUpForm
 from flask_login import current_user, login_user, logout_user, login_required
+from app.api.aws_helpers import (
+    get_unique_filename,
+    upload_file_to_s3,
+    remove_file_from_s3,
+)
+
 
 auth_routes = Blueprint("auth", __name__)
 
@@ -46,17 +52,25 @@ def logout():
 
 @auth_routes.route("/signup", methods=["POST"])
 def sign_up():
-    """
-    Creates a new user and logs them in
-    """
     form = SignUpForm()
     form["csrf_token"].data = request.cookies["csrf_token"]
+
     if form.validate_on_submit():
-        profile_image_url = (
-            form.data["profile_image_url"]
-            if form.data["profile_image_url"]
-            else "https://pinnovate-files.s3.amazonaws.com/demo/demo-user-profile-pic.jpg"
-        )
+
+        image_file = form.profile_image_url.data
+
+        if image_file:
+            image_file.filename = get_unique_filename(image_file.filename)
+            upload_result = upload_file_to_s3(image_file, acl="public-read")
+
+            if "url" not in upload_result:
+                return {"errors": upload_result["errors"]}, 400
+
+            profile_image_url = upload_result["url"]
+        else:
+
+            profile_image_url = "https://pinnovate-files.s3.amazonaws.com/demo/demo-user-profile-pic.jpg"
+
         user = User(
             email=form.data["email"],
             username=form.data["username"],
@@ -66,12 +80,13 @@ def sign_up():
             profile_image_url=profile_image_url,
             password=form.data["password"],
         )
+
         db.session.add(user)
         db.session.commit()
         login_user(user)
-        return user.to_dict()
-    print(form.errors)
-    return form.errors, 401
+        return user.to_dict(), 201
+
+    return {"errors": form.errors}, 400
 
 
 @auth_routes.route("/unauthorized")
