@@ -16,8 +16,8 @@ function NavigationLoggedOut() {
           <NavLink to="/" id='logo-homepage-container'>
           <img src={pinnovatelogo} alt='website logo' style={{height: '30px'}} />innovate
           </NavLink>
-          <div id='nav-explore-create-button'>Explore
-          </div>
+          {/* <div id='nav-explore-create-button'>Explore
+          </div> */}
 
         </div>
         <div id="nav-middle-container">

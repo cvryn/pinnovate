@@ -3,6 +3,11 @@ from app.models import User, db
 from app.forms import LoginForm
 from app.forms import SignUpForm
 from flask_login import current_user, login_user, logout_user, login_required
+from app.api.aws_helpers import (
+    get_unique_filename,
+    upload_file_to_s3,
+    remove_file_from_s3,
+)
 
 auth_routes = Blueprint("auth", __name__)
 
@@ -46,32 +51,44 @@ def logout():
 
 @auth_routes.route("/signup", methods=["POST"])
 def sign_up():
-    """
-    Creates a new user and logs them in
-    """
     form = SignUpForm()
     form["csrf_token"].data = request.cookies["csrf_token"]
-    if form.validate_on_submit():
-        profile_image_url = (
-            form.data["profile_image_url"]
-            if form.data["profile_image_url"]
-            else "https://pinnovate-files.s3.amazonaws.com/demo/demo-user-profile-pic.jpg"
-        )
-        user = User(
-            email=form.data["email"],
-            username=form.data["username"],
-            first_name=form.data["first_name"],
-            last_name=form.data["last_name"],
-            bio=form.data["bio"],
-            profile_image_url=profile_image_url,
-            password=form.data["password"],
-        )
-        db.session.add(user)
-        db.session.commit()
-        login_user(user)
-        return user.to_dict()
-    print(form.errors)
-    return form.errors, 401
+
+    # Validate form
+    if not form.validate_on_submit():
+        print("Form validation errors:", form.errors)
+        return {"errors": form.errors}, 401
+
+    # Handle profile image upload
+    profile_image_file = request.files.get('profile_image_url')
+    profile_image_url = "https://pinnovate-files.s3.amazonaws.com/demo/demo-user-profile-pic.jpg"
+
+    if profile_image_file:
+        profile_image_file.filename = get_unique_filename(profile_image_file.filename)
+        upload_result = upload_file_to_s3(profile_image_file, acl="public-read")
+
+        if "url" in upload_result:
+            profile_image_url = upload_result["url"]
+        else:
+            print("Upload errors:", upload_result["errors"])
+            return {"errors": upload_result["errors"]}, 400
+
+    # Create new user
+    user = User(
+        email=form.data["email"],
+        username=form.data["username"],
+        first_name=form.data["first_name"],
+        last_name=form.data["last_name"],
+        bio=form.data["bio"],
+        profile_image_url=profile_image_url,
+        password=form.data["password"],
+    )
+
+    db.session.add(user)
+    db.session.commit()
+    login_user(user)
+
+    return user.to_dict()
 
 
 @auth_routes.route("/unauthorized")

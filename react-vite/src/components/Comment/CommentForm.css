@@ -1,43 +1,61 @@
 .comment-form-container {
-    margin-top: 20px;
-  }
+  margin-top: 20px;
+  position: relative; /* Ensure the error container is positioned relative to this container */
+}
 
-  .comment-form {
-    display: flex;
-    flex-direction: column;
-  }
+.comment-form {
+  display: flex;
+  flex-direction: column;
+}
 
-  .textarea-container {
-    display: flex;
-    align-items: center;
-    position: relative;
-  }
+.textarea-container {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
 
-  .comment-textarea {
-    width: 100%;
-    resize: none;
-    padding: 10px;
-    margin-bottom: 10px;
-    border-radius: 50px;
-    box-sizing: border-box;
-  }
+.comment-textarea {
+  width: 100%;
+  resize: none;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 50px;
+  box-sizing: border-box;
+}
 
-  .leave-comment-submit-button {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: absolute;
-    right: 10px;
-    top: 50%;
-    transform: translateY(-65%);
-    padding: 10px;
-    background-color: rgb(108, 135, 243);
-    border: none;
-    color: white;
-    border-radius: 100px;
-    cursor: pointer;
-  }
+.leave-comment-submit-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-65%);
+  padding: 10px;
+  background-color: rgb(108, 135, 243);
+  border: none;
+  color: white;
+  border-radius: 100px;
+  cursor: pointer;
+}
 
-  .leave-comment-submit-button:hover {
-    background-color: rgb(86, 119, 252);
-  }
+.leave-comment-submit-button:hover {
+  background-color: rgb(86, 119, 252);
+}
+
+.error-container-comments {
+  color: red;
+  font-size: 12px;
+  padding-left: 10px;
+  margin-top: 5px;
+  height: 16px;
+  overflow: hidden;
+  position: absolute;
+  bottom: -10px;
+  width: 100%;
+}
+
+.error-container-comments p {
+  margin: 0;
+  line-height: 16px;
+}

@@ -4,12 +4,12 @@ import PinItems from "./PinItems";
 import { fetchPins, deletePin, updatePin } from "../../router/pin";
 import { useSelector } from "react-redux";
 import "./PinItems.css";
-import './ManagePins.css'
+import './ManagePins.css';
 
 const ManagePins = () => {
   const navigate = useNavigate();
   const [pins, setPins] = useState([]);
-
+  const [loading, setLoading] = useState(true);
   const currentUser = useSelector((state) => state.session.user);
 
   useEffect(() => {
@@ -20,10 +20,13 @@ const ManagePins = () => {
 
     const loadPins = async () => {
       try {
+        setLoading(true); 
         const fetchedPins = await fetchPins();
         setPins(fetchedPins.filter(pin => pin.user_id === currentUser.id));
       } catch (error) {
         console.error("Failed to load pins:", error);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -55,19 +58,25 @@ const ManagePins = () => {
       <br />
       <h1 style={{ padding: "10px" }}>Manage My Pins</h1>
       <br />
-      <div id="pin-container-collection">
-        {pins.length > 0 ? (
-          <PinItems
-            pins={pins}
-            onDelete={handleDeletePin}
-            onEdit={handleEditPin}
-          />
-        ) : (
-          <div className="no-pins-container">
-            <div>No pins found.</div>
-          </div>
-        )}
-      </div>
+      {loading ? (
+        <div className="loader-container">
+          <div className="loader">Loading pins...</div>
+        </div>
+      ) : (
+        <div id="pin-container-collection">
+          {pins.length > 0 ? (
+            <PinItems
+              pins={pins}
+              onDelete={handleDeletePin}
+              onEdit={handleEditPin}
+            />
+          ) : (
+            <div className="no-pins-container">
+              <div>No pins found.</div>
+            </div>
+          )}
+        </div>
+      )}
     </div>
   );
 };

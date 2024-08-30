@@ -35,7 +35,7 @@ class Pin(db.Model):
     )
 
     # One-to-Many Relationships
-    comments = db.relationship("Comment", back_populates="pin")
+    comments = db.relationship("Comment", back_populates="pin", cascade="all, delete-orphan")
     user = db.relationship("User", back_populates="pins")
 
     def to_dict(self):

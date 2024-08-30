@@ -21,8 +21,8 @@ function Navigation() {
           </Link>
           {/* <div id='nav-explore-create-button'>Explore
           </div> */}
-          <Link to='/' id='nav-home-create-button'>Home
-          </Link>
+          {/* <Link to='/' id='nav-home-create-button'>Home
+          </Link> */}
 
         </div>
         <div id="nav-middle-container">

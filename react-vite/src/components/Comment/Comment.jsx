@@ -15,7 +15,11 @@ function Comment({ pinId, pin, currentUser }) {
     const loadComments = async () => {
       try {
         const loadedComments = await getComments(pinId);
-        setComments(loadedComments);
+        // Sort comments from newest to oldest
+        const sortedComments = loadedComments.sort(
+          (a, b) => new Date(b.created_at) - new Date(a.created_at)
+        );
+        setComments(sortedComments);
       } catch (error) {
         console.error("Failed to load comments:", error);
       }
@@ -26,7 +30,10 @@ function Comment({ pinId, pin, currentUser }) {
 
   // Post comment
   const handleCommentSubmitted = (newComment) => {
-    setComments((prevComments) => [...prevComments, newComment]);
+    setComments((prevComments) => [
+      newComment,
+      ...prevComments,
+    ]);
   };
 
   // Edit comment
@@ -38,7 +45,7 @@ function Comment({ pinId, pin, currentUser }) {
           setComments((prevComments) =>
             prevComments.map((c) =>
               c.id === updatedComment.id ? updatedComment : c
-            )
+            ).sort((a, b) => new Date(b.created_at) - new Date(a.created_at)) 
           );
         }}
       />
@@ -67,8 +74,6 @@ function Comment({ pinId, pin, currentUser }) {
   const filteredComments = comments.filter(
     (comment) => comment.pin_id === pin.id
   );
-
-  // console.log("comments????", filteredComments);
 
   function timeAgo(dateString) {
     const postDate = new Date(dateString);

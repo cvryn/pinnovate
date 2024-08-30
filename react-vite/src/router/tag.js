@@ -27,7 +27,7 @@ export const tagLoader = async (method, endpoint, data = null) => {
 // Fetch all tags
 export const fetchTags = () => tagLoader('GET', '/api/tags/all');
 
-// Fetch tags by pin ID
+// Fetch tags by pin Id
 export const fetchTagsByPinId = (pinId) => tagLoader('GET', `/api/tags/pin/${pinId}`);
 
 // Create a new tag

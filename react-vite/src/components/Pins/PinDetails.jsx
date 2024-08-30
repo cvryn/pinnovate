@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { IoMdArrowBack, IoMdHeartEmpty } from "react-icons/io";
+import { IoMdArrowBack } from "react-icons/io";
+// import { IoMdHeartEmpty } from "react-icons/io";
 import { fetchPins } from "../../redux/pinReducer";
 import { Link, useParams } from "react-router-dom";
 import "./PinDetails.css";
@@ -18,7 +19,7 @@ function PinDetails() {
   const currentUser = useSelector((state) => state.session.user)
   // console.log('CURRRRRRRR', currentUser)
 
-  // console.log("THIS PIN", pin);
+  console.log("THIS PIN", pin);
 
   return (
     <>
@@ -40,6 +41,7 @@ function PinDetails() {
             />
           </div>
           <div id="main-right-container">
+            {currentUser &&
             <section id="top-section-likes-pin-container">
               <div id="left-section-likes-pin">
                 {/* <button>
@@ -52,15 +54,16 @@ function PinDetails() {
                 <div>Save Pin</div>
               </div>
             </section>
+            }
             <section id="title-description-pin-details-container">
               <div id="pin-title-description-container">
                 <div>
-                  <h1 style={{fontSize: '30px'}}>{pin?.title}</h1>
+                  <h1 style={{fontSize: '30px'}} className='title-pin-details'>{pin?.title}</h1>
                 </div>
                 <div>
-                  <div>{pin.description}</div>
+                  <div className='description-pin-details'>{pin.description}</div>
                   <br />
-                  <div>{pin?.tags?.map(tag => `#${tag.name}`).join(", ")}</div>
+                  <div className='pin-tags-pin-details'>{pin?.tags?.map(tag => `#${tag.name}`).join(", ")}</div>
                 </div>
               </div>
             </section>

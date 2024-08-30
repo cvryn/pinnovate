@@ -1,67 +1,85 @@
 #pin-items-container {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    padding: 10px;
-    gap: 10px;
+  /* border: 2px solid blue; */
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  padding: 10px;
+  gap: 10px;
 }
 
 .pin-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-    padding: 10px;
-    width: 180px;
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 12px;
-    overflow: hidden;
-    transition: box-shadow 0.3s ease;
-    box-shadow: 0 0 3px rgb(181, 181, 181);
+  /* border: 2px solid red; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  width: 180px;
+  /* height: 400px; */
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: box-shadow 0.3s ease;
+  box-shadow: 0 0 3px rgb(181, 181, 181);
 }
 
 .pin-item:hover {
-    box-shadow: 0 0 5px rgb(181, 181, 181);
+  box-shadow: 0 0 5px rgb(181, 181, 181);
+  background-color: #f5f5f5;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .pin-item img {
-    /* border: 2px solid red; */
-    width: 180px;
-    height: 180px;
-    object-fit: cover;
-    border-radius: 12px;
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin-bottom: 10px;
 }
 
 .pin-item-content {
-    display: flex;
-    flex-direction: column;
-    /* align-items: center; */
-    justify-content: space-between;
-    padding: 8px;
-    text-align: center;
-    width: 100%;
+  /* border: 2px solid red; */
+  display: flex;
+  flex-direction: column;
+  /* align-items: center; */
+  justify-content: space-between;
+  padding: 8px;
+  text-align: center;
+  width: 100%;
+
+}
+
+.pin-item-description {
+  overflow-y: auto;
+  max-height: 60px;
+  margin-bottom: 8px;
 }
 
 .pin-item-content h3 {
-    margin: 0;
-    font-size: 16px;
+  margin: 0;
+  font-size: 16px;
 }
 
 .pin-item-content button {
-    background-color: #5f81f3;
-    border: none;
-    color: white;
-    padding: 8px 12px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 14px;
-    margin: 4px 2px;
-    border-radius: 4px;
-    transition: background-color 0.3s ease;
+  background-color: #5f81f3;
+  border: none;
+  color: white;
+  padding: 8px 12px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  margin: 4px 2px;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.pin-item-content p {
+  /* border: 2px solid blue; */
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 .pin-item-content button:hover {
-    background-color: #516fd1;
+  background-color: #516fd1;
 }
