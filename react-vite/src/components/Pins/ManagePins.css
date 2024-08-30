@@ -34,17 +34,7 @@
   transition: background-color 0.3s, box-shadow 0.3s;
 } */
 
-.pin-item:hover {
-  background-color: #f5f5f5;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
 
-.pin-item img {
-  width: 100%;
-  height: auto;
-  border-radius: 8px;
-  margin-bottom: 10px;
-}
 
 .edit-delete-button-collection {
   display: flex;

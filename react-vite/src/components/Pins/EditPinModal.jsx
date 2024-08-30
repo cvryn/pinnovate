@@ -11,20 +11,24 @@ const EditPinModal = ({ pin, onEditComplete, onClose }) => {
   const [removeExistingImage, setRemoveExistingImage] = useState(false);
   const [errors, setErrors] = useState({});
 
+  // Validate the form fields
   const validateForm = () => {
     const newErrors = {};
+
     if (!title.trim()) {
       newErrors.title = "Title is required";
-    }
-    if (title.length < 2 || title.length > 100) {
+    } else if (title.length < 2 || title.length > 100) {
       newErrors.title = "Title must be between 2 and 100 characters.";
     }
+
     if (description && description.length > 255) {
       newErrors.description = "Description cannot exceed 255 characters.";
     }
-    if (!file && !imageURL) {
-      newErrors.image = 'An image is required.'
+
+    if (!file && !imageURL && !removeExistingImage) {
+      newErrors.image = 'An image is required.';
     }
+
     return newErrors;
   };
 
@@ -43,9 +47,8 @@ const EditPinModal = ({ pin, onEditComplete, onClose }) => {
     setImageURL(newImageURL);
     setFile(tempFile);
     setFilename(tempFile.name);
-    // setOptional("");
     setErrors((prev) => ({ ...prev, image: null, file: null }));
-  }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -93,12 +96,15 @@ const EditPinModal = ({ pin, onEditComplete, onClose }) => {
     }
   }, [pin]);
 
-
-  // Remove validations when fulfilled
+  // Clear specific errors as conditions are met
   const handleTitleChange = (e) => {
     setTitle(e.target.value);
     if (e.target.value.trim() && e.target.value.length >= 2 && e.target.value.length <= 100) {
       setErrors((prev) => ({ ...prev, title: null }));
+    } else if (!e.target.value.trim()) {
+      setErrors((prev) => ({ ...prev, title: "Title is required" }));
+    } else if (e.target.value.length < 2 || e.target.value.length > 100) {
+      setErrors((prev) => ({ ...prev, title: "Title must be between 2 and 100 characters." }));
     }
   };
 
@@ -106,6 +112,8 @@ const EditPinModal = ({ pin, onEditComplete, onClose }) => {
     setDescription(e.target.value);
     if (e.target.value.length <= 255) {
       setErrors((prev) => ({ ...prev, description: null }));
+    } else {
+      setErrors((prev) => ({ ...prev, description: "Description cannot exceed 255 characters." }));
     }
   };
 
@@ -172,7 +180,7 @@ const EditPinModal = ({ pin, onEditComplete, onClose }) => {
               {errors.description && <p>{errors.description}</p>}
             </div>
           </div>
-          <button type="submit">Save Changes</button>
+          <button type="submit" className='save-edit-button'>Save Changes</button>
           {errors.general && <p>{errors.general}</p>}
           {errors.file && <p>{errors.file}</p>}
         </form>

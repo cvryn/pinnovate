@@ -80,7 +80,7 @@ function ProfileButton() {
               </Link>
               <li>
               <li><hr /></li>
-                <button onClick={logout}>Log Out</button>
+                <button className='logout-button-profile' onClick={logout}>Log Out</button>
               </li>
             </>
           ) : (

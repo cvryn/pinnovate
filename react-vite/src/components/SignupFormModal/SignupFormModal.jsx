@@ -22,7 +22,7 @@ function SignupFormModal() {
   const validate = async () => {
     const newErrors = {};
 
-    // Basic validations
+    // Basic validations for the frontend
     if (isSubmitted) {
       if (!email) newErrors.email = "Email is required";
       else if (!/\S+@\S+\.\S+/.test(email))
@@ -81,30 +81,25 @@ function SignupFormModal() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setIsSubmitted(true); // Set the flag to true when form is submitted
+    setIsSubmitted(true);
 
-    // Validate before submitting
     if (!(await validate())) return;
 
-    // Create FormData to handle file uploads
     const formData = new FormData();
     formData.append("email", email);
     formData.append("username", username);
     formData.append("first_name", first_name);
     formData.append("last_name", last_name);
     formData.append("bio", bio);
-    formData.append("profile_image_url", profileImage); // Add the file here
+    formData.append("profile_image_url", profileImage);
     formData.append("password", password);
 
     try {
-      // Dispatch the signup thunk
       const response = await dispatch(thunkSignup(formData));
 
       if (response && response.errors) {
-        // Set errors returned from the server
         setErrors(response.errors);
       } else {
-        // Clear the form and close the modal if no errors
         setEmail("");
         setUsername("");
         setFirstName("");
@@ -117,13 +112,11 @@ function SignupFormModal() {
         closeModal();
       }
     } catch (error) {
-
       console.error("Signup failed:", error);
       setErrors({ server: "An unexpected error occurred. Please try again." });
     }
   };
 
-  // Validate when form has been submitted
   useEffect(() => {
     if (isSubmitted) {
       validate();
@@ -155,7 +148,6 @@ function SignupFormModal() {
     }
   }, [password, confirmPassword]);
 
-  // Validate on each input change after form has been submitted
   const handleChange = (setter, value) => {
     setter(value);
     if (isSubmitted) {
@@ -260,7 +252,9 @@ function SignupFormModal() {
                     onChange={(e) => setProfileImage(e.target.files[0])}
                     style={{ display: "none" }}
                   />
-                  <span style={{fontSize: '13px'}}>Profile Picture (optional)</span>
+                  <span style={{ fontSize: "13px" }}>
+                    Profile Picture (optional)
+                  </span>
                 </label>
                 <div className="error-container-signup">
                   {errors.profileImage && <p>{errors.profileImage}</p>}
@@ -311,7 +305,7 @@ function SignupFormModal() {
               {errors.confirmPassword && <p>{errors.confirmPassword}</p>}
             </div>
 
-            <button type="submit" id="submit-signup-form">
+            <button type="submit" className="submit-signup-form">
               Sign Up
             </button>
           </form>

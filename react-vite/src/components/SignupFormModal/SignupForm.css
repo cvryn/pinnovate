@@ -142,3 +142,17 @@ form input:focus {
   display: flex;
   align-items: center;
 }
+
+
+.submit-signup-form{
+  border-radius: 8px;
+  border: none;
+  background-color: #5f81f3;
+  color: white;
+
+}
+
+.submit-signup-form:hover{
+  background-color: #5574da;
+
+}

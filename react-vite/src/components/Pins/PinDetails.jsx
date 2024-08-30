@@ -55,12 +55,12 @@ function PinDetails() {
             <section id="title-description-pin-details-container">
               <div id="pin-title-description-container">
                 <div>
-                  <h1 style={{fontSize: '30px'}}>{pin?.title}</h1>
+                  <h1 style={{fontSize: '30px'}} className='title-pin-details'>{pin?.title}</h1>
                 </div>
                 <div>
-                  <div>{pin.description}</div>
+                  <div className='description-pin-details'>{pin.description}</div>
                   <br />
-                  <div>{pin?.tags?.map(tag => `#${tag.name}`).join(", ")}</div>
+                  <div className='pin-tags-pin-details'>{pin?.tags?.map(tag => `#${tag.name}`).join(", ")}</div>
                 </div>
               </div>
             </section>

@@ -6,3 +6,17 @@ display: flex;
   box-shadow: 0 0 10px rgb(150, 150, 150);
   padding: 20px;
 }
+
+#container-delete-comment-modal button{
+  width: 100px;
+  border-radius: 8px;
+  border: none;
+  background-color: #5f81f3;
+  color: white;
+}
+
+
+#container-delete-comment-modal button:hover{
+  background-color: #5574da;
+
+}

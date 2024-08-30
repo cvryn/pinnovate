@@ -44,3 +44,7 @@
     color: rgb(85, 85, 224)
 
 }
+.comment-content {
+    /* border: 2px solid red; */
+    word-break: break-all
+}
