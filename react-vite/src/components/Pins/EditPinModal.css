@@ -5,7 +5,7 @@
     border-radius: 20px;
     box-shadow: 0 0 10px rgb(150, 150, 150);
     padding: 20px;
-
+    width: 400px;
     overflow: auto;
 }
 
@@ -25,6 +25,7 @@
     justify-content: center;
 }
 #image-url-container-edit {
+  /* border: 2px solid red; */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -37,9 +38,10 @@
     margin-bottom: 20px;
     transition: border-color 0.3s ease;
     position: relative;
-    max-height: 300px;
-    max-width: 300px;
-    width: 100%;
+    width: 300px;
+    max-height: 500px;
+    max-width: 500px;
+    /* width: 100%; */
     overflow: hidden;
   }
 
@@ -51,6 +53,7 @@
     /* border: 2px solid blue; */
     max-width: 100%;
     max-height: 200px;
+
   }
 
   .upload-label-edit {
@@ -72,6 +75,8 @@
     text-align: center;
     max-width: 100%;
   }
+
+
 
   #creating-pin-description textarea{
     /* border: 2px solid red; */

@@ -8,10 +8,8 @@ const EditPinModal = ({ pin, onEditComplete, onClose }) => {
   const [file, setFile] = useState(null);
   const [imageURL, setImageURL] = useState(pin?.image_url || "");
   const [filename, setFilename] = useState("");
-  const [removeExistingImage, setRemoveExistingImage] = useState(false);
   const [errors, setErrors] = useState({});
 
-  // Validate the form fields
   const validateForm = () => {
     const newErrors = {};
 
@@ -25,7 +23,7 @@ const EditPinModal = ({ pin, onEditComplete, onClose }) => {
       newErrors.description = "Description cannot exceed 255 characters.";
     }
 
-    if (!file && !imageURL && !removeExistingImage) {
+    if (!file && !imageURL) {
       newErrors.image = 'An image is required.';
     }
 
@@ -38,16 +36,20 @@ const EditPinModal = ({ pin, onEditComplete, onClose }) => {
     const tempFile = e.target.files[0];
 
     // Check for max image size of 5Mb
-    if (tempFile.size > 5000000) {
-      setErrors((prev) => ({ ...prev, file: "Selected image exceeds the maximum file size of 5Mb" }));
+    if (tempFile && tempFile.size > 5000000) {
+      setErrors((prev) => ({ ...prev, image: "Selected image exceeds the maximum file size of 5Mb" }));
       return;
     }
 
-    const newImageURL = URL.createObjectURL(tempFile); // Generate a local URL to render the image file inside of the <img> tag.
-    setImageURL(newImageURL);
-    setFile(tempFile);
-    setFilename(tempFile.name);
-    setErrors((prev) => ({ ...prev, image: null, file: null }));
+    if (tempFile) {
+      const newImageURL = URL.createObjectURL(tempFile); // Generate a local URL to render the image file inside of the <img> tag.
+      setImageURL(newImageURL);
+      setFile(tempFile);
+      setFilename(tempFile.name);
+      setErrors((prev) => ({ ...prev, image: null }));
+    } else {
+      setErrors((prev) => ({ ...prev, image: null }));
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -63,10 +65,9 @@ const EditPinModal = ({ pin, onEditComplete, onClose }) => {
     formData.append("title", title);
     formData.append("description", description);
 
+    // Append image only if a new file is selected
     if (file) {
       formData.append("image_url", file);
-    } else if (removeExistingImage) {
-      formData.append("remove_image", "true");
     }
 
     try {
@@ -79,13 +80,6 @@ const EditPinModal = ({ pin, onEditComplete, onClose }) => {
         general: error?.response?.data?.errors || "Failed to update pin",
       }));
     }
-  };
-
-  const handleRemoveImage = () => {
-    setFile(null);
-    setImageURL("");
-    setRemoveExistingImage(true);
-    setErrors((prev) => ({ ...prev, image: null, file: null }));
   };
 
   // Display the image file name of existing image when first editing
@@ -131,13 +125,6 @@ const EditPinModal = ({ pin, onEditComplete, onClose }) => {
                     alt="Image Preview"
                     className="image-preview-edit"
                   />
-                  <button
-                    type="button"
-                    onClick={handleRemoveImage}
-                    className="remove-image-btn-edit"
-                  >
-                    X
-                  </button>
                   {filename && <div className="filename-edit">{filename}</div>}
                 </div>
               ) : (
@@ -182,7 +169,6 @@ const EditPinModal = ({ pin, onEditComplete, onClose }) => {
           </div>
           <button type="submit" className='save-edit-button'>Save Changes</button>
           {errors.general && <p>{errors.general}</p>}
-          {errors.file && <p>{errors.file}</p>}
         </form>
       </div>
     </div>
