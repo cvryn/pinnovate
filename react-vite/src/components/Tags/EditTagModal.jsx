@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import { fetchTags } from '../../redux/tagReducer';
-import TagSelector from '../Pins/TagSelector';
+import { fetchTags } from '../../router/tag';
+import TagSelectorEdit from '../Tags/TagSelectorEdit';
 
 const EditTagModal = ({ pin, onTagUpdate }) => {
   const [allTags, setAllTags] = useState([]);
@@ -11,6 +11,7 @@ const EditTagModal = ({ pin, onTagUpdate }) => {
     const fetchTagsData = async () => {
       try {
         const tagData = await fetchTags();
+        console.log('Fetched tags:', tagData);
         setAllTags(tagData.map(tag => ({ value: tag.id, label: tag.name })));
       } catch (error) {
         console.error('Failed to load tags', error);
@@ -21,23 +22,44 @@ const EditTagModal = ({ pin, onTagUpdate }) => {
   }, []);
 
   useEffect(() => {
-    setTags(pin.tags ? pin.tags.map(tag => ({ value: tag.id, label: tag.name })) : []);
-  }, [pin]);
+    if (pin && pin.tags) {
+      const initialTags = pin.tags.map(tagId => {
+        const tag = allTags.find(t => t.value === tagId);
+        return tag ? { ...tag } : { value: tagId, label: "Unknown Tag" };
+      });
+      setTags(initialTags);
+    } else {
+      setTags([]);
+    }
+  }, [pin, allTags]);
 
   const handleTagUpdate = async () => {
-    const updatedTags = tags.map(tag => tag.value).filter(value => value !== null);
-    await onTagUpdate(pin.id, updatedTags);
-    setIsEditing(false);
+    if (pin && pin.id) {
+      const updatedTags = tags.map(tag => tag.value).filter(value => value !== null);
+      console.log('Updated tags:', updatedTags); 
+      try {
+        await onTagUpdate(pin.id, updatedTags);
+        setIsEditing(false);
+      } catch (error) {
+        console.error('Failed to update tags:', error);
+      }
+    } else {
+      console.error('Pin or Pin ID is undefined');
+    }
   };
 
   return (
     <div>
       {isEditing ? (
         <div>
-          <TagSelector
-            selectedTags={tags}
-            setSelectedTags={setTags}
-            tagOptions={allTags}
+          <TagSelectorEdit
+            selectedTags={tags.map(tag => tag.value)}
+            setSelectedTags={(selectedIds) => {
+              setTags(
+                allTags.filter(tag => selectedIds.includes(tag.value))
+              );
+            }}
+            isFormDisabled={false}
           />
           <button onClick={handleTagUpdate}>Save Tags</button>
           <button onClick={() => setIsEditing(false)}>Cancel</button>

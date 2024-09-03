@@ -1,15 +1,33 @@
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useModal } from "../../context/Modal";
 import EditPinModal from "./EditPinModal";
 import DeletePinModal from "./DeletePinModal";
 import EditTagModal from "../Tags/EditTagModal";
+import { fetchTags } from "../../router/tag";
 
 import "./PinItems.css";
 
 function PinItems({ pins, onDelete, onEdit }) {
+  const [allTags, setAllTags] = useState({});
   const { setModalContent, closeModal } = useModal();
 
-  console.log(pins)
+  useEffect(() => {
+    const fetchTagsData = async () => {
+      try {
+        const tagData = await fetchTags();
+        const tagsMap = tagData.reduce((acc, tag) => {
+          acc[tag.id] = tag.name;
+          return acc;
+        }, {});
+        setAllTags(tagsMap);
+      } catch (error) {
+        console.error("Failed to load tags:", error);
+      }
+    };
+
+    fetchTagsData();
+  }, [pins]);
 
   const handleEditClick = (pin) => {
     setModalContent(
@@ -69,7 +87,7 @@ function PinItems({ pins, onDelete, onEdit }) {
               {pin.description === "null" && <p>{"No description available"}</p>}
               <p>
                 {pin.tags && pin.tags.length > 0
-                  ? pin.tags.map(tag => `#${tag.name}`).join(", ")
+                  ? pin.tags.map(tagId => `#${allTags[tagId] || "Unknown Tag"}`).join(", ")
                   : "No tags"}
               </p>
               <button
