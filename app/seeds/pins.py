@@ -79,7 +79,7 @@ def seed_pins():
     hainan_chicken_rice = Pin(
         user_id=2,
         title="Chicken Rice Peanuts",
-        description="",
+        description="A meal for champions",
         image_url="https://pinnovate-files.s3.amazonaws.com/food/hainan_chicken_rice.jpg",
     )
 
@@ -99,7 +99,7 @@ def seed_pins():
     bear_icecream_shop2 = Pin(
         user_id=2,
         title="Cute Ice Cream Shops!",
-        description="",
+        description="I scream for ice cream!!!",
         image_url="https://pinnovate-files.s3.amazonaws.com/food/bear_icecream_shop2.jpg",
     )
 
@@ -114,14 +114,14 @@ def seed_pins():
     rose2 = Pin(
         user_id=3,
         title="Roses in Bloom",
-        description="",
+        description="Roses",
         image_url="https://pinnovate-files.s3.amazonaws.com/flowers/rose2.jpg",
     )
 
     rose3 = Pin(
         user_id=4,
         title="Roses in Bloom",
-        description="",
+        description="Ready for allergies??",
         image_url="https://pinnovate-files.s3.amazonaws.com/flowers/rose3.JPG",
     )
 
@@ -143,7 +143,7 @@ def seed_pins():
         user_id=2,
         title="Bright and Beautiful Flower Color Combinations",
         description="Brighten up your home with beautiful flower color combinations that create a lively and inviting atmosphere.",
-        image_url="https://pinnovate-files.s3.amazonaws.com/flowers/rose4.jpg",
+        image_url="https://pinnovate-files.s3.amazonaws.com/flowers/flowers1.jpg",
     )
     flower2 = Pin(
         user_id=3,
@@ -169,14 +169,14 @@ def seed_pins():
     orchid1 = Pin(
         user_id=5,
         title="Beautiful Orchid Care Tips and Tricks",
-        description="",
+        description="Orchids",
         image_url="https://pinnovate-files.s3.amazonaws.com/flowers/orchid1.jpg",
     )
 
     orchid2 = Pin(
         user_id=6,
         title="Orchid Flowering Patterns and Colors to Inspire",
-        description="",
+        description="Orchids",
         image_url="https://pinnovate-files.s3.amazonaws.com/flowers/orchid2.jpg",
     )
 
@@ -197,14 +197,14 @@ def seed_pins():
     orchid5 = Pin(
         user_id=3,
         title="Tips for Growing Gorgeous Orchids",
-        description="",
+        description="Comment your thoughts on your favorite orchids!",
         image_url="https://pinnovate-files.s3.amazonaws.com/flowers/orchids5.JPG",
     )
 
     tulips1 = Pin(
         user_id=3,
         title="Beautiful Tulip Varieties for Every Garden",
-        description="",
+        description="What are your favorite tulips? Share below!",
         image_url="https://pinnovate-files.s3.amazonaws.com/flowers/tulips1.jpg",
     )
     tulips2 = Pin(
@@ -225,14 +225,14 @@ def seed_pins():
     coffee = Pin(
         user_id=2,
         title="Wake Up",
-        description="",
+        description="Meet me at the coffee shop!",
         image_url="https://pinnovate-files.s3.amazonaws.com/coffee/coffee.jpg",
     )
 
     taro_coffee = Pin(
         user_id=3,
         title="Explore beautiful coffee art and latte designs",
-        description="",
+        description="Never too late for coffee art",
         image_url="https://pinnovate-files.s3.amazonaws.com/coffee/taro_coffee.jpg",
     )
 
@@ -246,14 +246,14 @@ def seed_pins():
     srr_coffee_pastries = Pin(
         user_id=3,
         title="Perfect Coffee Pairings: Pastries and Snacks",
-        description="",
+        description="Recipes that compare to your favorite cafe pastries!",
         image_url="https://pinnovate-files.s3.amazonaws.com/coffee/srr_coffee_pastries.jpg",
     )
 
     srr_coffee_pastries2 = Pin(
         user_id=2,
         title="Cozy Coffee Moments to Warm Your Day",
-        description="",
+        description="Yum!",
         image_url="https://pinnovate-files.s3.amazonaws.com/coffee/srr_coffee_pastries2.jpg",
     )
 
@@ -269,7 +269,7 @@ def seed_pins():
     boba2 = Pin(
         user_id=3,
         title="Boba",
-        description=":3",
+        description="Boba for days!",
         image_url="https://pinnovate-files.s3.amazonaws.com/boba/boba_momotea.jpg",
     )
 
@@ -278,7 +278,7 @@ def seed_pins():
     japanese_garden1 = Pin(
         user_id=3,
         title="Incorporating Japanese Garden Aesthetics into Your Home",
-        description="",
+        description="How to style your japanese garden.",
         image_url="https://pinnovate-files.s3.amazonaws.com/travel/japanese_garden1.jpg",
     )
 
@@ -312,14 +312,14 @@ def seed_pins():
     por_waterfall = Pin(
         user_id=2,
         title="Stunning Waterfalls You Can't Miss On Your Next Trip!",
-        description=" ",
-        image_url="https://pinnovate-files.s3.amazonaws.com/travel/japanese_garden_waterfall.jpg",
+        description="Waterfalls to die for!",
+        image_url="https://pinnovate-files.s3.amazonaws.com/travel/por_waterfall.jpg",
     )
 
     travel_airplane = Pin(
         user_id=4,
         title="In The Clouds",
-        description=" ",
+        description="Where are your next travel plans?",
         image_url="https://pinnovate-files.s3.amazonaws.com/travel/travel_airplane.jpg",
     )
 
@@ -329,7 +329,7 @@ def seed_pins():
     db.session.add_all([feijai_grass, feijai_box, snowie_box, nightmare_box, bear_yawn])
 
     # foods and snacks
-    db.session.add_all([ramen1, ramen2, ramen3, ramen4, hainan_chicken_rice, bear_icecream_shop, bear_icecream_shop2])
+    db.session.add_all([ramen1, ramen2, ramen3, ramen4, hainan_chicken_rice, burger, bear_icecream_shop, bear_icecream_shop2])
 
     # flowers
     db.session.add_all(
