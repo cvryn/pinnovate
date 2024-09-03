@@ -9,7 +9,7 @@ import "./PinItems.css";
 function PinItems({ pins, onDelete, onEdit }) {
   const { setModalContent, closeModal } = useModal();
 
-  console.log(pins)
+  // console.log(pins)
 
   const handleEditClick = (pin) => {
     setModalContent(
