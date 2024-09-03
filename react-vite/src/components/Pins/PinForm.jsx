@@ -27,8 +27,11 @@ const PinForm = () => {
     if (title.length < 2 || title.length > 100) {
       newErrors.title = "Title must be between 2 and 100 characters.";
     }
-    if (description && description.length > 255) {
-      newErrors.description = "Description cannot exceed 255 characters.";
+    if (!description.trim()) {
+      newErrors.description = "Description is required";
+    }
+    if (description.length < 2 || description.length > 255) {
+      newErrors.description = "Description must be between 2 and 255 characters.";
     }
     return newErrors;
   };
@@ -132,7 +135,7 @@ const PinForm = () => {
           </div>
         </div>
         <div id="creating-pin-description">
-          <label htmlFor="description">Description (optional):</label>
+          <label htmlFor="description">Description:</label>
           <textarea
             id="description"
             value={description}
