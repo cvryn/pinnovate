@@ -65,3 +65,15 @@
     display: flex;
     align-items: center;
 }
+
+.create-pin-submit-button{
+  border-radius: 8px;
+  border: none;
+  background-color: #5f81f3;
+  color: white;
+}
+
+.create-pin-submit-button:hover {
+  background-color: #5574da;
+
+}

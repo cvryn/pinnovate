@@ -21,29 +21,32 @@ const PinForm = () => {
 
   const validateForm = () => {
     const newErrors = {};
-    if (!title.trim()) {
-      newErrors.title = "Title is required";
+
+    if (!file) {
+      newErrors.image_url = "Image is required first";
     }
-    if (title.length < 2 || title.length > 100) {
+
+    if (!title.trim() || title.length < 2 || title.length > 100) {
       newErrors.title = "Title must be between 2 and 100 characters.";
     }
-    if (!description.trim()) {
-      newErrors.description = "Description is required";
-    }
-    if (description.length < 2 || description.length > 255) {
+
+    if (!description.trim() || description.length < 2 || description.length > 255) {
       newErrors.description = "Description must be between 2 and 255 characters.";
     }
+
     return newErrors;
   };
 
-  const handleRemoveImage = () => {
-    setFile(null);
-  };
+  // const handleRemoveImage = () => {
+  //   setFile(null);
+  //   setErrors((prevErrors) => ({ ...prevErrors, image_url: "Image is required first" }));
+  // };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     const validationErrors = validateForm();
+
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
       return;
@@ -78,6 +81,28 @@ const PinForm = () => {
     }
   };
 
+  const handleFieldChange = (field, value) => {
+    if (field === "file") {
+      setFile(value);
+    } else if (field === "title") {
+      setTitle(value);
+    } else if (field === "description") {
+      setDescription(value);
+    }
+
+    setErrors((prevErrors) => {
+      const newErrors = { ...prevErrors };
+      if (field === "file" && value) {
+        delete newErrors.image_url;
+      } else if (field === "title" && value.trim() && value.length >= 2 && value.length <= 100) {
+        delete newErrors.title;
+      } else if (field === "description" && value.trim() && value.length >= 2 && value.length <= 255) {
+        delete newErrors.description;
+      }
+      return newErrors;
+    });
+  };
+
   return (
     <div>
       <h1>Create a New Pin</h1>
@@ -96,23 +121,23 @@ const PinForm = () => {
                     borderRadius: "8px",
                   }}
                 />
-                <button
+                {/* <button
                   type="button"
                   onClick={handleRemoveImage}
                   className="remove-image-btn"
                 >
                   X
-                </button>
+                </button> */}
               </div>
             ) : (
               <div>
-                <p>Click To Upload Image</p>
+                <p>Click To Upload Image (required first)</p>
               </div>
             )}
             <input
               type="file"
               id="image_url"
-              onChange={(e) => setFile(e.target.files[0])}
+              onChange={(e) => handleFieldChange("file", e.target.files[0])}
               style={{ display: 'none' }}
             />
           </label>
@@ -126,7 +151,7 @@ const PinForm = () => {
             type="text"
             id="title"
             value={title}
-            onChange={(e) => setTitle(e.target.value)}
+            onChange={(e) => handleFieldChange("title", e.target.value)}
             disabled={isFormDisabled}
             required
           />
@@ -139,7 +164,7 @@ const PinForm = () => {
           <textarea
             id="description"
             value={description}
-            onChange={(e) => setDescription(e.target.value)}
+            onChange={(e) => handleFieldChange("description", e.target.value)}
             disabled={isFormDisabled}
           />
           <div className="error-container-pinform">
@@ -153,7 +178,7 @@ const PinForm = () => {
           tagOptions={tagOptions}
           isFormDisabled={isFormDisabled}
         />
-        <button type="submit" disabled={isFormDisabled}>
+        <button className='create-pin-submit-button' type="submit">
           Create Pin
         </button>
       </form>
