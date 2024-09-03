@@ -224,7 +224,7 @@ function SignupFormModal() {
                     Profile Picture (optional)
                   </span>
                 </label>
-                <div className="error-container-signup-signup">
+                <div className="error-container-signup-signup" style={{color: 'red', textAlign: 'center'}}>
                   {errors.profileImage && <p>{errors.profileImage}</p>}
                 </div>
               </div>
