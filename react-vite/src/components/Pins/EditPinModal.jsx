@@ -1,14 +1,18 @@
 import { useEffect, useState } from "react";
 import { updatePin } from "../../router/pin";
-import './EditPinModal.css';
+import "./EditPinModal.css";
 
 const EditPinModal = ({ pin, onEditComplete, onClose }) => {
   const [title, setTitle] = useState(pin?.title || "");
-  const [description, setDescription] = useState(pin?.description === "null" ? "" : pin?.description || "");
+  const [description, setDescription] = useState(
+    pin?.description === "null" ? "" : pin?.description || ""
+  );
   const [file, setFile] = useState(null);
   const [imageURL, setImageURL] = useState(pin?.image_url || "");
   const [filename, setFilename] = useState("");
   const [errors, setErrors] = useState({});
+
+  const allowedExtensions = ["pdf", "png", "jpg", "jpeg", "gif"];
 
   const validateForm = () => {
     const newErrors = {};
@@ -22,11 +26,22 @@ const EditPinModal = ({ pin, onEditComplete, onClose }) => {
     if (!description.trim()) {
       newErrors.description = "Description is required.";
     } else if (description.length < 2 || description.length > 255) {
-      newErrors.description = "Description must be between 2 and 255 characters.";
+      newErrors.description =
+        "Description must be between 2 and 255 characters.";
     }
 
     if (!file && !imageURL) {
-      newErrors.image = 'An image is required.';
+      newErrors.image = "An image is required.";
+    }
+
+    // If a new file is uploaded, validate its extension
+    if (file) {
+      const fileExtension = file.name.split(".").pop().toLowerCase();
+      if (!allowedExtensions.includes(fileExtension)) {
+        newErrors.image = `File must be one of the following types: ${allowedExtensions.join(
+          ", "
+        )}`;
+      }
     }
 
     return newErrors;
@@ -37,14 +52,29 @@ const EditPinModal = ({ pin, onEditComplete, onClose }) => {
 
     const tempFile = e.target.files[0];
 
-    // Check for max image size of 5Mb
-    if (tempFile && tempFile.size > 5000000) {
-      setErrors((prev) => ({ ...prev, image: "Selected image exceeds the maximum file size of 5Mb" }));
-      return;
-    }
-
     if (tempFile) {
-      const newImageURL = URL.createObjectURL(tempFile); // Generate a local URL to render the image file inside of the <img> tag.
+      const fileExtension = tempFile.name.split(".").pop().toLowerCase();
+
+      if (!allowedExtensions.includes(fileExtension)) {
+        setErrors((prev) => ({
+          ...prev,
+          image: `File must be one of the following types: ${allowedExtensions.join(
+            ", "
+          )}`,
+        }));
+        return;
+      }
+
+      // Check for max image size of 5Mb
+      if (tempFile.size > 5000000) {
+        setErrors((prev) => ({
+          ...prev,
+          image: "Selected image exceeds the maximum file size of 5Mb",
+        }));
+        return;
+      }
+
+      const newImageURL = URL.createObjectURL(tempFile);
       setImageURL(newImageURL);
       setFile(tempFile);
       setFilename(tempFile.name);
@@ -53,7 +83,6 @@ const EditPinModal = ({ pin, onEditComplete, onClose }) => {
       setErrors((prev) => ({ ...prev, image: null }));
     }
   };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -93,23 +122,40 @@ const EditPinModal = ({ pin, onEditComplete, onClose }) => {
 
   const handleTitleChange = (e) => {
     setTitle(e.target.value);
-    if (e.target.value.trim() && e.target.value.length >= 2 && e.target.value.length <= 100) {
+    if (
+      e.target.value.trim() &&
+      e.target.value.length >= 2 &&
+      e.target.value.length <= 100
+    ) {
       setErrors((prev) => ({ ...prev, title: null }));
     } else if (!e.target.value.trim()) {
       setErrors((prev) => ({ ...prev, title: "Title is required" }));
     } else if (e.target.value.length < 2 || e.target.value.length > 100) {
-      setErrors((prev) => ({ ...prev, title: "Title must be between 2 and 100 characters." }));
+      setErrors((prev) => ({
+        ...prev,
+        title: "Title must be between 2 and 100 characters.",
+      }));
     }
   };
 
   const handleDescriptionChange = (e) => {
     setDescription(e.target.value);
-    if (e.target.value.trim() && e.target.value.length >= 2 && e.target.value.length <= 255) {
+    if (
+      e.target.value.trim() &&
+      e.target.value.length >= 2 &&
+      e.target.value.length <= 255
+    ) {
       setErrors((prev) => ({ ...prev, description: null }));
     } else if (!e.target.value.trim()) {
-      setErrors((prev) => ({ ...prev, description: "Description is required." }));
+      setErrors((prev) => ({
+        ...prev,
+        description: "Description is required.",
+      }));
     } else {
-      setErrors((prev) => ({ ...prev, description: "Description must be between 2 and 255 characters." }));
+      setErrors((prev) => ({
+        ...prev,
+        description: "Description must be between 2 and 255 characters.",
+      }));
     }
   };
 
@@ -121,7 +167,7 @@ const EditPinModal = ({ pin, onEditComplete, onClose }) => {
           <div id="image-url-container-edit">
             <label htmlFor="image" className="upload-label-edit">
               {imageURL ? (
-                <div style={{ position: "relative", textAlign: 'center' }}>
+                <div style={{ position: "relative", textAlign: "center" }}>
                   <img
                     src={imageURL}
                     alt="Image Preview"
@@ -138,7 +184,7 @@ const EditPinModal = ({ pin, onEditComplete, onClose }) => {
                 type="file"
                 id="image"
                 onChange={fileWrap}
-                style={{ display: 'none' }}
+                style={{ display: "none" }}
               />
             </label>
             <div className="error-container-edit-pin">
@@ -169,7 +215,9 @@ const EditPinModal = ({ pin, onEditComplete, onClose }) => {
               {errors.description && <p>{errors.description}</p>}
             </div>
           </div>
-          <button type="submit" className='save-edit-button'>Save Changes</button>
+          <button type="submit" className="save-edit-button">
+            Save Changes
+          </button>
           {errors.general && <p>{errors.general}</p>}
         </form>
       </div>

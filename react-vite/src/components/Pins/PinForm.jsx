@@ -24,6 +24,12 @@ const PinForm = () => {
 
     if (!file) {
       newErrors.image_url = "Image is required first";
+    } else {
+      const allowedExtensions = ["pdf", "png", "jpg", "jpeg", "gif"];
+      const fileExtension = file.name.split('.').pop().toLowerCase();
+      if (!allowedExtensions.includes(fileExtension)) {
+        newErrors.image_url = `File must be one of the following types: ${allowedExtensions.join(", ")}`;
+      }
     }
 
     if (!title.trim() || title.length < 2 || title.length > 100) {
