@@ -16,7 +16,7 @@ class PinForm(FlaskForm):
     )
     description = StringField(
         "Description",
-        validators=[Length(max=255, message="Description cannot exceed 255 characters.")]
+        validators=[ DataRequired(message="Description is required"),Length(min=2, max=255, message="Description must be between 2 and 255 characters.")]
     )
     tags = SelectMultipleField(
         "Tags",

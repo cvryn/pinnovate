@@ -19,8 +19,10 @@ const EditPinModal = ({ pin, onEditComplete, onClose }) => {
       newErrors.title = "Title must be between 2 and 100 characters.";
     }
 
-    if (description.length > 255) {
-      newErrors.description = "Description cannot exceed 255 characters.";
+    if (!description.trim()) {
+      newErrors.description = "Description is required.";
+    } else if (description.length < 2 || description.length > 255) {
+      newErrors.description = "Description must be between 2 and 255 characters.";
     }
 
     if (!file && !imageURL) {
@@ -64,14 +66,8 @@ const EditPinModal = ({ pin, onEditComplete, onClose }) => {
     const formData = new FormData();
     formData.append("title", title);
 
-    // Append description only if it is a non-empty string
-    if (description.trim() !== "") {
-      formData.append("description", description);
-    } else {
-      formData.append("description", null);
-    }
+    formData.append("description", description);
 
-    // Append image only if a new file is selected
     if (file) {
       formData.append("image_url", file);
     }
@@ -88,7 +84,6 @@ const EditPinModal = ({ pin, onEditComplete, onClose }) => {
     }
   };
 
-  // Display the image file name of existing image when first editing
   useEffect(() => {
     if (pin?.image_url) {
       const urlParts = pin.image_url.split("/");
@@ -96,7 +91,6 @@ const EditPinModal = ({ pin, onEditComplete, onClose }) => {
     }
   }, [pin]);
 
-  // Clear specific errors as conditions are met
   const handleTitleChange = (e) => {
     setTitle(e.target.value);
     if (e.target.value.trim() && e.target.value.length >= 2 && e.target.value.length <= 100) {
@@ -110,10 +104,12 @@ const EditPinModal = ({ pin, onEditComplete, onClose }) => {
 
   const handleDescriptionChange = (e) => {
     setDescription(e.target.value);
-    if (e.target.value.length <= 255) {
+    if (e.target.value.trim() && e.target.value.length >= 2 && e.target.value.length <= 255) {
       setErrors((prev) => ({ ...prev, description: null }));
+    } else if (!e.target.value.trim()) {
+      setErrors((prev) => ({ ...prev, description: "Description is required." }));
     } else {
-      setErrors((prev) => ({ ...prev, description: "Description cannot exceed 255 characters." }));
+      setErrors((prev) => ({ ...prev, description: "Description must be between 2 and 255 characters." }));
     }
   };
 
