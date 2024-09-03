@@ -9,6 +9,8 @@ import "./PinItems.css";
 function PinItems({ pins, onDelete, onEdit }) {
   const { setModalContent, closeModal } = useModal();
 
+  console.log(pins)
+
   const handleEditClick = (pin) => {
     setModalContent(
       <EditPinModal
@@ -63,7 +65,8 @@ function PinItems({ pins, onDelete, onEdit }) {
             </Link>
             <div className="pin-item-content">
               <h3>{pin.title}</h3>
-              <p>{pin.description || "No description available"}</p>
+              {pin.description !== "null" && <p>{pin.description || "No description available"}</p>}
+              {pin.description === "null" && <p>{"No description available"}</p>}
               <p>
                 {pin.tags && pin.tags.length > 0
                   ? pin.tags.map(tag => `#${tag.name}`).join(", ")

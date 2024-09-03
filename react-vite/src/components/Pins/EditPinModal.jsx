@@ -4,7 +4,7 @@ import './EditPinModal.css';
 
 const EditPinModal = ({ pin, onEditComplete, onClose }) => {
   const [title, setTitle] = useState(pin?.title || "");
-  const [description, setDescription] = useState(pin?.description || "");
+  const [description, setDescription] = useState(pin?.description === "null" ? "" : pin?.description || "");
   const [file, setFile] = useState(null);
   const [imageURL, setImageURL] = useState(pin?.image_url || "");
   const [filename, setFilename] = useState("");
@@ -19,7 +19,7 @@ const EditPinModal = ({ pin, onEditComplete, onClose }) => {
       newErrors.title = "Title must be between 2 and 100 characters.";
     }
 
-    if (description && description.length > 255) {
+    if (description.length > 255) {
       newErrors.description = "Description cannot exceed 255 characters.";
     }
 
@@ -63,7 +63,13 @@ const EditPinModal = ({ pin, onEditComplete, onClose }) => {
 
     const formData = new FormData();
     formData.append("title", title);
-    formData.append("description", description);
+
+    // Append description only if it is a non-empty string
+    if (description.trim() !== "") {
+      formData.append("description", description);
+    } else {
+      formData.append("description", null);
+    }
 
     // Append image only if a new file is selected
     if (file) {
