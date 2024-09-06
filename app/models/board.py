@@ -34,6 +34,7 @@ class Board(db.Model):
             'id': self.id,
             'user_id': self.user_id,
             'name': self.name,
+            "board_image_url": self.board_image_url,
             "private": self.private,
 
         }
