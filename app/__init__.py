@@ -10,6 +10,7 @@ from .api.auth_routes import auth_routes
 from .api.pin_routes import pin_routes
 from .api.comment_routes import comment_routes
 from .api.tag_routes import tag_routes
+from .api.board_routes import board_routes
 
 from .seeds import seed_commands
 from .config import Config
@@ -35,6 +36,7 @@ app.register_blueprint(auth_routes, url_prefix='/api/auth')
 app.register_blueprint(pin_routes, url_prefix='/api/pins')
 app.register_blueprint(comment_routes, url_prefix='/api/comments')
 app.register_blueprint(tag_routes, url_prefix='/api/tags')
+app.register_blueprint(board_routes, url_prefix='/api/boards')
 
 db.init_app(app)
 Migrate(app, db)
