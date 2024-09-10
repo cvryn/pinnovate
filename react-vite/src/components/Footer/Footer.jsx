@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 
 import { FaRegCopyright } from "react-icons/fa6";
+
 import "./Footer.css";
 
 function Footer() {
@@ -17,8 +18,8 @@ function Footer() {
             <span> {currentYear} pinnovate, inc</span>
           </div>
           <div id="contact-links">
-            <Link to="https://github.com/cvryn">github</Link>
-            <Link to="https://www.linkedin.com/in/caryn-w-280b6729b/">LinkedIn</Link>
+            <Link to="https://github.com/cvryn" target="_blank">github</Link>
+            <Link to="https://www.linkedin.com/in/carynwang/" target="_blank">LinkedIn</Link>
           </div>
         </div>
       </footer>

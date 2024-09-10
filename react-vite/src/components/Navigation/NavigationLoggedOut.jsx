@@ -1,6 +1,6 @@
 
 import { NavLink } from "react-router-dom"
-import pinnovatelogo from '../../../public/pinnovate-logo.png'
+import pinnovatefulllogo from '../../../public/pinnovate-full-logo.png'
 
 import OpenModalMenuItem from "./OpenModalMenuItem";
 import LoginFormModal from "../LoginFormModal";
@@ -14,7 +14,7 @@ function NavigationLoggedOut() {
       <nav id="navigation-main-container">
         <div id="nav-left-container">
           <NavLink to="/" id='logo-homepage-container'>
-          <img src={pinnovatelogo} alt='website logo' style={{height: '30px'}} />innovate
+          <img src={pinnovatefulllogo} alt='website logo' style={{height: '30px'}} />
           </NavLink>
           {/* <div id='nav-explore-create-button'>Explore
           </div> */}
