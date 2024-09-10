@@ -152,3 +152,11 @@ def delete_board(board_id):
     db.session.commit()
 
     return {"message": "Board has been successfully deleted"}, 200
+
+
+## Board Pins ##
+
+# POST Add Pins to Board
+@board_routes.route("/<int:board_id>/pins/<int:pin_id>/add", methods=["POST"])
+def add_pin_to_board(board_id, pin_id):
+    board
