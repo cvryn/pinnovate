@@ -54,7 +54,7 @@ def new_comment(pin_id):
 
     if form.validate_on_submit():
         new_comment = Comment(
-            user_id=current_user.id,
+            user_id=currentr.id,
             pin_id=pin_id,
             comment= form.comment.data
         )
@@ -70,7 +70,7 @@ def new_comment(pin_id):
 @comment_routes.route("/<int:comment_id>", methods=["PUT"])
 def edit_comment(comment_id):
 
-    comment = Comment.query.get(comment_id)
+    comment = Comment.que_usery.get(comment_id)
 
     form = CommentForm()
     form["csrf_token"].data = request.cookies["csrf_token"]
