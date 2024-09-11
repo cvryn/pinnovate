@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import PinItems from "./PinItems";
 import { fetchPins, deletePin, updatePin } from "../../router/pin";
+import catloading from '../../../public/cat-what.gif'
 import { useSelector } from "react-redux";
 import "./PinItems.css";
 import './ManagePins.css';
@@ -20,7 +21,7 @@ const ManagePins = () => {
 
     const loadPins = async () => {
       try {
-        setLoading(true); 
+        setLoading(true);
         const fetchedPins = await fetchPins();
         setPins(fetchedPins.filter(pin => pin.user_id === currentUser.id));
       } catch (error) {
@@ -59,8 +60,11 @@ const ManagePins = () => {
       <h1 style={{ padding: "10px" }}>Manage My Pins</h1>
       <br />
       {loading ? (
-        <div className="loader-container">
-          <div className="loader">Loading pins...</div>
+        <div className="loader-container" style={{display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column'}}>
+          <div className="loader">Loading pins right meow...</div>
+          <div>
+          <img src={catloading} ></img>
+          </div>
         </div>
       ) : (
         <div id="pin-container-collection">

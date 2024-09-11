@@ -1,7 +1,7 @@
-#profile-button {
+#create-button {
     height: 45px;
-    width: 45px;
-    border-radius: 50%;
+    width: 100px;
+    border-radius: 25px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -11,7 +11,7 @@
     z-index: 10;
 }
 
-#profile-button:hover {
+#create-button:hover {
     background-color: #f0f0f0;
 }
 
@@ -23,7 +23,7 @@
     background-color: #e0e0e0;
 }
 
-.profile-dropdown {
+.create-dropdown {
     border: solid 1px #dddddd;
     position: absolute;
     top: 55px;
@@ -44,11 +44,11 @@
     overflow-y: auto;
 }
 
-.profile-dropdown.hidden {
+.create-dropdown.hidden {
     display: none;
 }
 
-.profile-dropdown li {
+.create-dropdown li {
     padding: 5px 10px;
     text-align: center;
     overflow-wrap: break-word;
@@ -57,26 +57,14 @@
     word-break: break-all;
 }
 
-.profile-dropdown li button {
+.create-dropdown li a {
+    display: block;
+    text-decoration: none;
+    color: black;
+}
+
+.create-dropdown li a:hover {
     background-color: #e0e0e0;
-    border: none;
-    padding: 5px 10px;
     border-radius: 5px;
-    cursor: pointer;
-    width: 100%;
-    text-align: center;
-}
-
-.profile-dropdown li button:hover {
-    background-color: #c0c0c0;
-}
-
-.manage-pins-button {
-    /* border: 2px solid red; */
-    padding: 5px 10px;
-    border-radius: 10px;
-}
-.manage-pins-button:hover {
-    background-color: #c0c0c0;
-
+    padding: 5px;
 }

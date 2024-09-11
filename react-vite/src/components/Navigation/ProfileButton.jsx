@@ -15,6 +15,7 @@ function ProfileButton() {
   const user = useSelector((store) => store.session.user);
   // console.log('the user', user)
   const ulRef = useRef();
+  
   const navigate = useNavigate();
 
   const toggleMenu = (e) => {
@@ -41,6 +42,11 @@ function ProfileButton() {
   const closeMenu = () => {
     setShowMenu(false);
     setIsActive(false);
+  };
+
+  const handleNavigation = (path) => {
+    navigate(path);
+    closeMenu();
   };
 
   const logout = (e) => {
@@ -75,9 +81,11 @@ function ProfileButton() {
               <li>Hello, {user.username}</li>
               <li>{user.email}</li>
               <li><hr /></li>
-              <Link to="/user/pins" style={{ textAlign: "center" }}>
-                Manage Pins
-              </Link>
+              <li>
+                <Link to="/user/pins" onClick={() => handleNavigation('/user/pins')} className='manage-pins-button' style={{ textAlign: "center" }}>
+                  Manage Pins
+                </Link>
+              </li>
               <li>
               <li><hr /></li>
                 <button className='logout-button-profile' onClick={logout}>Log Out</button>

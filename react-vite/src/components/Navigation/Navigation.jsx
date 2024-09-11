@@ -4,6 +4,7 @@ import pinnovatefulllogo from '../../../public/pinnovate-full-logo.png'
 import ProfileButton from "./ProfileButton";
 import SearchBar from "./SearchBar";
 import NavigationLoggedOut from "./NavigationLoggedOut";
+import CreateDropdown from "./CreateDropdown";
 
 import "./Navigation.css";
 
@@ -32,7 +33,7 @@ function Navigation() {
 
         <div id="nav-right-container">
           <div id='nav-explore-create-button'>
-            <Link to='/pins/new'>Create</Link>
+            <CreateDropdown />
             </div>
           <ProfileButton />
         </div>

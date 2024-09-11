@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { fetchPins } from '../../redux/pinReducer';
+import catloading from '../../../public/cat-what.gif'
 import './PinItemsHomePage.css';
 import { Link } from "react-router-dom";
 
@@ -21,8 +22,11 @@ function PinItemsHomePage() {
 
   if (loading) {
     return (
-      <div id="loading-screen">
-        <p>Loading Pins...</p>
+      <div id="loading-screen" style={{display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column'}}>
+        <div className="loader">Loading pins right meow...</div>
+          <div>
+          <img src={catloading} ></img>
+          </div>
       </div>
     );
   }

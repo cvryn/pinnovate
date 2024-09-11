@@ -5,6 +5,9 @@ import PinDetails from '../components/Pins/PinDetails';
 import ManagePins from '../components/Pins/ManagePins';
 import PinForm from '../components/Pins/PinForm';
 import { pinLoader } from './pin';
+import BoardForm from '../components/Board/BoardForm';
+import { boardLoader } from './boardLoader';
+import UserProfile from '../components/UserProfile/UserProfile';
 
 
 export const router = createBrowserRouter([
@@ -29,8 +32,17 @@ export const router = createBrowserRouter([
         action: pinLoader
       },
       {
+        path: '/boards/new',
+        element: <BoardForm />,
+        action: boardLoader
+      },
+      {
         path: '/user/pins',
         element: <ManagePins />
+      },
+      {
+        path: '/user/current',
+        element: <UserProfile/>
       },
       // {
       //   path: "login",
