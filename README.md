@@ -12,8 +12,22 @@ In addition to discovering and organizing content, Pinnovate empowers users to s
 
 Sharing your own content not only allows you to showcase your interests and ideas but also fosters engagement with other users. This collaborative environment encourages the exchange of ideas and helps build a supportive network around shared passions.
 
+# Live Site Link
+https://pinnovate.onrender.com
+
 # Live Site Preview
 
+### Pinnovate Homepage
+![Homepage](react-vite/public/pinnovate-homepage-pins.png)
+
+### Pinnovate Pin Details and Comments
+![Pin Details and Comments](react-vite/public/pinnovate-pin-details.png)
+
+### Pinnovate Manage Your Boards
+![Pin Manage Boards](react-vite/public/pinnovate-boards.png)
+
+### Pinnovate Board Pins
+![Pin Board Pins](react-vite/public/pinnovate-board-pins.png)
 
 ## Key Features
 
