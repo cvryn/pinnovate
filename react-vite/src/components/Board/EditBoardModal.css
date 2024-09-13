@@ -1,0 +1,76 @@
+#edit-board-modal-container{
+    /* border: 2px solid red; */
+    width: 500px;
+    padding: 20px;
+}
+
+.modal-button-actions {
+  /* border: 2px solid red; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.edit-board-submit-button {
+  width: 300px;
+  border-radius: 8px;
+  border: none;
+  background-color: #5f81f3;
+  color: white;
+}
+
+.edit-board-submit-button:hover {
+  background-color: #5574da;
+}
+
+.edit-board-cancel-button {
+  width: 300px;
+  border-radius: 8px;
+  border: none;
+  background-color: #5f81f3;
+  color: white;
+}
+
+.edit-board-cancel-button:hover {
+  background-color: #5574da;
+}
+
+
+
+.delete-board-button {
+  border: none;
+  background-color: transparent;
+  color: red;
+}
+
+#board-image {
+  position: relative;
+}
+
+.image-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.remove-image-button {
+  position: absolute;
+  top: 240px;
+  right: 10px;
+  background-color: transparent;
+  color:red;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.upload-text {
+  cursor: pointer;
+  color: #007bff;
+}
+
+.edit-boards-error-container {
+  color: red;
+}

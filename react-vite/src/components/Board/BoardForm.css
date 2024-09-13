@@ -91,16 +91,13 @@
   align-items: center;
 }
 
-.submit-button {
-  border-radius: 8px;
-  border: none;
-  background-color: #5f81f3;
-  color: white;
-  padding: 10px 20px;
-  cursor: pointer;
-  font-size: 16px;
+.create-board-submit-button {
+    border-radius: 8px;
+    border: none;
+    background-color: #5f81f3;
+    color: white;
 }
 
-.submit-button:hover {
+.create-board-submit-button:hover {
   background-color: #5574da;
 }

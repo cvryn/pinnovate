@@ -1,11 +1,12 @@
 import { useState, useRef, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./CreateDropdown.css";
 
 function CreateDropdown() {
   const [showMenu, setShowMenu] = useState(false);
   const [isActive, setIsActive] = useState(false);
   const ulRef = useRef();
+  const navigate = useNavigate()
 
   const toggleMenu = (e) => {
     e.stopPropagation();

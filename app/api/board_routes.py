@@ -47,15 +47,20 @@ def create_board():
         return {"error": f"You already have a board named '{form.name.data}'."}, 400
 
     if form.validate_on_submit():
-        # Image Upload
-        image_file = request.files.get("board_image_url")
+        # Handle image upload
+        image_file = form.board_image_url.data
         board_image_url = None
+
         if image_file:
             image_file.filename = get_unique_filename(image_file.filename)
             upload_result = upload_file_to_s3(image_file, acl="public-read")
-            if "url" not in upload_result:
+            if "url" in upload_result:
+                board_image_url = upload_result["url"]
+            else:
                 return {"errors": upload_result["errors"]}, 400
-            board_image_url = upload_result["url"]
+        else:
+            # Set a default image URL if no image is provided by user
+            board_image_url = "https://pinnovate-files.s3.amazonaws.com/demo/blank-board-default-image.png"
 
         new_board = Board(
             user_id=current_user.id,
@@ -114,10 +119,11 @@ def edit_board(board_id):
                 board.board_image_url = upload_result["url"]
             else:
                 return {"errors": upload_result["errors"]}, 400
-        elif remove_image and board.board_image_url:
+        elif remove_image:
             # Remove the image if the user wants
-            remove_file_from_s3(board.board_image_url)
-            board.board_image_url = None
+            if board.board_image_url:
+                remove_file_from_s3(board.board_image_url)
+                board.board_image_url = None
 
         board.name = form.name.data.strip()
         board.private = form.private.data

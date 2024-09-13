@@ -1,18 +1,28 @@
 from flask import Blueprint, request
 from flask_login import current_user
 from app.models import db, Pin, Comment, Tag, Board, like, pin_tag
-from app.forms import PinForm, TagForm, BoardForm
-from app.api.aws_helpers import (
-    get_unique_filename,
-    upload_file_to_s3,
-    remove_file_from_s3,
-)
 
 boardpin_routes = Blueprint("board_pins", __name__)
+
+# GET All pins in the board based on board Id
+@boardpin_routes.route("/board/<int:board_id>/pins", methods=["GET"])
+def get_pins_for_board(board_id):
+    board = Board.query.get(board_id)
+
+    if not board:
+        return {"error": "Board not found"}, 404
+
+    pins = board.pins
+    return [pin.to_dict() for pin in pins], 200
 
 # POST Add Pin(s) to Board
 @boardpin_routes.route("/board/<int:board_id>/pins/<int:pin_id>/add", methods=["POST"])
 def add_pin_to_board(board_id, pin_id):
+
+    if not current_user.is_authenticated:
+        return {
+            "error": "User not authenticated. Must be logged in to edit a board."
+        }, 401
 
     board = Board.query.get(board_id)
     pin = Pin.query.get(pin_id)
@@ -22,7 +32,6 @@ def add_pin_to_board(board_id, pin_id):
     if not pin:
         return {"error": "Pin not found"}, 404
 
-    # Check if current user owns the board
     if board.user_id != current_user.id:
         return {"error": "You do not own this board"}, 403
 
@@ -47,7 +56,6 @@ def remove_pin_from_board(board_id, pin_id):
     if not pin:
         return {"error": "Pin not found"}, 404
 
-    # Check if current user owns the board
     if board.user_id != current_user.id:
         return {"error": "You do not own this board"}, 403
 

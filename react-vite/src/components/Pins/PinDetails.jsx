@@ -4,8 +4,11 @@ import { IoMdArrowBack } from "react-icons/io";
 // import { IoMdHeartEmpty } from "react-icons/io";
 import { fetchPins } from "../../redux/pinReducer";
 import { Link, useParams } from "react-router-dom";
-import "./PinDetails.css";
 import Comment from "../Comment/Comment";
+import AddPinToBoardModal from "./AddPinToBoardModal";
+
+import "./PinDetails.css";
+
 
 function PinDetails() {
   const { pinId } = useParams();

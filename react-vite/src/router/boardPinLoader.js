@@ -21,10 +21,14 @@ export const boardPinLoader = async (method, endpoint, data = null) => {
     }
 };
 
+// GET pins on board from board id
+export const fetchBoardPins = (boardId) =>
+    boardPinLoader('GET', `/api/boardpins/board/${boardId}/pins`);
+
 // Add pin to board
 export const addPinToBoard = (boardId, pinId) =>
-    boardPinLoader('POST', `/api/boards/${boardId}/pins/${pinId}/add`);
+    boardPinLoader('POST', `/api/boardpins/boards/${boardId}/pins/${pinId}/add`);
 
 // Remove pin from board
 export const removePinFromBoard = (boardId, pinId) =>
-    boardPinLoader('DELETE', `/api/boards/${boardId}/pins/${pinId}/remove`);
+    boardPinLoader('DELETE', `/api/boardpins/boards/${boardId}/pins/${pinId}/remove`);

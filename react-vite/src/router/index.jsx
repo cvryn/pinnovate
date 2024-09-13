@@ -6,8 +6,11 @@ import ManagePins from '../components/Pins/ManagePins';
 import PinForm from '../components/Pins/PinForm';
 import { pinLoader } from './pin';
 import BoardForm from '../components/Board/BoardForm';
-import { boardLoader } from './boardLoader';
+import { boardLoader, fetchBoards } from './boardLoader';
 import UserProfile from '../components/UserProfile/UserProfile';
+import ManageBoards from '../components/Board/ManageBoards';
+import BoardPins from '../components/Board/BoardPins';
+
 
 
 export const router = createBrowserRouter([
@@ -37,8 +40,17 @@ export const router = createBrowserRouter([
         action: boardLoader
       },
       {
+        path: '/boards/:boardId',
+        element: <BoardPins />,
+      },
+      {
         path: '/user/pins',
         element: <ManagePins />
+      },
+      {
+        path: '/user/boards',
+        element: <ManageBoards />,
+        loader: fetchBoards,
       },
       {
         path: '/user/current',

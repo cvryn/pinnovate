@@ -33,10 +33,12 @@ function PinItemsHomePage() {
 
   const pinsArray = Array.isArray(allPins) ? allPins : Object.values(allPins);
 
+  const sortedPins = pinsArray.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+
   return (
     <div id="pin-items-container-hp">
-      {pinsArray.length > 0 ? (
-        pinsArray.map(pin => (
+      {sortedPins.length > 0 ? (
+        sortedPins.map(pin => (
           <Link key={pin.id} to={`/pins/${pin.id}`} className="pin-item-hp">
             <img src={pin.image_url} alt={pin.title} />
             <div className="pin-item-content-hp">

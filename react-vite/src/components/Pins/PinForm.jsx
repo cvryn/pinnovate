@@ -110,7 +110,7 @@ const PinForm = () => {
   };
 
   return (
-    <div>
+    <div id='pin-form-container'>
       <h1>Create a New Pin</h1>
       <form onSubmit={handleSubmit} encType="multipart/form-data">
         <div id="image-url-container">

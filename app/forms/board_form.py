@@ -12,8 +12,8 @@ class BoardForm(FlaskForm):
             Length(max=50, message="Board name cannot exceed 50 characters.")
         ]
     )
-    board_image_url =FileField(
-        "Profile Image", validators=[Optional(), FileAllowed(list(ALLOWED_EXTENSIONS))])
+    board_image_url = FileField(
+        "Board Image", validators=[Optional(), FileAllowed(list(ALLOWED_EXTENSIONS))])
     private = BooleanField(
         'Private',
         default=False

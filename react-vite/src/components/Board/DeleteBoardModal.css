@@ -1,0 +1,31 @@
+#delete-board-modal-container {
+    /* border: 2px solid red; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 20px;
+    box-shadow: 0 0 10px rgb(150, 150, 150);
+    padding: 20px;
+  }
+
+  #delete-board-modal-container button {
+    width: 100px;
+    border-radius: 8px;
+    border: none;
+    background-color: #5f81f3;
+    color: white;
+
+  }
+
+  #delete-board-modal-container button:hover {
+    background-color: #5574da;
+  }
+
+
+  .delete-boards-modal-buttons{
+    /* border: 2px solid red; */
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+
+  }

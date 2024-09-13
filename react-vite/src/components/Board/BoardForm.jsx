@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { createBoard } from "../../router/boardLoader";
-
 import "./BoardForm.css";
 
 const BoardForm = () => {
@@ -25,6 +24,8 @@ const BoardForm = () => {
       const fileExtension = boardImage.name.split(".").pop().toLowerCase();
       if (!allowedExtensions.includes(fileExtension)) {
         newErrors.boardImage = `File must be one of the following types: ${allowedExtensions.join(", ")}`;
+      } else if (boardImage.size > 5000000) {
+        newErrors.boardImage = "Selected image exceeds the maximum file size of 5MB.";
       }
     }
 
@@ -36,8 +37,8 @@ const BoardForm = () => {
 
     const validationErrors = validateForm();
     if (Object.keys(validationErrors).length > 0) {
-      setErrors(validationErrors);
-      return;
+        setErrors(validationErrors);
+        return;
     }
 
     setErrors({});
@@ -47,21 +48,22 @@ const BoardForm = () => {
     formData.append("private", isPrivate);
 
     if (boardImage) {
-      formData.append("board_image", boardImage);
+        formData.append("board_image_url", boardImage);
     }
 
     try {
-      const createdBoard = await createBoard(formData);
-      if (createdBoard && createdBoard.id) {
-        navigate(`/boards/${createdBoard.id}`);
-      } else {
-        throw new Error("Failed to create board");
-      }
+        const createdBoard = await createBoard(formData);
+        if (createdBoard && createdBoard.id) {
+            navigate(`/user/boards`);
+        } else {
+            throw new Error("Failed to create board");
+        }
     } catch (error) {
-      console.error("Failed to create board:", error);
-      setErrors({ general: "Something went wrong while creating the board." });
+        console.error("Failed to create board:", error);
+        setErrors({ general: "Something went wrong while creating the board." });
     }
-  };
+};
+
 
   const handleFieldChange = (field, value) => {
     if (field === "boardImage") {
@@ -123,9 +125,7 @@ const BoardForm = () => {
             <input
               type="file"
               id="board_image"
-              onChange={(e) =>
-                handleFieldChange("boardImage", e.target.files[0])
-              }
+              onChange={(e) => handleFieldChange("boardImage", e.target.files[0])}
               style={{ display: "none" }}
             />
           </label>
@@ -147,7 +147,7 @@ const BoardForm = () => {
 
         <button
           type="submit"
-          className="submit-button"
+          className="create-board-submit-button"
           disabled={isFormDisabled}
         >
           Create Board

@@ -7,7 +7,7 @@ function HomePage() {
 
         <>
         {/* <h1>ʕ*•ﻌ•ʔฅ </h1> */}
-        <div id='homepage-main container'>
+        <div id='homepage-main-container'>
             <PinItemsHomePage />
 
         </div>
