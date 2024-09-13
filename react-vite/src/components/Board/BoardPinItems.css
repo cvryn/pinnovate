@@ -1,46 +1,48 @@
 #board-pins-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 16px;
+  width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 16px;
 }
 
 .boardpin-item {
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 12px;
-    overflow: hidden;
-    position: relative;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  overflow: hidden;
+  position: relative;
 }
 
 .boardpin-item img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .boardpin-item-container {
-    position: relative;
-    width: 200px;
-    height: 200px;
-  }
+  position: relative;
+  width: 200px;
+  height: 200px;
+}
 
-  .boardpin-item {
-    display: block;
-    width: 100%;
-    height: 100%;
-  }
+.boardpin-item {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
 
-  .delete-pin-button {
-    position: absolute;
-    bottom: 8px;
-    right: 8px;
-    background: none;
-    border: none;
-    cursor: pointer;
-    color: #a1a1a1;
-    font-size: 20px;
-  }
+.delete-pin-button {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #a1a1a1;
+  font-size: 20px;
+}
 
-  .delete-pin-button:hover {
-    color: red;
-  }
+.delete-pin-button:hover {
+  color: red;
+}

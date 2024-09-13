@@ -73,7 +73,8 @@ const ManageBoards = () => {
   return (
     <>
       {/* <h1>ʕง•ᴥ•ʔง</h1> */}
-      <h1> Manage Boards</h1>
+      <div id='manage-boards-container'>
+      <h1> Manage My Boards</h1>
       {currentUserBoards.length > 0 ? (
         <BoardItems
           boards={currentUserBoards}
@@ -88,6 +89,8 @@ const ManageBoards = () => {
           </Link>
         </div>
       )}
+
+      </div>
     </>
   );
 };

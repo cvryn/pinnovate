@@ -6,8 +6,8 @@
 
   .board-item {
     position: relative;
-    width: 200px;
-    height: 200px;
+    width: 280px;
+    height: 280px;
     text-align: center;
     border: 1px solid #ccc;
     border-radius: 10px;

@@ -1,3 +1,8 @@
+#manage-boards-container {
+  width: 1200px;
+  margin: 0 auto;
+}
+
 .no-boards-container {
   display: flex;
   flex-direction: column;
