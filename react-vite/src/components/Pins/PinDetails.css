@@ -119,6 +119,12 @@
   color: white;
 }
 
+#right-section-likes-pin button:hover {
+
+  background-color: rgb(183, 17, 34);
+
+}
+
 .description-pin-details,
 .title-pin-details,
 .pin-tags-pin-details {

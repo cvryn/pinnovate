@@ -1,37 +1,34 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchBoardPins } from "../../redux/boardPinReducer"
+import {
+  fetchBoardPins,
+  removeAPinFromBoard,
+} from "../../redux/boardPinReducer";
 import { useParams } from "react-router-dom";
 import BoardPinItems from "./BoardPinItems";
 
 const BoardPins = () => {
-    const dispatch = useDispatch();
-    const{ boardId } = useParams()
+  const dispatch = useDispatch();
+  const { boardId } = useParams();
 
-    // console.log('boardid', boardId)
+  const boardPinsObj = useSelector((state) => state.boardPins.boardPins);
+  const boardPins = Object.values(boardPinsObj);
 
-    const boardPinsObj = useSelector((state) => state.boardPins.boardPins)
-    // console.log("boardpinsObj", boardPinsObj)
+  useEffect(() => {
+    dispatch(fetchBoardPins(boardId));
+  }, [dispatch, boardId]);
 
-    const boardPins = Object.values(boardPinsObj)
+  const handleDeletePin = async (pinId) => {
+    await dispatch(removeAPinFromBoard(boardId, pinId));
 
-    useEffect(() => {
-        dispatch(fetchBoardPins(boardId));
-    }, [dispatch, boardId])
+    console.error("Failed to delete pin:", error);
+  };
 
-
-
-    return (
-        <>
-          {/* <h1>ʕ*•͈ ﻌ •͈ʔฅ</h1> */}
-          {/* <h1>{board?.name}</h1> */}
-          <div id="board-pins-main-container">
-            <BoardPinItems boardPins={boardPins}/>
-          </div>
-        </>
-      );
-
-}
-
+  return (
+    <div id="board-pins-main-container">
+      <BoardPinItems boardPins={boardPins} onDelete={handleDeletePin} />
+    </div>
+  );
+};
 
 export default BoardPins;

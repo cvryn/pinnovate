@@ -63,10 +63,10 @@ function BoardItems({ boards, onEdit, onDelete }) {
             </div>
           </Link>
           <div className="board-actions-buttons">
-            <button onClick={() => handleEditClick(board)}>
+            <button onClick={() => handleEditClick(board)} className='edit-board-button'>
               <FaPen className='board-icons' />
             </button>
-            <button onClick={() => handleDeleteClick(board.id)}>
+            <button onClick={() => handleDeleteClick(board.id)} className='delete-board-button'>
               <FaTrashCan  className='board-icons'/>
             </button>
           </div>

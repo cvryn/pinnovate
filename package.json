@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "react-masonry-css": "^1.0.16",
     "react-select": "^5.8.0",
     "sqlite3": "^5.1.7"
   }

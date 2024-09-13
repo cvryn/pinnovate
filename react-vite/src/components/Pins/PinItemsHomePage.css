@@ -1,26 +1,81 @@
-#pin-items-container-hp {
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 16px;
-    padding: 0 20px;
-}
-
 .pin-item-hp {
-    background-color: #fff;
-    border: 1px solid #ddd;
+    position: relative;
     border-radius: 12px;
     overflow: hidden;
-    position: relative;
+    margin-bottom: 26px;
+    width: 100%;
 }
 
 .pin-item-hp img {
     width: 100%;
-    height: 100%;
+    height: auto;
     object-fit: cover;
+    display: block;
+    border-radius: 12px;
 }
 
-.pin-item-content-hp {
-    padding: 8px;
-    text-align: center;
+.save-pin-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    border: none;
+    background-color: rgb(208, 14, 35);
+    border-radius: 20px;
+    padding: 10px 20px;
+    color: white;
+    display: none;
+}
+
+.pin-item-hp:hover {
+    opacity: 0.8;
+}
+
+.pin-item-hp:hover .save-pin-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.save-pin-button:hover {
+    background-color: rgb(183, 17, 34);
+}
+
+.masonry-grid {
+    display: flex;
+    flex-wrap: wrap;
+    margin: -16px;
+}
+
+.masonry-grid-column {
+    padding: 16px;
+    box-sizing: border-box;
+    flex: 1;
+}
+
+@media (min-width: 500px) {
+    .masonry-grid-column {
+        /* 5 columns */
+        flex: 0 0 20%;
+    }
+}
+
+@media (min-width: 600px) {
+    .masonry-grid-column {
+        /* 6 columns */
+        flex: 0 0 16%;
+    }
+}
+
+@media (min-width: 900px) {
+    .masonry-grid-column {
+        /* 4 columns */
+        flex: 0 0 25%;
+    }
+}
+
+@media (min-width: 1200px) {
+    .masonry-grid-column {
+        /* 5 columns */
+        flex: 0 0 20%;
+    }
 }

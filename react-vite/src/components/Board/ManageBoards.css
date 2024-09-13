@@ -1,0 +1,23 @@
+.no-boards-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  width: 200px;
+  border: 2px dashed #ccc;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  color: #333;
+  font-size: 18px;
+  text-align: center;
+  padding: 20px;
+  margin-top: 20px;
+  cursor: pointer;
+  transition: border-color 0.3s ease;
+  position: relative;
+}
+
+.no-boards-container:hover {
+   border-color: #ff4500
+}

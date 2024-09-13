@@ -67,3 +67,11 @@
     /* border: 2px solid red; */
     font-size: 20px;
   }
+
+  .delete-board-button:hover{
+    color: red;
+  }
+
+  .edit-board-button:hover{
+    color: rgb(87, 114, 234)
+  }

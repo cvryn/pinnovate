@@ -1,15 +1,17 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import BoardItems from "./BoardItems";
 import catloading from "../../../public/cat-what.gif";
 import { fetchBoards, deleteBoard } from "../../router/boardLoader";
+
+import "./ManageBoards.css";
 
 const ManageBoards = () => {
   const [boards, setBoards] = useState([]);
   const [loading, setLoading] = useState(true);
 
   const currentUser = useSelector((state) => state.session.user);
-
 
   const fetchBoardsData = async () => {
     try {
@@ -29,7 +31,9 @@ const ManageBoards = () => {
   const handleDeleteBoard = async (boardId) => {
     try {
       await deleteBoard(boardId);
-      setBoards((prevBoards) => prevBoards.filter((board) => board.id !== boardId));
+      setBoards((prevBoards) =>
+        prevBoards.filter((board) => board.id !== boardId)
+      );
     } catch (error) {
       console.error("Failed to delete board:", error);
     }
@@ -43,7 +47,9 @@ const ManageBoards = () => {
     );
   };
 
-  const currentUserBoards = boards.filter((board) => board.user_id === currentUser.id);
+  const currentUserBoards = boards.filter(
+    (board) => board.user_id === currentUser.id
+  );
 
   if (loading) {
     return (
@@ -75,7 +81,12 @@ const ManageBoards = () => {
           onDelete={handleDeleteBoard}
         />
       ) : (
-        <p>No boards available.</p>
+        <div>
+          <p>No boards available.</p>
+          <Link to="/boards/new">
+            <div className="no-boards-container">Create A New Board</div>
+          </Link>
+        </div>
       )}
     </>
   );
