@@ -29,7 +29,7 @@ const AddPinToBoardModal = ({ pinId, onClose }) => {
         const userBoards = updatedBoards.filter(
           (board) => board.user_id === currentUser.id
         );
-        console.log("Filtered boards:", userBoards);
+        // console.log("Filtered boards:", userBoards);
         setBoards(userBoards);
       }
     };
