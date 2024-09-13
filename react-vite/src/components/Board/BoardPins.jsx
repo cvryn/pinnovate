@@ -19,10 +19,13 @@ const BoardPins = () => {
   }, [dispatch, boardId]);
 
   const handleDeletePin = async (pinId) => {
-    await dispatch(removeAPinFromBoard(boardId, pinId));
-
-    console.error("Failed to delete pin:", error);
+    try {
+      await dispatch(removeAPinFromBoard(boardId, pinId));
+    } catch (error) {
+      console.error("Failed to delete pin:", error);
+    }
   };
+
 
   return (
     <div id="board-pins-main-container">

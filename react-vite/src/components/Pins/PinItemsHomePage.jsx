@@ -11,7 +11,6 @@ import AddPinToBoardModal from "./AddPinToBoardModal";
 function PinItemsHomePage() {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
-  const [selectedPinId, setSelectedPinId] = useState(null);
 
   const { setModalContent } = useModal();
 
@@ -41,11 +40,10 @@ function PinItemsHomePage() {
   const sortedPins = pinsArray.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
 
   const handleSavePinClick = (pinId) => {
-    setSelectedPinId(pinId);
     setModalContent(
       <AddPinToBoardModal
         pinId={pinId}
-        onClose={() => setSelectedPinId(null)}
+        onClose={() => setModalContent(null)}
       />
     );
   };
