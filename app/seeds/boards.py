@@ -7,7 +7,7 @@ def seed_boards():
     feijai_foods_board = Board(
         user_id=2,
         name="Yummy Noms!",
-        board_image_url="board image url",
+        board_image_url="https://pinnovate-files.s3.amazonaws.com/demo/board-image-1.png",
         private=False,
     )
 
