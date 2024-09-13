@@ -72,7 +72,6 @@ function SignupFormModal() {
     e.preventDefault();
     setIsSubmitted(true);
 
-    // Perform validation
     const isValid = validate();
     const isConfirmPasswordValid = validateConfirmPassword();
 

@@ -8,7 +8,6 @@ const BoardForm = () => {
   const [boardImage, setBoardImage] = useState(null);
   const [isPrivate, setIsPrivate] = useState(false);
   const [errors, setErrors] = useState({});
-  const [isFormDisabled, setIsFormDisabled] = useState(false);
 
   const navigate = useNavigate();
 
@@ -95,7 +94,6 @@ const BoardForm = () => {
             value={name}
             onChange={(e) => handleFieldChange("name", e.target.value)}
             required
-            disabled={isFormDisabled}
           />
           <div className="error-container-boardform">
             {errors.name && <p className="error">{errors.name}</p>}
@@ -148,7 +146,6 @@ const BoardForm = () => {
         <button
           type="submit"
           className="create-board-submit-button"
-          disabled={isFormDisabled}
         >
           Create Board
         </button>

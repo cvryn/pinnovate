@@ -25,10 +25,6 @@ export const router = createBrowserRouter([
         path: '/pins/:pinId',
         element: <PinDetails />
       },
-      // {
-      //   path: '/pins/new',
-      //   element: <CreatePin />
-      // },
       {
         path: '/pins/new',
         element: <PinForm />,

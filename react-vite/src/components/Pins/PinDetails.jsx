@@ -6,6 +6,7 @@ import { fetchPins } from "../../redux/pinReducer";
 import { Link, useParams } from "react-router-dom";
 import Comment from "../Comment/Comment";
 import AddPinToBoardModal from "./AddPinToBoardModal";
+import { useModal } from "../../context/Modal";
 
 import "./PinDetails.css";
 
@@ -13,25 +14,31 @@ import "./PinDetails.css";
 function PinDetails() {
   const { pinId } = useParams();
   const dispatch = useDispatch();
+  const { setModalContent, closeModal } = useModal();
 
   useEffect(() => {
     dispatch(fetchPins(pinId));
   }, [dispatch, pinId]);
 
   const pin = useSelector((state) => state.pin.allPins[pinId]) || {};
-  const currentUser = useSelector((state) => state.session.user)
-  // console.log('CURRRRRRRR', currentUser)
+  const currentUser = useSelector((state) => state.session.user);
 
-  // console.log("THIS PIN", pin);
+  const handleAddPinClick = () => {
+    setModalContent(
+      <AddPinToBoardModal
+        pinId={pinId}
+        onClose={closeModal}
+      />
+    );
+  };
 
   return (
     <>
-      {/* <h1>ʕ*•ﻌ•ʔฅ</h1> */}
       <div id="pin-details-main-container">
         <section id="left-section-container-pin-details">
           <Link to="/">
             <div>
-              <IoMdArrowBack style={{height: "30px", width: '30px'}}/>
+              <IoMdArrowBack style={{ height: "30px", width: '30px' }} />
             </div>
           </Link>
         </section>
@@ -45,26 +52,27 @@ function PinDetails() {
           </div>
           <div id="main-right-container">
             {currentUser &&
-            <section id="top-section-likes-pin-container">
-              <div id="left-section-likes-pin">
-                {/* <button>
-                  <IoMdHeartEmpty />
-                </button> */}
-                Like
-              </div>
-              <div id="right-section-likes-pin">
-                {/* <button>Save or Pin Button</button> */}
-                <div>Save Pin</div>
-              </div>
-            </section>
+              <section id="top-section-likes-pin-container">
+                <div id="left-section-likes-pin">
+                  {/* <button>
+                    <IoMdHeartEmpty />
+                  </button> */}
+                  Like
+                </div>
+                <div id="right-section-likes-pin">
+                  <button onClick={handleAddPinClick} className='save-pin-button'>
+                    Save Pin
+                  </button>
+                </div>
+              </section>
             }
             <section id="title-description-pin-details-container">
               <div id="pin-title-description-container">
                 <div>
-                  <h1 style={{fontSize: '30px'}} className='title-pin-details'>{pin?.title}</h1>
+                  <h1 style={{ fontSize: '30px' }} className='title-pin-details'>{pin?.title}</h1>
                 </div>
                 <div>
-                  <div className='description-pin-details'>{pin.description}</div>
+                  <div className='description-pin-details'>{pin?.description}</div>
                   <br />
                   <div className='pin-tags-pin-details'>{pin?.tags?.map(tag => `#${tag.name}`).join(", ")}</div>
                 </div>
@@ -73,9 +81,8 @@ function PinDetails() {
             <section id="left-section-middle-pin-creator-follow">
               <div id="pin-creator-details">
                 <img src={pin?.user_profile_image_url} alt='pin creator profile pic' className='pin-creator-profile-pic'></img>
-                <h2 className='pin-creator-username' style={{fontWeight: 'bold'}}>
-                {pin?.user_username}
-
+                <h2 className='pin-creator-username' style={{ fontWeight: 'bold' }}>
+                  {pin?.user_username}
                 </h2>
               </div>
             </section>

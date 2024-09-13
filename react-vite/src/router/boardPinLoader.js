@@ -27,8 +27,8 @@ export const fetchBoardPins = (boardId) =>
 
 // Add pin to board
 export const addPinToBoard = (boardId, pinId) =>
-    boardPinLoader('POST', `/api/boardpins/boards/${boardId}/pins/${pinId}/add`);
+    boardPinLoader('POST', `/api/boardpins/board/${boardId}/pins/${pinId}/add`);
 
 // Remove pin from board
 export const removePinFromBoard = (boardId, pinId) =>
-    boardPinLoader('DELETE', `/api/boardpins/boards/${boardId}/pins/${pinId}/remove`);
+    boardPinLoader('DELETE', `/api/boardpins/board/${boardId}/pins/${pinId}/remove`);

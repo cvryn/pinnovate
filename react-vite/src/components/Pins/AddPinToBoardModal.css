@@ -1,0 +1,43 @@
+#add-pin-to-board-modal-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 20px;
+    box-shadow: 0 0 10px rgb(150, 150, 150);
+    padding: 20px;
+    width: 400px;
+    overflow: auto;
+
+}
+.error-container-add-pin-to-board{
+    color: red;
+    height: 50px;
+    margin-top: 5px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+}
+
+.board-selection {
+    /* border: 2px solid red; */
+    text-align: center;
+}
+
+.add-pin-to-board-buttons{
+    /* border: 2px solid blue; */
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+}
+
+#add-pin-to-board-modal-container button{
+    width: 100px;
+    border-radius: 8px;
+    border: none;
+    background-color: #5f81f3;
+    color: white;
+}
+
+#add-pin-to-board-modal-container button:hover{
+    background-color: #5574da;
+}

@@ -9,7 +9,6 @@ const EditCommentModal = ({ comment, onEditComplete }) => {
   const [errors, setErrors] = useState({});
   const [isSubmitted, setIsSubmitted] = useState(false);
 
-  // Validate the updated comment text
   const validate = () => {
     const newErrors = {};
 
@@ -45,7 +44,6 @@ const EditCommentModal = ({ comment, onEditComplete }) => {
     }
   };
 
-  // Handle change in comment textarea
   const handleChange = (e) => {
     const newCommentText = e.target.value;
     setUpdatedComment(newCommentText);

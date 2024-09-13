@@ -11,7 +11,7 @@ import "./BoardItems.css";
 function BoardItems({ boards, onEdit, onDelete }) {
   const { setModalContent, closeModal } = useModal();
 
-  console.log(boards)
+//   console.log(boards)
 
   const handleEditClick = (board) => {
     setModalContent(

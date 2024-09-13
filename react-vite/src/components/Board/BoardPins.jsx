@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchBoardPins } from "../../redux/boardPinReducer"
 import { useParams } from "react-router-dom";
@@ -11,7 +11,7 @@ const BoardPins = () => {
     // console.log('boardid', boardId)
 
     const boardPinsObj = useSelector((state) => state.boardPins.boardPins)
-    console.log("boardpinsObj", boardPinsObj)
+    // console.log("boardpinsObj", boardPinsObj)
 
     const boardPins = Object.values(boardPinsObj)
 

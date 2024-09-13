@@ -7,7 +7,6 @@ const CommentForm = ({ pinId, onCommentSubmitted, canLeaveComment }) => {
   const [errors, setErrors] = useState({});
   const [isSubmitted, setIsSubmitted] = useState(false);
 
-  // Validate the comment text
   const validate = () => {
     const newErrors = {};
 
@@ -45,7 +44,6 @@ const CommentForm = ({ pinId, onCommentSubmitted, canLeaveComment }) => {
     }
   };
 
-  // Handle change in description textarea
   const handleChange = (e) => {
     const newCommentText = e.target.value;
     setCommentText(newCommentText);
