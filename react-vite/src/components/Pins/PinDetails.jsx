@@ -60,7 +60,7 @@ function PinDetails() {
                   Like
                 </div>
                 <div id="right-section-likes-pin">
-                  <button onClick={handleAddPinClick} className='save-pin-button'>
+                  <button onClick={handleAddPinClick} className='save-pin-button-details'>
                     Save Pin
                   </button>
                 </div>

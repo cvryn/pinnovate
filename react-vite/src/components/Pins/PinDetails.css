@@ -112,7 +112,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  border: none;
+  border: 2px solid;
   background-color: rgb(208, 14, 35);
   border-radius: 20px;
   padding: 20px;
