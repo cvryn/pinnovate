@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useLoaderData } from "react-router-dom";
 import { createPin } from "../../router/pin";
-import TagSelector from "./TagSelector";
+import TagSelector from "../Tags/TagSelector";
 import "./PinForm.css";
 
 const PinForm = () => {

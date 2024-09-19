@@ -1,4 +1,4 @@
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, request
 from flask_login import current_user
 from app.models import db, Pin, Comment, Tag, Board, like, pin_tag
 from app.forms import PinForm, TagForm, BoardForm
@@ -52,31 +52,31 @@ def create_new_tag():
 
     return {"errors": form.errors}, 400
 
-# POST add tags to pins that belong to currently logged in user
-@tag_routes.route('/pin/<int:pin_id>/tag/<int:tag_id>', methods=['POST'])
-def add_tag_to_pin(pin_id, tag_id):
-    if not current_user.is_authenticated:
-        return {"error": "User not authenticated"}, 401
+# # POST add tags to pins that belong to currently logged in user
+# @tag_routes.route('/pin/<int:pin_id>/tag/<int:tag_id>', methods=['POST'])
+# def add_tag_to_pin(pin_id, tag_id):
+#     if not current_user.is_authenticated:
+#         return {"error": "User not authenticated"}, 401
 
-    pin = Pin.query.get(pin_id)
-    if not pin:
-        return {"error": "Pin not found"}, 404
+#     pin = Pin.query.get(pin_id)
+#     if not pin:
+#         return {"error": "Pin not found"}, 404
 
-    tag = Tag.query.get(tag_id)
-    if not tag:
-        return {"error": "Tag not found"}, 404
+#     tag = Tag.query.get(tag_id)
+#     if not tag:
+#         return {"error": "Tag not found"}, 404
 
-    if pin.user_id != current_user.id:
-        return {"error": "Unauthorized to modify this pin"}, 403
+#     if pin.user_id != current_user.id:
+#         return {"error": "Unauthorized to modify this pin"}, 403
 
-    # Check if the tag is already associated with the pin
-    if tag in pin.tags:
-        return {"error": "Tag is already associated with this pin"}, 400
+#     # Check if the tag is already associated with the pin
+#     if tag in pin.tags:
+#         return {"error": "Tag is already associated with this pin"}, 400
 
-    pin.tags.append(tag)
-    db.session.commit()
+#     pin.tags.append(tag)
+#     db.session.commit()
 
-    return {"message": "Tag added to pin successfully"}, 200
+#     return {"message": "Tag added to pin successfully"}, 200
 
 # PUT edit existing tag
 @tag_routes.route('/<int:tag_id>', methods=['PUT'])

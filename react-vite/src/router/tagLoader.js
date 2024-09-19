@@ -28,19 +28,23 @@ export const tagLoader = async (method, endpoint, data = null) => {
 export const fetchTags = () => tagLoader('GET', '/api/tags/all');
 
 // Fetch tags by pin Id
-export const fetchTagsByPinId = (pinId) => tagLoader('GET', `/api/tags/pin/${pinId}`);
+export const fetchTagsByPinId = (pinId) => tagLoader('GET', `/api/tags/pin/${pinId}`)  ;
 
 // Create a new tag
 export const createTag = (data) => tagLoader('POST', '/api/tags/new', data);
 
-// Add a tag to a pin
-export const addTagToPin = (pinId, tagId) => tagLoader('POST', `/api/tags/pin/${pinId}/tag/${tagId}`);
+// Add (multiple) tag(s) to a pin
+export const addTagsToPin = (pinId, tagIds) => {
+    return tagLoader('POST', `/api/pintags/pin/${pinId}/tags/add`, { tag_ids: tagIds });
+  };
 
 // Edit an existing tag
 export const updateTag = (tagId, data) => tagLoader('PUT', `/api/tags/${tagId}`, data);
 
-// Delete a tag from a pin
-export const deleteTagFromPin = (pinId, tagId) => tagLoader('DELETE', `/api/tags/pin/${pinId}/tag/${tagId}`);
+// Delete tag(s) from a pin
+export const removeTagsFromPin = (pinId, tagIds) => {
+    return tagLoader('DELETE', `/api/pintags/pin/${pinId}/tags/delete`, { tag_ids: tagIds });
+  };
 
 // Delete a user-created tag
 export const deleteUserCreatedTag = (tagId) => tagLoader('DELETE', `/api/tags/${tagId}`);

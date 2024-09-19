@@ -12,6 +12,7 @@ from .api.comment_routes import comment_routes
 from .api.tag_routes import tag_routes
 from .api.board_routes import board_routes
 from .api.boardpin_routes import boardpin_routes
+from .api.pintag_routes import pintag_routes
 
 from .seeds import seed_commands
 from .config import Config
@@ -39,6 +40,7 @@ app.register_blueprint(comment_routes, url_prefix='/api/comments')
 app.register_blueprint(tag_routes, url_prefix='/api/tags')
 app.register_blueprint(board_routes, url_prefix='/api/boards')
 app.register_blueprint(boardpin_routes, url_prefix='/api/boardpins')
+app.register_blueprint(pintag_routes, url_prefix='/api/pintags')
 
 db.init_app(app)
 Migrate(app, db)

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { fetchTags, addTagToPin, removeTagFromPin } from "../../router/tag";
+import { fetchTags, addTagsToPin, removeTagsFromPin } from "../../router/tagLoader";
 
 const TagManager = ({ pin, onClose }) => {
   const [tags, setTags] = useState([]);
@@ -21,11 +21,12 @@ const TagManager = ({ pin, onClose }) => {
 
   const handleAddTag = async () => {
     try {
-      const tagId = tags.find(tag => tag.name === newTag)?.id;
-      if (!tagId) return;
+      const tag = tags.find(tag => tag.name === newTag);
+      if (!tag) return;
 
-      await addTagToPin(pin.id, tagId);
-      setSelectedTags([...selectedTags, tagId]);
+      // Add tag to pin
+      await addTagsToPin(pin.id, [tag.id]);
+      setSelectedTags([...selectedTags, tag.id]);
       setNewTag("");
     } catch (error) {
       console.error("Failed to add tag:", error);
@@ -33,8 +34,10 @@ const TagManager = ({ pin, onClose }) => {
   };
 
   const handleRemoveTag = async (tagId) => {
+    
     try {
-      await removeTagFromPin(pin.id, tagId);
+      // Remove tag from pin
+      await removeTagsFromPin(pin.id, [tagId]);
       setSelectedTags(selectedTags.filter(id => id !== tagId));
     } catch (error) {
       console.error("Failed to remove tag:", error);
@@ -55,8 +58,8 @@ const TagManager = ({ pin, onClose }) => {
       </div>
       <div>
         <h3>Current Tags</h3>
-        {pin.tags && pin.tags.length > 0 ? (
-          pin.tags.map(tag => (
+        {selectedTags.length > 0 ? (
+          tags.filter(tag => selectedTags.includes(tag.id)).map(tag => (
             <div key={tag.id}>
               <span>#{tag.name}</span>
               <button onClick={() => handleRemoveTag(tag.id)}>Remove</button>
