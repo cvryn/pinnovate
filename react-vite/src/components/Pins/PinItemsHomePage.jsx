@@ -15,7 +15,7 @@ function PinItemsHomePage() {
   const { setModalContent } = useModal();
   const allPins = useSelector((state) => state.pin.allPins);
   const currentUser = useSelector((state) => state.session.user);
-  const likedPins = useSelector((state) => state.like); 
+  const likedPins = useSelector((state) => state.like);
   const [hoveredPin, setHoveredPin] = useState(null);
 
   useEffect(() => {
@@ -73,12 +73,14 @@ function PinItemsHomePage() {
                   <LikeButton currentUser={currentUser} pinId={pin.id} className='heart-icon-hp' />
                 ) : null}
               </div>
-              <button
-                className="save-pin-button"
-                onClick={() => handleSavePinClick(pin.id)}
-              >
-                Save Pin
-              </button>
+              {currentUser && (
+                <button
+                  className="save-pin-button"
+                  onClick={() => handleSavePinClick(pin.id)}
+                >
+                  Save Pin
+                </button>
+              )}
             </div>
           ))}
         </Masonry>
