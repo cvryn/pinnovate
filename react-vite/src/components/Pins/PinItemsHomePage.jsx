@@ -7,14 +7,16 @@ import { Link } from "react-router-dom";
 import Masonry from 'react-masonry-css';
 import { useModal } from "../../context/Modal";
 import AddPinToBoardModal from "./AddPinToBoardModal";
+import LikeButton from "../Likes/LikeButton";
 
 function PinItemsHomePage() {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
-
   const { setModalContent } = useModal();
-
   const allPins = useSelector((state) => state.pin.allPins);
+  const currentUser = useSelector((state) => state.session.user);
+  const likedPins = useSelector((state) => state.like); 
+  const [hoveredPin, setHoveredPin] = useState(null);
 
   useEffect(() => {
     const loadPins = async () => {
@@ -57,10 +59,20 @@ function PinItemsHomePage() {
           columnClassName="masonry-grid-column"
         >
           {sortedPins.map(pin => (
-            <div key={pin.id} className="pin-item-hp">
+            <div
+              key={pin.id}
+              className="pin-item-hp"
+              onMouseEnter={() => setHoveredPin(pin.id)}
+              onMouseLeave={() => setHoveredPin(null)}
+            >
               <Link to={`/pins/${pin.id}`}>
                 <img src={pin.image_url} alt={pin.title} />
               </Link>
+              <div className='like-button-container-hp'>
+                {likedPins[pin.id] || hoveredPin === pin.id ? (
+                  <LikeButton currentUser={currentUser} pinId={pin.id} className='heart-icon-hp' />
+                ) : null}
+              </div>
               <button
                 className="save-pin-button"
                 onClick={() => handleSavePinClick(pin.id)}

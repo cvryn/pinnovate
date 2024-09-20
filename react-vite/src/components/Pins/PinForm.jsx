@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useLoaderData } from "react-router-dom";
 import { createPin } from "../../router/pin";
+import { addTagsToPin } from "../../router/tagLoader";
+
 import TagSelector from "../Tags/TagSelector";
 import "./PinForm.css";
 
@@ -21,11 +23,11 @@ const PinForm = () => {
 
   const validateForm = () => {
     const newErrors = {};
+    const allowedExtensions = ["pdf", "png", "jpg", "jpeg", "gif"];
 
     if (!file) {
       newErrors.image_url = "Image is required first";
     } else {
-      const allowedExtensions = ["pdf", "png", "jpg", "jpeg", "gif"];
       const fileExtension = file.name.split('.').pop().toLowerCase();
       if (!allowedExtensions.includes(fileExtension)) {
         newErrors.image_url = `File must be one of the following types: ${allowedExtensions.join(", ")}`;
@@ -43,16 +45,10 @@ const PinForm = () => {
     return newErrors;
   };
 
-  // const handleRemoveImage = () => {
-  //   setFile(null);
-  //   setErrors((prevErrors) => ({ ...prevErrors, image_url: "Image is required first" }));
-  // };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     const validationErrors = validateForm();
-
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
       return;
@@ -67,13 +63,12 @@ const PinForm = () => {
       formData.append("image_url", file);
     }
 
-    tags.forEach((tag) => {
-      formData.append("tags", tag);
-    });
-
     try {
       const newPin = await createPin(formData);
       if (newPin && newPin.id) {
+        if (tags.length > 0) {
+          await addTagsToPin(newPin.id, tags.map(tag => tag.id));
+        }
         navigate(`/pins/${newPin.id}`);
       } else {
         throw new Error("Failed to create pin");
@@ -127,13 +122,6 @@ const PinForm = () => {
                     borderRadius: "8px",
                   }}
                 />
-                {/* <button
-                  type="button"
-                  onClick={handleRemoveImage}
-                  className="remove-image-btn"
-                >
-                  X
-                </button> */}
               </div>
             ) : (
               <div>
@@ -177,6 +165,7 @@ const PinForm = () => {
             {errors.description && <p>{errors.description}</p>}
           </div>
         </div>
+        
         {/* Tags */}
         <TagSelector
           selectedTags={tags}
@@ -184,7 +173,7 @@ const PinForm = () => {
           tagOptions={tagOptions}
           isFormDisabled={isFormDisabled}
         />
-        <button className='create-pin-submit-button' type="submit">
+        <button className='create-pin-submit-button' type="submit" disabled={isFormDisabled}>
           Create Pin
         </button>
       </form>

@@ -1,85 +1,83 @@
 #pin-items-container {
-  /* border: 2px solid blue; */
   display: flex;
-  flex-direction: row;
   flex-wrap: wrap;
-  padding: 10px;
-  gap: 10px;
+  gap: 16px;
 }
 
 .pin-item {
-  /* border: 2px solid red; */
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  padding: 10px;
-  width: 180px;
-  /* height: 400px; */
-  background-color: #fff;
-  border: 1px solid #ddd;
-  border-radius: 12px;
+  position: relative;
+  width: 280px;
+  height: 280px;
+  text-align: center;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-sizing: border-box;
   overflow: hidden;
-  transition: box-shadow 0.3s ease;
-  box-shadow: 0 0 3px rgb(181, 181, 181);
-}
-
-.pin-item:hover {
-  box-shadow: 0 0 5px rgb(181, 181, 181);
-  background-color: #f5f5f5;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .pin-item img {
   width: 100%;
-  height: auto;
-  border-radius: 8px;
-  margin-bottom: 10px;
+  height: 100%;
+  object-fit: cover;
+
 }
 
 .pin-item-content {
-  /* border: 2px solid red; */
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   display: flex;
   flex-direction: column;
-  /* align-items: center; */
-  justify-content: space-between;
-  padding: 8px;
-  text-align: center;
-  width: 100%;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.8);
+  opacity: 0;
+  transition: opacity 0.3s ease; 
 
 }
 
-.pin-item-description {
-  overflow-y: auto;
-  max-height: 60px;
-  margin-bottom: 8px;
+.pin-item:hover .pin-item-content {
+  opacity: 1;
 }
 
-.pin-item-content h3 {
-  margin: 0;
-  font-size: 16px;
-}
-
-.pin-item-content button {
-  background-color: #5f81f3;
-  border: none;
-  color: white;
-  padding: 8px 12px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 14px;
-  margin: 4px 2px;
-  border-radius: 4px;
-  transition: background-color 0.3s ease;
-}
-
-.pin-item-content p {
+.pin-actions-buttons {
   /* border: 2px solid blue; */
-  word-wrap: break-word;
-  overflow-wrap: break-word;
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  display: flex;
+  gap: 10px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
 
-.pin-item-content button:hover {
-  background-color: #516fd1;
+.pin-item:hover .pin-actions-buttons {
+  opacity: 1;
+}
+
+.pin-actions-buttons button {
+  background: none;
+  border: none;
+  /* border: 2px solid red; */
+  cursor: pointer;
+  color: #a1a1a1;
+  transition: color 0.3s ease;
+}
+
+.pin-icons {
+  font-size: 20px;
+}
+
+.delete-pin-button-manage:hover {
+  color: red;
+}
+
+.edit-pin-button:hover {
+  color: rgb(87, 114, 234);
+}
+
+.edit-tags-button:hover {
+  color: rgb(34, 192, 100);
 }

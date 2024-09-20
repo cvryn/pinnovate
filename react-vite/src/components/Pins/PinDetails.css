@@ -1,5 +1,4 @@
 #pin-details-main-container {
-  /* border: 2px solid red; */
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -9,12 +8,10 @@
 
 #left-section-container-pin-details,
 #right-section-container-pin-details {
-  /* border: 2px solid green; */
   flex: 1;
 }
 
 #middle-main-content-section {
-  /* border: 2px solid blue; */
   box-sizing: border-box;
   display: flex;
   justify-content: space-between;
@@ -26,14 +23,11 @@
 }
 
 #main-left-container {
-  /* border: 2px solid pink; */
   width: 50%;
   display: flex;
   justify-content: center;
-  /* align-items: center; */
   overflow: hidden;
   border-radius: 20px 0 0 20px;
-  /* object-fit: cover */
   position: relative;
 }
 
@@ -45,7 +39,6 @@
 }
 
 #main-right-container {
-  /* border: 2px solid orange; */
   width: 50%;
 }
 
@@ -81,33 +74,6 @@
   object-fit: cover;
 }
 
-#left-section-likes-pin {
-}
-#more-like-this-by-tags-pins {
-  /* border: 2px solid red; */
-  display: flex;
-  flex-wrap: nowrap;
-  overflow-x: auto;
-  /* width: 100%; */
-}
-#more-like-this-by-tags-pins .pin-item {
-  width: 100px;
-  height: 100px;
-  overflow: hidden;
-  border-radius: 8px;
-}
-
-#more-like-this-by-tags-pins .pin-item img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-
-#right-section-likes-pin {
-  /* border: 2px solid red; */
-
-}
 #right-section-likes-pin button {
   display: flex;
   justify-content: center;
@@ -120,24 +86,98 @@
 }
 
 #right-section-likes-pin button:hover {
-
   background-color: rgb(183, 17, 34);
-
 }
 
 .description-pin-details,
 .title-pin-details,
 .pin-tags-pin-details {
-  /* border: 2px solid red; */
   word-break: break-all;
 }
 
 #left-section-comments-container {
-  /* border: 2px solid red; */
+  flex: 1;
 }
 
 #show-comments {
-  /* border: 2px solid orange; */
   flex: 1;
   max-height: 1000px;
+}
+
+/* MQs smaller screens */
+@media screen and (max-width: 768px) {
+  #pin-details-main-container {
+    flex-direction: column;
+  }
+
+  #middle-main-content-section {
+    flex-direction: column;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  #main-left-container {
+    width: 100%;
+    border-radius: 0;
+  }
+
+  #main-right-container {
+    width: 100%;
+    padding: 0;
+  }
+
+  /* Like button and Save button move over the image */
+  #top-section-likes-pin-container {
+    position: absolute;
+    top: 120px;
+    left: 10px;
+    right: 10px;
+    z-index: 1;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  #pin-title-description-container {
+    margin-top: 10px;
+    text-align: center;
+  }
+
+  #left-section-comments-container {
+    margin-top: 20px;
+    padding: 10px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  #pin-details-main-container {
+    padding: 10px;
+  }
+
+  #top-section-likes-pin-container {
+    padding: 10px;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  #right-section-likes-pin button {
+    padding: 10px;
+  }
+
+  #pin-title-description-container h1 {
+    font-size: 24px;
+  }
+
+  #pin-creator-details {
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .pin-creator-profile-pic {
+    width: 40px;
+    height: 40px;
+  }
+
+  #main-left-container img {
+    max-height: 300px;
+  }
 }

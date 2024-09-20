@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addLike, removeLike, fetchLikedPins } from "../../redux/likeReducer";
 import { IoMdHeartEmpty, IoMdHeart } from "react-icons/io";
+import "./LikeButton.css";
 
 const LikeButton = ({ currentUser, pinId }) => {
   const dispatch = useDispatch();
@@ -30,24 +31,17 @@ const LikeButton = ({ currentUser, pinId }) => {
 
   return (
     <>
-    {/* <h1>ʕ*•͈ ﻌ •͈ʔฅ</h1> */}
-    <div style={{ display: "flex", alignItems: "center" }}>
-      <button
-        onClick={handleLikeClick}
-        style={{
-          border: "none",
-          background: "transparent",
-          cursor: "pointer",
-        }}
-      >
-        {liked ? (
-          <IoMdHeart style={{ color: "rgb(208, 14, 35)", height: "30px", width: "30px" }} />
-        ) : (
-          <IoMdHeartEmpty style={{ height: "30px", width: "30px" }} />
-        )}
-      </button>
-      {liked && <span style={{ marginLeft: "8px" }}>Liked!</span>}
-    </div>
+      {/* <h1>ʕ•͈ ﻌ •͈ʔฅ</h1> */}
+      <div className="like-button-container">
+        <button onClick={handleLikeClick} className="like-button">
+          {liked ? (
+            <IoMdHeart className="heart-icon liked" />
+          ) : (
+            <IoMdHeartEmpty className="heart-icon empty" />
+          )}
+        </button>
+        {liked && <span className="liked-text">Liked!</span>}
+      </div>
     </>
   );
 };

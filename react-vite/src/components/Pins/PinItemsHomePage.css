@@ -14,6 +14,18 @@
     border-radius: 12px;
 }
 
+.like-button-container-hp {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: 10;
+}
+
+.heart-icon-hp {
+    font-size: 24px;
+    color:  rgb(208, 14, 35);
+}
+
 .save-pin-button {
     position: absolute;
     top: 10px;

@@ -1,5 +1,8 @@
 import { Link } from "react-router-dom";
 import { useModal } from "../../context/Modal";
+import { FaPen } from "react-icons/fa";
+import { FaTrashCan } from "react-icons/fa6";
+import { FaHashtag } from "react-icons/fa";
 import EditPinModal from "./EditPinModal";
 import DeletePinModal from "./DeletePinModal";
 import EditTagModal from "../Tags/EditTagModal";
@@ -62,7 +65,6 @@ function PinItemsManage({ pins, onDelete, onEdit }) {
               <img src={pin.image_url} alt={pin.title} />
             </Link>
             <div className="pin-item-content">
-              <h3>{pin.title}</h3>
               {pin.description !== "null" && (
                 <p>{pin.description || "No description available"}</p>
               )}
@@ -77,31 +79,36 @@ function PinItemsManage({ pins, onDelete, onEdit }) {
                       .join(", ")
                   : "No tags"}
               </p>
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  handleEditClick(pin);
-                }}
-              >
-                Edit
-              </button>
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  handleDeleteClick(pin.id);
-                }}
-              >
-                Delete
-              </button>
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  handleEditTagsClick(pin);
-                }}
-              >
-                Edit Tags
-              </button>
-            </div>
+              </div>
+              <div className="pin-actions-buttons">
+                <button
+                  className="edit-pin-button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleEditClick(pin);
+                  }}
+                >
+                  <FaPen className='pin-icons' />
+                </button>
+                <button
+                  className="edit-tags-button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleEditTagsClick(pin);
+                  }}
+                >
+                  <FaHashtag className='pin-icons' />
+                </button>
+                <button
+                  className="delete-pin-button-manage"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleDeleteClick(pin.id);
+                  }}
+                >
+                  <FaTrashCan className='pin-icons' />
+                </button>
+              </div>
           </div>
         ))
       ) : (

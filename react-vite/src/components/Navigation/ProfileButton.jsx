@@ -82,6 +82,12 @@ function ProfileButton() {
               <li>{user.email}</li>
               <li><hr /></li>
               <li>
+                <Link to="/user/current" onClick={() => handleNavigation('/user/current')} className='user-profile-page-button' style={{ textAlign: "center" }}>
+                  Your Profile
+                </Link>
+              </li>
+              <li><hr /></li>
+              <li>
                 <Link to="/user/pins" onClick={() => handleNavigation('/user/pins')} className='manage-pins-button' style={{ textAlign: "center" }}>
                   Manage Pins
                 </Link>
