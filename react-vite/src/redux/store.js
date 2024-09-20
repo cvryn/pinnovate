@@ -9,12 +9,14 @@ import sessionReducer from "./session";
 import pinReducer from "./pinReducer";
 import tagReducer from "./tagReducer";
 import boardPinReducer from "./boardPinReducer";
+import likeReducer from "./likeReducer";
 
 const rootReducer = combineReducers({
   session: sessionReducer,
   pin: pinReducer,
   tag: tagReducer,
   boardPins: boardPinReducer,
+  like: likeReducer,
 });
 
 let enhancer;

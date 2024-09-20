@@ -28,10 +28,12 @@ class Pin(db.Model):
     # Many-to-Many Relationships
     tags = db.relationship("Tag", secondary=pin_tag, back_populates="pins")
     liked_by_users = db.relationship(
-        "User", secondary=like, back_populates="liked_pins"
+        "User", secondary=like, back_populates="liked_pins",
+        cascade="all, delete"
     )
     boards = db.relationship(
-        "Board", secondary=board_pin, back_populates="pins"
+        "Board", secondary=board_pin, back_populates="pins",
+        cascade="all, delete"
     )
 
     # One-to-Many Relationships

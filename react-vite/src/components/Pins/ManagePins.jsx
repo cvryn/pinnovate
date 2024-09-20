@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import PinItems from "./PinItems";
+import PinItemsManage from "./PinItemsManage";
 import { fetchPins, deletePin, updatePin } from "../../router/pin";
 import catloading from '../../../public/cat-what.gif'
 import { useSelector } from "react-redux";
-import "./PinItems.css";
 import './ManagePins.css';
 
 const ManagePins = () => {
@@ -69,7 +68,7 @@ const ManagePins = () => {
       ) : (
         <div id="pin-container-collection">
           {pins.length > 0 ? (
-            <PinItems
+            <PinItemsManage
               pins={pins}
               onDelete={handleDeletePin}
               onEdit={handleEditPin}
