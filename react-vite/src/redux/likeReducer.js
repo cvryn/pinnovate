@@ -26,7 +26,7 @@ export const fetchLikedPins = () => async (dispatch) => {
     const response = await fetch("/api/likes/current/all");
     if (response.ok) {
       const { liked_pins } = await response.json();
-      console.log("Fetched liked pins from backend:", liked_pins);
+    //   console.log("Fetched liked pins from backend:", liked_pins);
       dispatch(loadLikedPins(liked_pins.map((pin) => pin.id))); // Store only pin IDs
     } else {
       console.error("Error fetching liked pins");
