@@ -5,8 +5,8 @@ import { IoMdHeartEmpty, IoMdHeart } from "react-icons/io";
 
 const LikeButton = ({ currentUser, pinId }) => {
   const dispatch = useDispatch();
-  const likedPins = useSelector((state) => state.like.likedPins);
-  const liked = likedPins.includes(pinId);
+  const likedPins = useSelector((state) => state.like);
+  const liked = likedPins[pinId];
 
   useEffect(() => {
     if (currentUser) {
@@ -30,28 +30,24 @@ const LikeButton = ({ currentUser, pinId }) => {
 
   return (
     <>
-      {/* <h1>ʕ*•͈ ﻌ •͈ʔฅ</h1> */}
-      <div style={{ display: "flex", alignItems: "center" }}>
-        <button
-          onClick={handleLikeClick}
-          style={{
-            border: "none",
-            background: "transparent",
-            cursor: "pointer",
-          }}
-        >
-          {liked ? (
-            <IoMdHeart
-              style={{ color: "red", height: "30px", width: "30px" }}
-            />
-          ) : (
-            <IoMdHeartEmpty style={{ height: "30px", width: "30px" }} />
-          )}
-        </button>
-        {/* <span style={{ marginLeft: "8px" }}>
-          {liked ? "Liked" : "Not liked"}
-        </span> */}
-      </div>
+    {/* <h1>ʕ*•͈ ﻌ •͈ʔฅ</h1> */}
+    <div style={{ display: "flex", alignItems: "center" }}>
+      <button
+        onClick={handleLikeClick}
+        style={{
+          border: "none",
+          background: "transparent",
+          cursor: "pointer",
+        }}
+      >
+        {liked ? (
+          <IoMdHeart style={{ color: "rgb(208, 14, 35)", height: "30px", width: "30px" }} />
+        ) : (
+          <IoMdHeartEmpty style={{ height: "30px", width: "30px" }} />
+        )}
+      </button>
+      {liked && <span style={{ marginLeft: "8px" }}>Liked!</span>}
+    </div>
     </>
   );
 };

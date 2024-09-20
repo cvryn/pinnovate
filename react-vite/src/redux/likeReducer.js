@@ -61,22 +61,28 @@ export const removeLike = (pinId) => async (dispatch) => {
   return response;
 };
 
-const initialState = { likedPins: [] };
+const initialState = {};
 
+// Reducer
 const likeReducer = (state = initialState, action) => {
   switch (action.type) {
-    case LOAD_LIKED_PINS:
-      return {
-        ...state,
-        likedPins: Array.isArray(action.pins) ? action.pins : [],
-      };
-    case LIKE_PIN:
-      return { ...state, likedPins: [...state.likedPins, action.pinId] };
-    case UNLIKE_PIN:
-      return {
-        ...state,
-        likedPins: state.likedPins.filter((pinId) => pinId !== action.pinId),
-      };
+    case LOAD_LIKED_PINS: {
+      const newState = { ...state };
+      action.pins.forEach(pinId => {
+        newState[pinId] = true;
+      });
+      return newState;
+    }
+    case LIKE_PIN: {
+      const newState = { ...state };
+      newState[action.pinId] = true;
+      return newState;
+    }
+    case UNLIKE_PIN: {
+        const newState = { ...state };
+        delete newState[action.pinId];
+        return newState;
+    }
     default:
       return state;
   }
