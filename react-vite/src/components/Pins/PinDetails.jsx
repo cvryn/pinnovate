@@ -1,12 +1,13 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { IoMdArrowBack } from "react-icons/io";
-// import { IoMdHeartEmpty } from "react-icons/io";
 import { fetchPins } from "../../redux/pinReducer";
 import { Link, useParams } from "react-router-dom";
 import Comment from "../Comment/Comment";
 import AddPinToBoardModal from "./AddPinToBoardModal";
 import { useModal } from "../../context/Modal";
+import LikeButton from "../Likes/LikeButton";
+import { fetchLikedPins } from "../../redux/likeReducer";
 
 import "./PinDetails.css";
 
@@ -16,12 +17,19 @@ function PinDetails() {
   const dispatch = useDispatch();
   const { setModalContent, closeModal } = useModal();
 
-  useEffect(() => {
-    dispatch(fetchPins(pinId));
-  }, [dispatch, pinId]);
-
   const pin = useSelector((state) => state.pin.allPins[pinId]) || {};
   const currentUser = useSelector((state) => state.session.user);
+
+  useEffect(() => {
+  if (pinId) {
+    dispatch(fetchPins(pinId));
+  }
+
+  if (currentUser) {
+    dispatch(fetchLikedPins());
+  }
+}, [dispatch, pinId, currentUser]);
+
 
   const handleAddPinClick = () => {
     setModalContent(
@@ -54,10 +62,7 @@ function PinDetails() {
             {currentUser &&
               <section id="top-section-likes-pin-container">
                 <div id="left-section-likes-pin">
-                  {/* <button>
-                    <IoMdHeartEmpty />
-                  </button> */}
-                  Like
+                  <LikeButton currentUser={currentUser} pinId={pinId}/>
                 </div>
                 <div id="right-section-likes-pin">
                   <button onClick={handleAddPinClick} className='save-pin-button-details'>
