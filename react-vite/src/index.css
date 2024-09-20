@@ -1,4 +1,4 @@
-@import url(https://db.onlinewebfonts.com/c/02d8f1743ede250c7c9865f1574d7cc6?family=Circular+Book);
+/* @import url(https://db.onlinewebfonts.com/c/02d8f1743ede250c7c9865f1574d7cc6?family=Circular+Book); */
 @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
 
 * {
@@ -6,7 +6,7 @@
     padding: 0;
     box-sizing: border-box;
     /* font-family: Arial, Helvetica, sans-serif; */
-    font-family: "Circular Book",Arial, Helvetica, sans-serif;
+    font-family: Arial, Helvetica, sans-serif;
     font-size: 14px;
   }
 
