@@ -12,7 +12,7 @@ function SearchBar() {
         <div id='search-bar'>
         <input
           onClick={() => setTagsDropDown(!tagsDropDown)}
-          placeholder="Search"
+          placeholder="Search By Tags! Currently not functioning, work in progress!"
         ></input>
         <IoSearch />
 
