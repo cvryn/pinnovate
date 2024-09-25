@@ -61,54 +61,54 @@ function PinItemsManage({ pins, onDelete, onEdit }) {
       {pins && pins.length > 0 ? (
         pins.map((pin) => (
           <div key={pin.id} className="pin-item">
-            <Link to={`/pins/${pin.id}`}>
+            <Link to={`/pins/${pin.id}`} className="pin-link">
               <img src={pin.image_url[0]} alt={pin.title} />
+              <div className="pin-item-content">
+                {pin.description !== "null" && (
+                  <p>{pin.description || "No description available"}</p>
+                )}
+                {pin.description === "null" && (
+                  <p>{"No description available"}</p>
+                )}
+                <p>
+                  {pin.tags && pin.tags.length > 0
+                    ? pin.tags
+                        .filter((tag) => tag?.name)
+                        .map((tag) => `#${tag.name}`)
+                        .join(", ")
+                    : "No tags"}
+                </p>
+              </div>
             </Link>
-            <div className="pin-item-content">
-              {pin.description !== "null" && (
-                <p>{pin.description || "No description available"}</p>
-              )}
-              {pin.description === "null" && (
-                <p>{"No description available"}</p>
-              )}
-              <p>
-                {pin.tags && pin.tags.length > 0
-                  ? pin.tags
-                      .filter((tag) => tag?.name)
-                      .map((tag) => `#${tag.name}`)
-                      .join(", ")
-                  : "No tags"}
-              </p>
-              </div>
-              <div className="pin-actions-buttons">
-                <button
-                  className="edit-pin-button"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    handleEditClick(pin);
-                  }}
-                >
-                  <FaPen className='pin-icons' />
-                </button>
-                <button
-                  className="edit-tags-button"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    handleEditTagsClick(pin);
-                  }}
-                >
-                  <FaHashtag className='pin-icons' />
-                </button>
-                <button
-                  className="delete-pin-button-manage"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    handleDeleteClick(pin.id);
-                  }}
-                >
-                  <FaTrashCan className='pin-icons' />
-                </button>
-              </div>
+            <div className="pin-actions-buttons">
+              <button
+                className="edit-pin-button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleEditClick(pin);
+                }}
+              >
+                <FaPen className="pin-icons" />
+              </button>
+              <button
+                className="edit-tags-button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleEditTagsClick(pin);
+                }}
+              >
+                <FaHashtag className="pin-icons" />
+              </button>
+              <button
+                className="delete-pin-button-manage"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleDeleteClick(pin.id);
+                }}
+              >
+                <FaTrashCan className="pin-icons" />
+              </button>
+            </div>
           </div>
         ))
       ) : (

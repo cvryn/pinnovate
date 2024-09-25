@@ -17,7 +17,6 @@ function PinItemsHomePage() {
   const currentUser = useSelector((state) => state.session.user);
   const likedPins = useSelector((state) => state.like);
   const [hoveredPin, setHoveredPin] = useState(null);
-  console.log("!!!!!!", allPins);
 
   useEffect(() => {
     const loadPins = async () => {
