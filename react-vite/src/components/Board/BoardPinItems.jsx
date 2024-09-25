@@ -29,7 +29,7 @@ const BoardPinItems = ({ boardPins, onDelete }) => {
         boardPins.map((pin) => (
           <div key={pin.id} className='boardpin-item-container'>
             <Link to={`/pins/${pin.id}`} className='boardpin-item'>
-              <img src={pin.image_url} alt={pin.title} />
+              <img src={pin.image_url[0]} alt={pin.title} />
             </Link>
             <button className='delete-pin-button' onClick={() => handleDeleteClick(pin.id)}>
               <FaTrashCan className='board-icons' />

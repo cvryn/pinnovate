@@ -1,16 +1,16 @@
 """initial migration
 
-Revision ID: 7c080ab6067d
-Revises: 
-Create Date: 2024-09-12 20:35:55.454933
+Revision ID: 23293c467e01
+Revises:
+Create Date: 2024-09-24 23:42:04.076879
 
 """
 from alembic import op
 import sqlalchemy as sa
-
+from sqlalchemy.dialects import postgresql
 
 # revision identifiers, used by Alembic.
-revision = '7c080ab6067d'
+revision = '23293c467e01'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -45,7 +45,7 @@ def upgrade():
     sa.Column('user_id', sa.Integer(), nullable=False),
     sa.Column('title', sa.String(length=255), nullable=False),
     sa.Column('description', sa.String(length=255), nullable=True),
-    sa.Column('image_url', sa.String(length=2550), nullable=False),
+    sa.Column('image_url', postgresql.JSON(), nullable=False),
     sa.Column('created_at', sa.DateTime(), nullable=True),
     sa.Column('updated_at', sa.DateTime(), nullable=True),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),

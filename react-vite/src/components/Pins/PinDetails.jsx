@@ -50,7 +50,7 @@ function PinDetails() {
         <div id="main-left-container">
           <img
             className="pin-details-image-display"
-            src={pin?.image_url}
+            src={pin?.image_url[0]}
             alt="pin image"
           />
         </div>

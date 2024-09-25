@@ -4,6 +4,7 @@ from .pintag import pin_tag
 from .like import like
 from .board import board_pin
 from datetime import datetime, timezone
+from sqlalchemy.dialects.postgresql import JSON
 
 class Pin(db.Model):
     __tablename__ = "pins"
@@ -17,7 +18,7 @@ class Pin(db.Model):
     )
     title = db.Column(db.String(255), nullable=False)
     description = db.Column(db.String(255), nullable=True)
-    image_url = db.Column(db.String(2550), nullable=False)
+    image_url = db.Column(JSON, nullable=False)
     created_at = db.Column(db.DateTime, default=lambda: datetime.now(tz=timezone.utc))
     updated_at = db.Column(
         db.DateTime,

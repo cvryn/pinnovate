@@ -23,7 +23,7 @@
 
 .heart-icon-hp {
     font-size: 24px;
-    color:  rgb(208, 14, 35);
+    color: rgb(208, 14, 35);
 }
 
 .save-pin-button {
@@ -52,42 +52,46 @@
     background-color: rgb(183, 17, 34);
 }
 
+
 .masonry-grid {
     display: flex;
     flex-wrap: wrap;
-    margin: -16px;
+    margin: -16px; /* Spacing between columns */
 }
+
 
 .masonry-grid-column {
     padding: 16px;
     box-sizing: border-box;
-    flex: 1;
+    flex: 0 0 auto;
 }
 
 @media (min-width: 500px) {
     .masonry-grid-column {
-        /* 5 columns */
-        flex: 0 0 20%;
+        width: calc(50% - 32px); /* 2 columns */
     }
 }
 
 @media (min-width: 600px) {
     .masonry-grid-column {
-        /* 6 columns */
-        flex: 0 0 16%;
+        width: calc(33.33% - 32px); /* 3 columns */
     }
 }
 
 @media (min-width: 900px) {
     .masonry-grid-column {
-        /* 4 columns */
-        flex: 0 0 25%;
+        width: calc(25% - 32px); /* 4 columns */
     }
 }
 
 @media (min-width: 1200px) {
     .masonry-grid-column {
-        /* 5 columns */
-        flex: 0 0 20%;
+        width: calc(20% - 32px); /* 5 columns */
+    }
+}
+
+@media (min-width: 1400px) {
+    .masonry-grid-column {
+        width: calc(16.67% - 32px); /* 6 columns */
     }
 }

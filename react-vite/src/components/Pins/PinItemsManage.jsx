@@ -62,7 +62,7 @@ function PinItemsManage({ pins, onDelete, onEdit }) {
         pins.map((pin) => (
           <div key={pin.id} className="pin-item">
             <Link to={`/pins/${pin.id}`}>
-              <img src={pin.image_url} alt={pin.title} />
+              <img src={pin.image_url[0]} alt={pin.title} />
             </Link>
             <div className="pin-item-content">
               {pin.description !== "null" && (

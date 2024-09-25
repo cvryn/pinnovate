@@ -42,20 +42,21 @@ def create_pin():
     form.tags.choices = [(tag.id, tag.name) for tag in tags]
 
     if form.validate_on_submit():
-        # Image Upload
-        image_file = form.image_url.data
-        image_file.filename = get_unique_filename(image_file.filename)
-        upload_result = upload_file_to_s3(image_file, acl="public-read")
-
-        if "url" not in upload_result:
-            return {"errors": upload_result["errors"]}, 400
-
+        image_url = []
+        image_files = request.files.getlist("image_url")
+        for image_file in image_files:
+            image_file.filename = get_unique_filename(image_file.filename)
+            upload_result = upload_file_to_s3(image_file, acl="public-read")
+            if "url" in upload_result:
+                image_url.append(upload_result["url"])
+            else:
+                return {"errors": upload_result["errors"]}, 400
 
         new_pin = Pin(
             user_id=current_user.id,
             title=form.title.data,
             description=form.description.data,
-            image_url=upload_result["url"],
+            image_url=image_url,
         )
 
         # Tags

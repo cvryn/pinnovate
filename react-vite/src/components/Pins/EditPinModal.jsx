@@ -8,7 +8,11 @@ const EditPinModal = ({ pin, onEditComplete, onClose }) => {
     pin?.description === "null" ? "" : pin?.description || ""
   );
   const [file, setFile] = useState(null);
-  const [imageURL, setImageURL] = useState(pin?.image_url || "");
+  const [imageURL, setImageURL] = useState(
+    Array.isArray(pin?.image_url) && pin.image_url.length > 0
+      ? pin.image_url[0]
+      : ""
+  );
   const [filename, setFilename] = useState("");
   const [errors, setErrors] = useState({});
 
@@ -115,7 +119,7 @@ const EditPinModal = ({ pin, onEditComplete, onClose }) => {
 
   useEffect(() => {
     if (pin?.image_url) {
-      const urlParts = pin.image_url.split("/");
+      const urlParts = pin.image_url[0].split("/");
       setFilename(urlParts[urlParts.length - 1]);
     }
   }, [pin]);
