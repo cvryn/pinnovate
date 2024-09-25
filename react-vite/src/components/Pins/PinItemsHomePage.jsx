@@ -17,6 +17,7 @@ function PinItemsHomePage() {
   const currentUser = useSelector((state) => state.session.user);
   const likedPins = useSelector((state) => state.like);
   const [hoveredPin, setHoveredPin] = useState(null);
+  console.log("!!!!!!", allPins);
 
   useEffect(() => {
     const loadPins = async () => {
@@ -82,8 +83,10 @@ function PinItemsHomePage() {
               <Link to={`/pins/${pin.id}`}>
                 <img
                   src={
-                    Array.isArray(pin.image_url)
+                    Array.isArray(pin.image_url) && pin.image_url.length >= 2
                       ? pin.image_url[1]
+                      : Array.isArray(pin.image_url) && pin.image_url.length > 0
+                      ? pin.image_url[0]
                       : pin.image_url
                   }
                   alt={pin.title}
