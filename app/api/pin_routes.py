@@ -95,21 +95,30 @@ def edit_pin(pin_id):
         image_file.filename = get_unique_filename(image_file.filename)
         upload_result = upload_file_to_s3(image_file, acl="public-read")
         if "url" in upload_result:
-            # Remove old image
-            if pin.image_url:
+            # Remove old image(s) if they exist
+            if isinstance(pin.image_url, list):
+                for old_image in pin.image_url:
+                    remove_file_from_s3(old_image)
+            else:
                 remove_file_from_s3(pin.image_url)
-            pin.image_url = upload_result["url"]
+
+            # Update pin's image_url to new one
+            pin.image_url = [upload_result["url"]]
         else:
             return {"errors": upload_result["errors"]}, 400
-    elif remove_image and pin.image_url:
-        remove_file_from_s3(pin.image_url)
-        pin.image_url = None
 
+    elif remove_image and pin.image_url:
+        if isinstance(pin.image_url, list):
+            for old_image in pin.image_url:
+                remove_file_from_s3(old_image)
+            pin.image_url = []
+        else:
+            remove_file_from_s3(pin.image_url)
+            pin.image_url = None
     if title:
         pin.title = title.strip()
     if description:
         pin.description = description.strip()
-
 
     tag_ids = request.form.getlist("tags")
     if tag_ids:
