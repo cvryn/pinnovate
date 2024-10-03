@@ -1,0 +1,69 @@
+.pin-item-search-bar {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-sizing: border-box;
+    overflow: hidden;
+    transition: transform 0.3s;
+}
+
+.pin-item-search-bar:hover {
+    transform: scale(1.05);
+}
+
+.pin-item-search-bar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+
+.pin-item-content-search-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.8);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+  }
+
+
+  .pin-item-search-bar:hover .pin-item-content-search-bar {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .pin-item-content-search-bar h2 {
+    margin: 0;
+  }
+
+
+  .pin-item-content-search-bar p {
+    margin: 0;
+  }
+
+
+  .pin-item-content-search-bar p:last-child {
+    color: #666;
+    font-style: italic;
+  }
+
+  .pin-link-search-bar {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .pin-link-search-bar:hover {
+    color: #007bff;
+    text-decoration: underline;
+  }
