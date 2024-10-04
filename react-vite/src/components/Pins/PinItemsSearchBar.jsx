@@ -7,6 +7,7 @@ function PinItemsSearchBar({ pin }) {
   }
 
   return (
+    <>
     <div className="pin-item-search-bar">
       <Link to={`/pins/${pin.id}`} className="pin-link-search-bar">
         <img src={pin.image_url[0]} alt={pin.title} />
@@ -29,6 +30,7 @@ function PinItemsSearchBar({ pin }) {
         </div>
       </Link>
     </div>
+    </>
   );
 }
 

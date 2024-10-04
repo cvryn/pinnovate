@@ -73,10 +73,11 @@ function SearchBar() {
 
           {dropDown && (
             <div id="search-dropdown">
+              <h1 style={{paddingLeft: "20px"}}>Pins</h1>
               {query ? (
                 searchedPins.length > 0 ? (
                   <ul id="search-dropdown-list">
-                    {searchedPins.map((pin) => (
+                    {searchedPins.slice(0,12).map((pin) => (
                       <li key={pin.id} className="search-dropdown-item">
                         <PinItemsSearchBar
                           pin={pin}
@@ -93,7 +94,7 @@ function SearchBar() {
                 )
               ) : (
                 <ul id="search-dropdown-list">
-                  {pinsArray.map((pin) => (
+                  {pinsArray.slice(0,12).map((pin) => (
                     <li key={pin.id} className="search-dropdown-item">
                       <PinItemsSearchBar
                         pin={pin}
@@ -106,6 +107,7 @@ function SearchBar() {
                   ))}
                 </ul>
               )}
+              <hr />
               <SearchQuery query={query} pins={pinsArray} onSelect={handleSuggestionWord} />
             </div>
           )}

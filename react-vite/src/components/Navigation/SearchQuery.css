@@ -1,0 +1,20 @@
+#query-suggestions-container {
+    /* border: 2px solid red; */
+    padding: 20px;
+}
+
+#query-suggestions-list {
+    /* border: 2px solid blue; */
+    display: flex;
+    justify-content: center;
+    /* align-items: center; */
+    flex-direction: column;
+}
+
+.query-suggestion-item {
+    /* border: 2px solid green; */
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 5px;
+}

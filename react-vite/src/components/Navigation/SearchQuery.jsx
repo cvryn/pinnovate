@@ -1,3 +1,4 @@
+import { IoSearch } from "react-icons/io5";
 import "./SearchQuery.css";
 
 const SearchQuery = ({ query, pins, onSelect }) => {
@@ -33,23 +34,27 @@ const SearchQuery = ({ query, pins, onSelect }) => {
   );
 
   return (
-    <div id="suggestions-container">
-      {filteredWords.length > 0 ? (
-        <ul id="suggestions-list">
-          {filteredWords.map((word, index) => (
-            <li
-              key={index}
-              className="suggestion-item"
-              onClick={() => onSelect(word)}
-            >
-              {word}
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p className="no-suggestions">No suggestions available.</p>
-      )}
-    </div>
+    <>
+      <div id="query-suggestions-container">
+        <h1> By Pin Title</h1>
+        {filteredWords.length > 0 ? (
+          <ul id="query-suggestions-list">
+            {filteredWords.slice(0,10).map((word, index) => (
+              <li
+                key={index}
+                className="query-suggestion-item"
+                onClick={() => onSelect(word)}
+              >
+                <IoSearch className='query-search-icon'/>
+                {word}
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p className="query-no-suggestions">No suggestions available.</p>
+        )}
+      </div>
+    </>
   );
 };
 
