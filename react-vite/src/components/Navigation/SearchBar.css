@@ -1,13 +1,14 @@
 #search-main-container {
+  /* border: 2px solid red; */
     position: relative;
     width: 100%;
-    max-width: 600px;
+    max-width: 1200px;
     margin: 0 auto;
     z-index: 150;
 }
 
 #search-bar {
-    border: 2px solid red;
+    /* border: 2px solid red; */
     display: flex;
     align-items: center;
     border: 1px solid #ccc;
@@ -63,15 +64,12 @@
   }
 
   .search-dropdown-item {
-    width: calc(33.33% - 20px);
+    width: calc(20% - 20px);
     margin: 10px;
     cursor: pointer;
     transition: transform 0.2s;
   }
 
-  .search-dropdown-item:hover {
-    transform: translateY(-3px);
-  }
 
   .no-results {
     padding: 10px;

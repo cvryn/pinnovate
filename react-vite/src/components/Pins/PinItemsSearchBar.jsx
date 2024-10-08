@@ -7,30 +7,23 @@ function PinItemsSearchBar({ pin }) {
   }
 
   return (
-    <>
     <div className="pin-item-search-bar">
       <Link to={`/pins/${pin.id}`} className="pin-link-search-bar">
-        <img src={pin.image_url[0]} alt={pin.title} />
-        <div className="pin-item-content-search-bar">
-          <h2>{pin.title}</h2>
-          {pin.description !== "null" && (
-            <p>{pin.description || "No description available"}</p>
-          )}
-          {pin.description === "null" && (
-            <p>{"No description available"}</p>
-          )}
+        <img
+          src={pin.image_url[0]}
+          alt={pin.title}
+          className="pin-image-search-bar"
+        />
+        <div className="pin-info">
+          <h2 className="pin-title-search-bar">{pin.title}</h2>
           <p>
             {pin.tags && pin.tags.length > 0
-              ? pin.tags
-                  .filter((tag) => tag?.name)
-                  .map((tag) => `#${tag.name}`)
-                  .join(", ")
-              : "No tags"}
+              ? `#${pin.tags.filter((tag) => tag?.name)[0]?.name || ""}`
+              : pin.title}
           </p>
         </div>
       </Link>
     </div>
-    </>
   );
 }
 

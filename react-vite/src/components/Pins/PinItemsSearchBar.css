@@ -1,69 +1,62 @@
 .pin-item-search-bar {
-    position: relative;
-    width: 120px;
-    height: 120px;
-    text-align: center;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    box-sizing: border-box;
-    overflow: hidden;
-    transition: transform 0.3s;
+  position: relative;
+  width: 200px;
+  height: 200px;
+  text-align: center;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-sizing: border-box;
+  overflow: hidden;
+  transition: background-color 0.3s ease;
 }
 
 .pin-item-search-bar:hover {
-    transform: scale(1.05);
-}
-
-.pin-item-search-bar img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+  background-color: rgba(255, 255, 255, 0.826);
 }
 
 
-.pin-item-content-search-bar {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background-color: rgba(255, 255, 255, 0.8);
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    pointer-events: none;
-  }
+.pin-link-search-bar {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  text-decoration: none;
+  position: relative;
+}
+
+.pin-image-search-bar {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
 
 
-  .pin-item-search-bar:hover .pin-item-content-search-bar {
-    opacity: 1;
-    pointer-events: auto;
-  }
+.pin-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  color: white;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  padding: 10px;
+}
 
-  .pin-item-content-search-bar h2 {
-    margin: 0;
-  }
+.pin-item-search-bar:hover .pin-info {
+  opacity: 1;
+}
 
+.pin-title-search-bar {
+  font-size: 14px;
+  margin: 0;
+}
 
-  .pin-item-content-search-bar p {
-    margin: 0;
-  }
-
-
-  .pin-item-content-search-bar p:last-child {
-    color: #666;
-    font-style: italic;
-  }
-
-  .pin-link-search-bar {
-    text-decoration: none;
-    color: inherit;
-  }
-
-  .pin-link-search-bar:hover {
-    color: #007bff;
-    text-decoration: underline;
-  }
+.pin-info p {
+  margin: 0;
+  font-size: 12px;
+}

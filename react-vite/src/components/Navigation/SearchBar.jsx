@@ -21,6 +21,32 @@ function SearchBar() {
 
   const pinsArray = pins ? Object.values(pins) : [];
 
+
+  const getPinsGroupedByTags = () => {
+    const pinsByTags = new Map();
+    const pinsWithoutTags = [];
+
+    pinsArray.forEach((pin) => {
+      if (pin.tags && pin.tags.length > 0) {
+        const firstTag = pin.tags[0]?.name;
+        if (firstTag && !pinsByTags.has(firstTag)) {
+          pinsByTags.set(firstTag, pin);
+        }
+      } else {
+        pinsWithoutTags.push(pin);
+      }
+    });
+
+    return {
+      pinsWithTags: Array.from(pinsByTags.values()),
+      pinsWithoutTags,
+    };
+  };
+
+  const { pinsWithTags, pinsWithoutTags } = getPinsGroupedByTags();
+
+  const combinedPins = [...pinsWithTags, ...pinsWithoutTags].slice(0, 12);
+
   useEffect(() => {
     if (query) {
       const lowerCaseQuery = query.toLowerCase();
@@ -53,12 +79,7 @@ function SearchBar() {
 
   return (
     <>
-      {dropDown && (
-        <div
-          id="dropdown-overlay"
-          onClick={() => setDropDown(false)}
-        ></div>
-      )}
+      {dropDown && <div id="dropdown-overlay" onClick={() => setDropDown(false)}></div>}
 
       <div id="search-main-container">
         <div id="search-bar">
@@ -73,11 +94,11 @@ function SearchBar() {
 
           {dropDown && (
             <div id="search-dropdown">
-              <h1 style={{paddingLeft: "20px"}}>Pins</h1>
+              <h1 style={{ paddingLeft: "20px" }}>Pins by Search</h1>
               {query ? (
                 searchedPins.length > 0 ? (
                   <ul id="search-dropdown-list">
-                    {searchedPins.slice(0,12).map((pin) => (
+                    {searchedPins.slice(0, 12).map((pin) => (
                       <li key={pin.id} className="search-dropdown-item">
                         <PinItemsSearchBar
                           pin={pin}
@@ -94,7 +115,7 @@ function SearchBar() {
                 )
               ) : (
                 <ul id="search-dropdown-list">
-                  {pinsArray.slice(0,12).map((pin) => (
+                  {combinedPins.map((pin) => (
                     <li key={pin.id} className="search-dropdown-item">
                       <PinItemsSearchBar
                         pin={pin}
